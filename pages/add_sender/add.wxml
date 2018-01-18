@@ -1,0 +1,40 @@
+<!-- 添加发件人 -->
+<view class='add-sender'>
+    <view class='section-head'>发件人信息</view>
+    <view class='detail-info'>
+        <view class='info-item'>
+            <text class='item-name'>发件人</text>
+            <input bindblur='getName' type='text' placeholder='请填写英文' value='{{name}}' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>联系电话</text>
+            <input bindblur='getTel' type='text' value='{{cellphone}}' placeholder='请填写数字' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>街道信息</text>
+            <input bindfocus='chooseLocation' bindblur='getStreet' type='text' placeholder='请填写英文' value='{{street}}' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>邮政编码</text>
+            <input maxlength='5' bindblur='checkPostcode' type='text' value='{{postCode}}' placeholder='5位邮政编码' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>地址补充信息</text>
+            <input type='text' value='{{extraInfo}}' placeholder='请填写英文' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>所在城市</text>
+            <input bindblur='getCity' type='text' value='{{city}}' placeholder='请填写英文' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>所在国家</text>
+            <input bindblur='getCountry' type='text' value='{{country?country:"Germany"}}' />
+        </view>
+    </view>
+    <checkbox-group wx:if='{{fromPage}}' bindchange="checkboxChange">
+        <label class="checkbox">
+            <checkbox value='{{saveAddr}}' checked="{{saveAddr}}" />设为默认发件人
+        </label>
+    </checkbox-group>
+    <view bindtouchend='saveHandle' class='btn btn-block btn-primary'>保存</view>
+</view>

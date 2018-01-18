@@ -1,0 +1,40 @@
+/* pages/invoice_copy/invoice_copy.wxss */
+
+.invoice-copy {
+    padding: 6.6%;
+}
+
+.invoice-info {
+    background: #fff;
+    text-align: center;
+    padding: 0 25px 40px 25px;
+}
+
+.invoice-head {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 10px 0;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.item-name {
+    flex: 3;
+    color: #666;
+}
+
+.item-text {
+    flex: 6;
+    color: #333;
+}
+.btn{
+    margin-top: 40px;
+}

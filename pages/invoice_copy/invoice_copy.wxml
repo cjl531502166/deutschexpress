@@ -1,0 +1,27 @@
+<!--pages/invoice_copy/invoice_copy.wxml-->
+<view class='invoice-copy'>
+    <view class='invoice-info'>
+        <view class='invoice-head'>发票快照</view>
+        <view class='info-item'>
+            <view class='item-name'>消方名称</view>
+            <view class='item-text'>乐推互动游戏网络科技有限公司</view>
+        </view>
+        <view class='info-item'>
+            <view class='item-name'>购方名称</view>
+            <view class='item-text'>乐推互动游戏网络科技有限公司</view>
+        </view>
+        <view class='info-item'>
+            <view class='item-name'>发票金额</view>
+            <view class='item-text'>€63</view>
+        </view>
+        <view class='info-item'>
+            <view class='item-name'>开票日期</view>
+            <view class='item-text'>2017-12-18</view>
+        </view>
+        <view class='info-item'>
+            <view class='item-name'>发票代码</view>
+            <view class='item-text'>0216489191</view>
+        </view>
+    </view>
+</view>
+<view class='btn btn-block btn-primary'>确定</view>

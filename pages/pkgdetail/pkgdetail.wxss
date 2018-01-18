@@ -1,0 +1,18 @@
+/* pages/pkgdetail/pkgdetail.wxss */
+@import '../../pages/pkginfo/pkginfo.wxss';
+.item-name{
+  flex: 3;
+  color:#666;
+}
+.btn{
+    margin-top: 15px;
+}
+.status{
+    color:#0cba06;
+}
+.item-value{
+  flex: 7;
+  display: flex;
+  justify-content: flex-end;
+  text-align: right;
+}

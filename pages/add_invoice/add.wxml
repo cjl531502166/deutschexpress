@@ -1,0 +1,36 @@
+<!-- 添加发票-->
+<view class='add-invoice'>
+    <view class='section-head'>发票信息</view>
+    <view class='detail-info'>
+        <view class='info-item'>
+            <text class='item-name'>公司名称</text>
+            <input bindblur='getCompany' type='text' placeholder='公司名称' value='{{company}}' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>企业税号</text>
+            <input maxlength='13' bindblur='getTaxNo' type='text' value='{{taxNum}}' placeholder='请输入企业税号' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>详细地址</text>
+            <textarea bindblur='getAddress' type='text' placeholder='详细地址' value='{{address}}'></textarea>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>注册电话</text>
+            <input bindblur='getTel' type='text' placeholder='027-00000000' value='{{contact}}' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>开户银行</text>
+            <input maxlength='5' bindblur='getBank' type='text' value='{{issueBank}}' placeholder='开户银行' />
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>开户账号</text>
+            <input type='text' bindinput='formatAccount' bindblur='getAccount' value='{{bankAccount}}' placeholder='开户账号' />
+        </view>
+    </view>
+    <checkbox-group wx:if='{{fromPage}}' bindchange="checkboxChange">
+        <label class="checkbox">
+            <checkbox value='{{saveInvoice}}' checked="{{saveInvoice}}" />保存并设为默认发票
+        </label>
+    </checkbox-group>
+    <view bindtouchend='saveHandle' class='btn btn-block btn-primary'>保存</view>
+</view>

@@ -1,0 +1,50 @@
+<!-- 我的包裹详情 -->
+<view class='package-detail'>
+    <view class='detail-info'>
+        <view class='info-item'>
+            <text class='item-name'>收件人</text>
+            <view class='item-value'>{{orderInfo.receiver.name}}</view>
+        </view>
+        <block wx:for='{{packageInfo.goods}}' wx:key='{{index}}'>
+            <view class='info-item'>
+                <text class='item-name'>包裹种类{{index+1}}</text>
+                <view class='item-value'>{{item.catename}}</view>
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>描述</text>
+                <view class='item-value'>{{item.description}}</view>
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>数量</text>
+                <view class='item-value'>{{item.num}}</view>
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>重量（kg）</text>
+                <view class='item-value'>{{item.weight}}</view>
+            </view>
+        </block>
+        <view class='info-item'>
+            <text class='item-name'>运费</text>
+            <view class='item-value'></view>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>状态</text>
+            <view class='item-value status'>{{orderInfo.status}}</view>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>时间</text>
+            <view class='item-value'>{{orderInfo.updated_at}}</view>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>境内单号</text>
+            <view class='item-value'></view>
+        </view>
+        <view class='info-item'>
+            <text class='item-name'>航班信息</text>
+            <view class='item-value'></view>
+        </view>
+    </view>
+    <view wx:if="{{canDownloadBill}}" bindtap='downLoadBill' class='btn btn-block btn-primary'>下载境内单</view>
+    <view wx:if="{{canTrack}}" bindtap='trackOrder' class='btn btn-block btn-primary'>查看物流</view>
+    <view wx:if="{{canCancel}}" class='btn btn-block btn-default'>取消包裹</view>
+</view>

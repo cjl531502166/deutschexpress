@@ -1,0 +1,70 @@
+/* pages/pkginfo/pkginfo.wxss */
+.section-head{
+    position: relative;
+}
+.section-head button{
+    position: absolute;
+    right: 15px;
+    top:50%;
+    transform: translateY(-50%);
+}
+.pkg-detail {
+    margin-bottom: 15px;
+    background: #fff;
+}
+
+.detail-info {
+    margin-top: 15px;
+    background: #fff;
+    padding: 0 15px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.info-item {
+    display: flex;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    font-size: 16px;
+    padding: 8px 0;
+}
+
+.info-item picker, .info-item input {
+    height: 100%;
+    /* width: 100%; */
+}
+.info-item picker{
+    width: 55%;
+}
+.info-item input {
+    text-align: right;
+}
+.item-text{
+    text-align: right;
+    flex: 1;
+}
+.info-item picker, .info-item input {
+    justify-content: flex-end;
+    flex-direction: row;
+    flex: 1;
+    width: 100%;
+}
+.info-item .picker{
+    width: 100%;
+}
+.default-text {
+    color: #666;
+}
+
+.info-item:first-child {
+    border-top: none;
+}
+
+/* .info-item >text {
+    width: 45%;
+} */
+.pinzhong{
+    height: 44px;
+    line-height: 44px;
+    padding: 0;
+}

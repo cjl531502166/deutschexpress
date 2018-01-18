@@ -1,0 +1,6 @@
+<!-- 编辑邮箱 -->
+<view class='edit-email'>
+    <text>邮箱地址</text>
+    <input bindblur='getEmail' type='email' value='{{userEmail}}' />
+</view>
+<view bindtap='changeEmail' class='btn btn-block btn-primary'>修改</view>

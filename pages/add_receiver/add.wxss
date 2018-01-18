@@ -1,0 +1,36 @@
+/* pages/add_receiver/add.wxss */
+@import '../pkginfo/pkginfo.wxss';
+.add-receiver{
+    padding-bottom: 30px;
+}
+.detail-info{
+    margin-top: 0;
+}
+
+.section .picker {
+  background-color: #fff;
+  border-bottom: 1px #d9d9d9 solid;
+  border-top: 1px #d9d9d9 solid;
+  padding: 20rpx;
+}
+.info-item textarea{
+    flex: 1;
+    height: 60px;
+    text-align: right;
+}
+
+.warn-text{
+    font-size: 16px;
+    padding: 10px 15px;
+}
+
+checkbox-group{
+    padding:10px 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.translate-text{
+    text-transform: capitalize;
+    z-index: 0;
+}

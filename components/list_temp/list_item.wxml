@@ -1,0 +1,62 @@
+<!-- 我的订单模板 -->
+<template name='orderList'>
+    <view class='list-item'>
+        <view class='li-item-0'>
+            <text>订单号：{{order_sn}}</text>
+            <text wx:if='{{status ==="问题件"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:elif='{{status ==="超重补款"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:elif='{{status ==="未支付"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:else class='icon-status icon-status-ok'>{{status}}</text>
+        </view>
+        <view wx:for='{{goods}}' wx:for-item='goods' wx:key='{{index}}' class='li-item-1'>
+            <view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+            <view>
+                <icon class='iconfont wx-icon-jifen'></icon>{{weight}}kg</view>
+        </view>
+        <view class='li-item-2'>
+            <text>{{updated_at}}</text>
+            <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+        </view>
+    </view>
+</template>
+<!-- 超重补款模板 -->
+<template name='exchargeList'>
+    <view class='list-item'>
+        <view class='li-item-0'>
+            <text>订单号：{{order_sn}}</text>
+            <text class='icon-status icon-status-warn'>{{status}}</text>
+        </view>
+        <view wx:for='{{goods}}' wx:for-item='goods' wx:key='{{index}}' class='li-item-1'>
+            <view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+            <view>
+                <icon class='iconfont wx-icon-jifen'></icon>{{weight}}g</view>
+        </view>
+        <view class='li-item-2'>
+            <text>{{updated_at}}</text>
+            <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+        </view>
+    </view>
+</template>
+<!-- 我的包裹模板 -->
+<template name='mypkgList'>
+    <view class='list-item'>
+        <view class='li-item-0'>
+            <text>包裹{{packageid}}</text>
+            <text wx:if='{{status ==="问题件"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:elif='{{status ==="超重补款"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:elif='{{status ==="未支付"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:else class='icon-status icon-status-ok'>{{status}}</text>
+        </view>
+        <view wx:for='{{goods}}' wx:for-item='goods' wx:key='{{index}}' class='li-item-1'>
+            <view>
+                <icon class='iconfont wx-icon-fenlei'></icon>{{goods.catename}}</view>
+            <view>￥{{goods.price*goods.num}}</view>
+        </view>
+        <view class='li-item-2'>
+            <text>{{updated_at}}</text>
+            <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+        </view>
+    </view>
+</template>

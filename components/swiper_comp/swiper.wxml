@@ -1,0 +1,8 @@
+<!--components/swiper.wxml-->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" indicator-color='{{indicatorColor}}' indicator-active-color='{{indicatorActiveColor}}' interval="{{interval}}" circular="{{circular}}" duration="{{duration}}">
+    <block wx:for="{{imgUrl}}" wx:key="{{index}}">
+        <swiper-item>
+            <image class="slide-img" mode='widthFix' src='{{item}}'></image>
+        </swiper-item>
+    </block>
+</swiper>

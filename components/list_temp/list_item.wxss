@@ -1,0 +1,79 @@
+/* components/list_temp/list_item.wxss */
+
+/* 包裹列表样式 */
+
+navigator {
+    margin: 0 -15px;
+    padding: 0 15px;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    border-bottom: 1px solid #eee;
+}
+
+.list-item >view {
+    display: flex;
+    align-items: center;
+}
+
+.li-item-0 {
+    padding-top: 6px;
+    font-size: 16px;
+}
+
+.li-item-1 {
+    font-size: 14px;
+    color: #666;
+    margin: 4px 0 0 0;
+    height: 27px;
+}
+
+.li-item-1 view {
+    display: flex;
+    align-items: center;
+}
+
+.li-item-1 view:first-child {
+    margin-right: 20px;
+}
+
+.li-item-1 icon {
+    position: relative;
+    font-size: 22px;
+    color: #50acf0;
+}
+
+.li-item-0, .li-item-2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon-status {
+    font-size: 12px;
+    text-align: center;
+    width: 60px;
+    line-height: 22px;
+    border-radius: 22px;
+}
+
+.icon-status-warn {
+    color: #fff;
+    background: #ffa401;
+}
+
+.icon-status-ok {
+    color: #fff;
+    background: #66b109;
+}
+
+.li-item-2 text {
+    font-size: 12px;
+    color: #666;
+}
+
+.li-item-2 icon {
+    font-size: 18px;
+}

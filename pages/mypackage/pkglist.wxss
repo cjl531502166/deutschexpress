@@ -1,0 +1,8 @@
+/* pages/mypackage/pkglist.wxss */
+@import '../../components/list_temp/list_item.wxss';
+@import '../excharges/excharge.wxss';
+ 
+.li-item-1 icon{
+  font-size: 14px;
+  top:-5px;
+}

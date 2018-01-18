@@ -1,0 +1,10 @@
+<!--新闻详情页面-->
+<view class='news-detail'>
+    <view class='detail-head'>
+        <view>{{newsModel.newsDetail.title}}</view>
+        <view>{{newsModel.newsDetail.updated_at}}</view>
+    </view>
+    <view class='detail-content'>
+          <rich-text nodes='{{newsModel.newsDetail.body}}'></rich-text>
+    </view>
+</view>

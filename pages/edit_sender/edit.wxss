@@ -1,0 +1,2 @@
+/* pages/edit_sender/edit.wxss */
+@import '../add_sender/add.wxss'

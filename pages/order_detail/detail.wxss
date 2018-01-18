@@ -1,0 +1,63 @@
+/* 订单详情样式 */
+
+@import '../excharge_detail/excharge_detail.wxss';
+
+.odr-detail-container {
+    padding-bottom: 50px;
+}
+
+.item-name {
+    flex: 4;
+}
+
+.item-value .name {
+    margin-right: 10px;
+}
+
+/* 包裹信息 */
+
+.pkg-section {
+    margin-top: 15px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.pkg-list {
+    margin-top: 10px;
+}
+
+.pkg-info {
+    padding: 0 15px;
+}
+
+.list-No {
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-No >text {
+    font-weight: 600;
+}
+
+.list-item {
+    font-size: 14px;
+    color: #666;
+}
+
+.list-item .item {
+    display: flex;
+    font-size: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-item .item:last-child {
+    border: none;
+}
+
+.item text {
+    flex: 1;
+}

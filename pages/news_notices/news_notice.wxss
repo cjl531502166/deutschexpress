@@ -1,0 +1,5 @@
+/* pages/news_notices/news_notice.wxss */
+@import '../../components/newslist/newslist.wxss';
+.news-notices{
+    background: #fff;
+}

@@ -1,0 +1,2 @@
+/* pages/sender_list/sender_list.wxss */
+@import '../sender/sender.wxss';

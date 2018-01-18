@@ -1,0 +1,37 @@
+/* components/city_picker/city_picker.wxss */
+/* 地区选择 */
+.citypickers{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top:0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, .6)
+}
+
+.citybody {
+  position: absolute;
+  bottom: 0px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  z-index: 999;
+}
+
+.cityheader {
+  position: absolute;
+  top:0px;
+  width: 100%;
+  z-index: 4;
+}
+
+.city-cancel {
+  float: left;
+  margin: 20rpx;
+  color: #818181;
+}
+
+.city-true {
+  float: right;
+  margin: 20rpx;
+  color: #2FB42E
+}

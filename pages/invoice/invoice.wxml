@@ -1,0 +1,28 @@
+<!-- 发票管理 -->
+<view class='invoice-container'>
+    <navigator url='/pages/add_invoice/add'>
+        <view class='add-receiver'>
+            <text>添加发票</text>
+            <icon class='icon-add iconfont wx-icon-add'></icon>
+        </view>
+    </navigator>
+    <view class='section-head'>常用发票</view>
+    <view class='receiver-list'>
+        <radio-group class="radio-group" bindchange="invoiceChange">
+            <view wx:for='{{invoiceList}}' wx:key='{{index}}' class='receiver-info'>
+                <view bindtouchend='editInvoice' data-id='{{index}}' class='rc-info-item'>
+                    <view>
+                        <text class='rc-name'>{{item.company}}</text>
+                    </view>
+                    <icon class='iconfont wx-icon-bianji'></icon>
+                </view>
+                <view class='rc-info-item'>
+                    <label class="radio">
+                        <radio checked='{{item.default}}' value="{{index}}" />默认发票
+                    </label>
+                    <icon data-id='{{index}}' bindtap='deleteItem' class='iconfont wx-icon-huishouzhan'></icon>
+                </view>
+            </view>
+        </radio-group>
+    </view>
+</view>

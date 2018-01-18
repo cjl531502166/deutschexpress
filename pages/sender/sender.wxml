@@ -1,0 +1,29 @@
+<!-- 添加发件人页面 -->
+<view class='sender-container'>
+    <navigator url='/pages/add_sender/add'>
+        <view class='add-receiver'>
+            <text>添加发件人</text>
+            <icon class='icon-add iconfont wx-icon-add'></icon>
+        </view>
+    </navigator>
+    <view class='section-head'>我的发件人</view>
+    <view class='receiver-list'>
+        <radio-group class="radio-group" bindchange="addressChange">
+            <view wx:for='{{deliveryConfig.senderList}}' wx:key='{{item.id}}' class='receiver-info'>
+                <view bindtouchend='editSender' data-id='{{item.id}}' class='rc-info-item'>
+                    <view>
+                        <text class='rc-name'>{{item.name}}</text>
+                        <text class='rc-addr'>{{item.address}},{{item.city}},{{item.country}},{{item.cellphone}}</text>
+                    </view>
+                    <icon class='iconfont wx-icon-bianji'></icon>
+                </view>
+                <view class='rc-info-item'>
+                    <label class="radio">
+                        <radio checked='{{item.asdefault}}' value="{{item.id}}" />默认发件人
+                    </label>
+                    <icon data-id='{{item.id}}' bindtap='deleteAddr' class='iconfont wx-icon-huishouzhan'></icon>
+                </view>
+            </view>
+        </radio-group>
+    </view>
+</view>

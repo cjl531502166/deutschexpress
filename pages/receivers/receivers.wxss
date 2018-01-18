@@ -1,0 +1,69 @@
+/* pages/receivers/receivers.wxss */
+
+.add-receiver {
+    margin-top: 15px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 16px;
+}
+.section-head{
+    font-size: 14px;
+    color:#666;
+}
+.icon-add {
+    color: #0d97db;
+    height: 30px;
+    line-height: 30px;
+    font-size: 28px;
+}
+.receiver-info{
+     padding:0 15px;
+    margin-bottom: 15px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    background: #fff;
+}
+.rc-info-item{
+    display: flex;
+    align-items: center;
+}
+.rc-info-item >view{
+    display: flex;
+    flex-direction: column;
+}
+.rc-info-item:first-child{
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+}
+.rc-info-item:last-child{
+    padding: 6px 0;
+}
+.rc-info-item view,
+.rc-info-item .radio
+{
+    flex: 9;
+}
+.rc-info-item .radio{
+    height: 24px;
+    line-height: 24px;
+}
+.rc-name{
+    font-size: 16px;
+}
+.rc-addr{
+    font-size: 14px;
+    color:#666;
+}
+.rc-info-item icon{
+    flex: 1;
+    font-size: 20px;
+    color:#666;
+}
+.radio{
+    font-size: 14px;
+    color:#666;
+}

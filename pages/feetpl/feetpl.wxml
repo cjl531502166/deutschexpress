@@ -1,0 +1,22 @@
+<!--pages/feetpl/feetpl.wxml-->
+<view wx:for='{{delivers}}' wx:key='{{item.id}}' class='fee-table'>
+    <view class='row'>
+        <view>物流渠道：</view>
+        <view class='type-name'>{{item.name}}</view>
+    </view>
+    <view class='row'>
+        <view>渠道说明：</view>
+        <view class='deliver-desp'>
+            预计天数：{{item.expected_arrive}}，保额：{{item.extra}}€，收件国：{{item.area}}
+        </view>
+    </view>
+    <view class='fee-desp'>费用对照（千克（kg）,欧元（€）</view>
+    <view class='tbody'>
+        <view class='fee-list'>
+            <view wx:for='{{item.fee_tpl}}' wx:for-item='tpl' wx:key='{{index}}' class='f-l-item'>
+                <view class='weight'>{{tpl.weight}} kg</view>
+                <view class='cost'>{{tpl.fee}}€</view>
+            </view>
+        </view>
+    </view>
+</view>

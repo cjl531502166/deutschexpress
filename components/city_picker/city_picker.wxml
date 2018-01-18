@@ -1,0 +1,19 @@
+<!--components/city_picker/city_picker.wxml-->
+<!-- 城市选择 -->
+<view wx:if='{{condition}}' class='citypickers'>
+    <picker-view indicator-style='height: 46px;' style="width: 100%; height: 250px;" value="{{value}}" bindchange="bindChange" class="citybody">
+        <view class="cityheader">
+            <view bindtap="pickerShowAndHide" class="city-cancel">取消</view>
+            <view bindtap="confirm" class="city-true">确定</view>
+        </view>
+        <picker-view-column>
+            <view wx:for="{{provinces}}" style='line-height:46px;text-align:center;font-size:16px;' wx:key="item">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view wx:for="{{citys}}" style='line-height:46px;text-align:center;font-size:16px;' wx:key="item">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view wx:for="{{countys}}" style='line-height:46px;text-align:center;font-size:16px;' wx:key="item">{{item}}</view>
+        </picker-view-column>
+    </picker-view>
+</view>

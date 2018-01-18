@@ -1,0 +1,27 @@
+<!-- 发件人通讯录 -->
+<view class='sender-container'>
+    <navigator url='/pages/add_sender/add?page=order'>
+        <view class='add-receiver'>
+            <text>添加发件人</text>
+            <icon class='icon-add iconfont wx-icon-add'></icon>
+        </view>
+    </navigator>
+    <view class='section-head'>常用发件人</view>
+    <view class='receiver-list'>
+        <radio-group class="radio-group" bindchange="addressChange">
+            <view bindtouchend='getCurrSender' wx:for='{{deliveryConfig.senderList}}' wx:key='{{item.id}}' data-id='{{item.id}}' class='receiver-info'>
+                <view class='rc-info-item'>
+                    <view>
+                        <text class='rc-name'>{{item.name}}</text>
+                        <text class='rc-addr'>{{item.address}},{{item.city}},{{item.country}},{{item.cellphone}}</text>
+                    </view>
+                </view>
+                <view class='rc-info-item'>
+                    <label class="radio">
+                        <radio disabled checked='{{item.asdefault}}' value="{{item.id}}" />默认发件人
+                    </label>
+                </view>
+            </view>
+        </radio-group>
+    </view>
+</view>

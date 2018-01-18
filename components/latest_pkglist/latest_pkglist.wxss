@@ -1,0 +1,61 @@
+/* components/latest_pkglist/latest_pkglist.wxss */
+@import '../../style/base/icon.wxss';
+.latest-pkglist {
+    padding: 0 15px 20px 15px;
+    color: #333;
+}
+
+.latest-pkglist .list-item:first-child {
+    border-top: 1px solid #eee;
+}
+
+.list-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.deliver-type {
+    font-size: 16px;
+}
+
+.order-num {
+    text-decoration: underline;
+    color: #008ade;
+}
+
+.pkg-weight {
+    font-size: 14px;
+}
+.pkg-weight icon{
+    font-size: 18px;
+    display: inline;
+    color:#008ade;
+}
+.date {
+    font-size: 12px;
+    color: #666;
+}
+
+.item-body {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    font-size: 14px;
+    margin-top: 5px;
+    color: #555;
+}
+
+.item-body >view {
+    flex: 1;
+}
+.read-detail {
+    text-decoration: underline;
+    text-align: right;
+    color: #008ade;
+}

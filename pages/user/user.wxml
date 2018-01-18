@@ -1,0 +1,51 @@
+<!-- 个人中心页面 -->
+<view class='user-profile'>
+    <image mode='widthFix' src='{{userInfo.headimgurl}}'></image>
+    <view class='nick-name'>{{userInfo.nickname}}</view>
+    <view wx:if='{{userInfo.email}}' class='email-addr'>
+        <icon class='iconfont wx-icon-xinxi'></icon>{{userInfo.email}}</view>
+</view>
+<view class='nav-list'>
+    <navigator url='/pages/myorder/order_list'>
+        <view class='list-lf'>
+            <icon style='color:#fdc525;' class='icon-menu iconfont wx-icon-dingdan'></icon>
+            <text class='menu-text'>我的订单</text>
+        </view>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+    </navigator>
+    <navigator url='/pages/myprofile/profile'>
+        <view class='list-lf'>
+            <icon style='color:#3974ff;' class='icon-menu iconfont wx-icon-gerenxinxi'></icon>
+            <text class='menu-text'>我的信息</text>
+        </view>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+    </navigator>
+    <navigator url='/pages/myinvitee/invitees'>
+        <view class='list-lf'>
+            <icon style='color:#73b220;' class='icon-menu iconfont wx-icon-light'></icon>
+            <text class='menu-text'>我的邀请</text>
+        </view>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+    </navigator>
+    <navigator url='/pages/receivers/receivers'>
+        <view class='list-lf'>
+            <icon style='color:#279897;' class='icon-menu iconfont wx-icon-iconfontlianxiren'></icon>
+            <text class='menu-text'>我的收件人</text>
+        </view>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+    </navigator>
+    <navigator url='/pages/sender/sender'>
+        <view class='list-lf'>
+            <icon style='color:#cbb73c;' class='icon-menu iconfont wx-icon-fa-truck-copy'></icon>
+            <text class='menu-text'>我的发件人</text>
+        </view>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+    </navigator>
+    <navigator url='/pages/invoice/invoice'>
+        <view class='list-lf'>
+            <icon style='color:#c733ce;' class='icon-menu iconfont wx-icon-icon-test'></icon>
+            <text class='menu-text'>我的发票</text>
+        </view>
+        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+    </navigator>
+</view>

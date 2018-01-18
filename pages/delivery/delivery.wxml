@@ -1,0 +1,106 @@
+<!-- 我要下单页面 -->
+<view class='container'>
+    <!-- 选择物流 -->
+    <view class='section-head'>请选择物流渠道</view>
+    <view class='delivery-suppliers'>
+        <radio-group class="radio-group" bindchange="radioChange">
+            <label wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}" class="radio supplier">
+                <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+                <text>{{item.name}}</text>
+                <view hidden='{{item.id != deliver_type_id}}'>
+                    <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+                    <view class='item-1'>
+                        <text>保额：€{{item.extra}}</text>
+                        <text>收件国：{{item.area}}</text>
+                    </view>
+                </view>
+            </label>
+        </radio-group>
+    </view>
+
+    <!-- 收发件 -->
+    <view class='info'>
+        <view bindtap='addReceiver' class='info-item'>
+            <view class='send rel'>
+                <text>收</text>
+            </view>
+            <text wx:if='{{!receiverInfo}}' class='add-info'>添加收件人信息</text>
+            <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country}}{{receiverInfo.province}}{{receiverInfo.city}}{{receiverInfo.district}}{{receiverInfo.address}}</text>
+            <icon class='icon-add iconfont wx-icon-add'></icon>
+        </view>
+        <view bindtap='addSender' class='info-item'>
+            <view class='receive rel'>
+                <text>发</text>
+            </view>
+            <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息（{{delivery_range!='international'?'选填':'必填'}}）</text>
+            <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address}},{{senderInfo.city}},{{senderInfo.country}}</text>
+            <icon class='icon-add iconfont wx-icon-add'></icon>
+        </view>
+    </view>
+    <!-- 包裹信息 -->
+    <block wx:if='{{delivery_range =="international"}}'>
+        <view class='section-head'>包裹信息</view>
+        <view class='pkg-section'>
+            <view class='pkg-info'>
+                <view wx:if='{{pkgList.length>0}}' wx:for='{{pkgList}}' wx:for-item='package' wx:key='{{index}}' class='pkg-list'>
+                    <navigator open-type='redirect' url='/pages/pkginfo/pkginfo?packageId={{index}}'>
+                        <view class='list-No'>
+                            <text>包裹{{index+1}}</text>
+                            <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+                        </view>
+                        <view class='list-item'>
+                            <view wx:for='{{package.goods}}' wx:for-item='goods' wx:key='{{index}}' class='item'>
+                                <text>品种：{{goods.category}}*{{goods.num}}</text>
+                                <text>单价：{{goods.price}}</text>
+                            </view>
+                        </view>
+                    </navigator>
+                </view>
+            </view>
+            <view class='btn-group'>
+                <view bindtouchend='addPkg' class='btn btn-sm btn-primary'>
+                    <text class='btn-icon'>+</text>添加包裹</view>
+                <view bindtouchend='delPkg' class='btn btn-sm btn-warn'>
+                    <text class='btn-icon'>-</text>删除包裹</view>
+            </view>
+        </view>
+    </block>
+    <!-- 购买包裹单 -->
+    <view class='buy-pkg-weight'>
+        <text>包裹重量（kg）</text>
+        <input bindinput='weightChange' type='number' disabled='{{inputable}}' placeholder='请填写重量' value='{{totalWeight}}' />
+    </view>
+    <!-- 发票 -->
+    <view class='invoice'>
+        <view class='invo-hd'>
+            <text>是否需要发票</text>
+            <view class='switch-control'>
+                <text>{{invoice_switch?"是":"否"}}</text>
+                <switch checked='{{invoice_switch}}' bindchange='invoWantedChange'></switch>
+            </view>
+        </view>
+        <!-- <view bindtap='addInvoice' hidden='{{!invoice_switch}}' class='invo-bd'>
+            <block wx:if="{{!invoiceInfo}}">
+                <text class='add-info'>添加发票信息</text>
+                <icon class='icon-add iconfont wx-icon-add'></icon>
+            </block>
+            <block wx:else>
+                <text class='invo-title'>{{invoiceInfo.company}}</text>
+                <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+            </block>
+        </view> -->
+    </view>
+    <!-- 订单金额 -->
+    <view class='order-amount'>
+        订单金额（元）：
+        <text>￥{{amount}}</text>
+    </view>
+    <!-- 订单处理 -->
+    <view class='ft-btn'>
+        <button hover-class='none' open-type='contact' session-from="weapp" class='btn-contact'>
+             <icon class='iconfont wx-icon-lianxikefu'></icon> 客服
+        </button>
+        <view bindtouchend='saveOrder' class='btn-save'>暂存</view>
+        <view bindtouchend='submitOrder' class='btn-smt'>提交</view>
+    </view>
+</view>

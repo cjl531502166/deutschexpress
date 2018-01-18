@@ -1,0 +1,22 @@
+<!--pages/myinvitee/invitees.wxml-->
+<view class='invitee-container'>
+    <view class='invi-top'>
+        <image mode='widthFix' src='../../images/invite_bg.png'></image>
+        <view class='content'>
+            <text class='num'>{{num}}</text>
+            <text>我已成功邀请（人）</text>
+            <!-- <image  bindtap='onShareAppMessage' class='invite-btn' mode='widthFix' src='../../images/invite_btn.png'></image> -->
+            <button class='invite-btn' open-type='share'>立即邀请好友</button>
+        </view>
+    </view>
+    <view class='invitee-list'>
+        <view class='list-title'>我的邀请</view>
+        <view wx:for='{{inviteeList}}' wx:key="{{index}}" class='list-item'>
+            <view>
+                <text class='invitee-name'>{{item.nickname}}</text>
+                <text class='invitee-order-num'>订单数：{{item.order_num}}</text>
+            </view>
+            <text class='join-time'>加入时间：{{item.datetime}}</text>
+        </view>
+    </view>
+</view>

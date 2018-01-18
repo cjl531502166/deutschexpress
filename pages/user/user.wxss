@@ -1,0 +1,63 @@
+/* pages/user/user.wxss */
+
+.user-profile{
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7.3% 0;
+    max-height: 180px;
+}
+.user-profile view{
+    margin-top: 5px;
+}
+.user-profile image{
+    width: 21%;
+    border-radius: 100%;
+}
+.nick-name{
+    font-size: 22px;
+    color:#11b0fc;
+}
+.email-addr{
+    font-size: 16px;
+    color:#666;
+}
+.email-addr icon{
+    font-size: 22px;
+    display: inline;
+}
+
+.nav-list{
+    margin-top: 15px;
+    background: #fff;
+}
+.nav-list navigator{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    font-size: 16px;
+    color:#333;
+    border-top: 1px solid #ddd;
+}
+.nav-list navigator:first-child{
+    border-top: none;
+}
+navigator icon{
+    font-size: 26px;
+}
+.list-lf{
+    display: flex;
+    align-items: center;
+}
+.icon-menu{
+    margin-right: 6px;
+    width: 30px;
+}
+.wx-icon-fa-truck-copy{
+  position: relative;
+  right: 4px;
+}

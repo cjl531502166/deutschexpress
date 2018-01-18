@@ -1,0 +1,3 @@
+/* pages/mypackage/pkglist.wxss */
+@import '../../components/list_temp/list_item.wxss';
+@import '../excharges/excharge.wxss';

@@ -1,0 +1,31 @@
+/* pages/add_sender/add.wxss */
+@import '../pkginfo/pkginfo.wxss';
+
+.detail-info {
+    margin-top: 0;
+}
+
+.btn {
+    margin-top: 30px;
+}
+
+checkbox-group {
+    padding: 10px 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.map_container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0;
+    left:0;
+    z-index: 999;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
+}

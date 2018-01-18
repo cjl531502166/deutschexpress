@@ -1,0 +1,22 @@
+/* pages/extrafees/extrafee.wxss */
+@import '../pkginfo/pkginfo.wxss';
+.extrafee-container{
+    padding-bottom: 50px;
+}
+.item-name{
+  flex: 3;
+  color:#666;
+}
+.btn{
+    margin-top: 15px;
+}
+.status{
+    color:#fac000;
+}
+.item-value{
+  flex: 7;
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+  text-align: right;
+}

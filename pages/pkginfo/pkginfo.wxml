@@ -1,0 +1,60 @@
+<!-- 添加包裹页面 -->
+<view class='detail-info'>
+    <view class='info-item'>
+        <text class='item-name'>购买包裹重量（kg）</text>
+        <input bindinput='chkPkgWeight' value='{{package.weight}}' placeholder='包裹重量' />
+    </view>
+    <view class='info-item'>
+        <text class='item-name'>包裹运费（€）</text>
+        <input disabled value='{{package.fee}}' placeholder='包裹运费'/>
+    </view>
+</view>
+<block wx:for="{{viewObj}}" wx:for-item="item" wx:key="{{index}}">
+    <view class='section-head'>包裹品种{{index+1}}
+        <button data-id='{{index}}' bindtap='removeItem' type='warn' size='mini'>删除</button>
+    </view>
+    <view class='pkg-detail'>
+        <view style='margin-top:0;' class='detail-info'>
+            <view class='info-item pinzhong'>
+                <text class='item-name'>品种</text>
+                <picker data-id='{{index}}' range-key='name_cn' bindchange="bindCateChange" value="{{categories.categoryArr[item.cateIndex]}}" range="{{categories.categoryArr}}">
+                    <view class="picker">
+                        <text wx:if="{{item.goods.category}}">{{item.goods.category}}</text>
+                        <text class='default-text' wx:else>请选择品种</text>
+                        <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+                    </view>
+                </picker>
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>数量</text>
+                <input bindblur='chkNum' data-id='{{index}}' value='{{item.goods.num}}' placeholder='请输入数量' />
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>描述</text>
+                <input bindblur='chkDescp' data-id='{{index}}' value='{{item.goods.description}}' placeholder='输入商品描述' />
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>单价（€）</text>
+                <input bindblur='chkPrice' data-id='{{index}}' value='{{item.goods.price}}' placeholder='商品单价' />
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>总净重（kg）</text>
+                <input bindblur='chkWeight' data-id='{{index}}' value='{{item.goods.weight}}' placeholder='商品净重' />
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>海关代码</text>
+                <text data-id='{{index}}' class='item-text'>{{item.goods.customcode}}</text>
+            </view>
+            <view class='info-item'>
+                <text class='item-name'>海关报价</text>
+                <text data-id='{{index}}' class='item-text'>{{item.goods.customdeclarprice}}</text>
+            </view>
+        </view>
+    </view>
+</block>
+<view class='btn-group'>
+    <view bindtouchend='addCate' class='btn btn-sm btn-primary'>
+        <text class='btn-icon'>+</text>添加包裹品种</view>
+    <!-- <view bindtouchend='delCate' class='btn btn-sm btn-warn'><text class='btn-icon'>-</text>删除品种</view> -->
+</view>
+<view bindtouchend='confirmAdd' class='btn btn-block btn-primary'>确认</view>

@@ -1,0 +1,123 @@
+<!--index.wxml-->
+<view class='container'>
+    <!-- swiper 模板 -->
+    <swiper-comp></swiper-comp>
+    <!--搜索框  -->
+    <view class='search-box'>
+        <view class='input-box'>
+            <input type='text' bindinput='getDeliveryNo' placeholder='输入13位数字物流单号' />
+            <icon bindtouchend='trackPkg' class='search-btn iconfont wx-icon-sousuo'></icon>
+        </view>
+    </view>
+    <!-- 菜单  -->
+    <view class='menu-container'>
+        <view class='menu-title'>快速下单</view>
+        <view class='menu-row'>
+            <view bindtap='goToPage' data-url='/pages/delivery/delivery?delivery_range={{radioItem[0].name}}' class='m-item'>
+                <image mode='widthFix' src='/images/icon_5.png'></image>
+                <view class='rel'>
+                    <text>{{radioItem[0].value}}</text>
+                </view>
+            </view>
+            <view bindtap='goToPage' data-url='/pages/delivery/delivery?delivery_range={{radioItem[1].name}}' class='m-item'>
+                <image mode='widthFix' src='/images/icon_6.png'></image>
+                <view class='rel'>
+                    <text>{{radioItem[1].value}}</text>
+                </view>
+            </view>
+            <view bindtap='goToPage' data-url='/pages/delivery/delivery?delivery_range={{radioItem[2].name}}' class='m-item'>
+                <image mode='widthFix' src='/images/icon_7.png'></image>
+                <view class='rel'>
+                    <text>{{radioItem[2].value}}</text>
+                </view>
+            </view>
+            <view bindtap='goToPage' data-url='/' class='m-item'>
+                <image mode='widthFix' src='/images/icon_8.png'></image>
+                <view class='rel'>
+                    <text>阳光清关</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class='menu-container'>
+        <!-- <view bindtap='goToPage' data-url='/pages/delivery/delivery' class='m-item'>
+            <image mode='widthFix' src='/images/icon_1.png'></image>
+            <view class='rel'>
+                <text>我要下单</text>
+            </view>
+        </view> -->
+        <view class='menu-row'>
+            <view bindtap='goToPage' data-url='/pages/myorder/order_list' class='m-item'>
+                <image mode='widthFix' src='/images/icon_2.png'></image>
+                <view class='rel'>
+                    <text>我的订单</text>
+                    <!-- <icon class='some-new'></icon> -->
+                </view>
+            </view>
+            <view bindtap='goToPage' data-url='/pages/excharges/excharge' class='m-item'>
+                <image mode='widthFix' src='/images/icon_3.png'></image>
+                <view class='rel'>
+                    <text>超重补款</text>
+                    <!-- <icon class='some-new'></icon> -->
+                </view>
+            </view>
+            <view bindtap='goToPage' data-url='/pages/feetpl/feetpl' class='m-item'>
+                <image mode='widthFix' src='/images/icon_4.png'></image>
+                <view class='rel'>
+                    <text>运费查询</text>
+                </view>
+            </view>
+            <view bindtap='goToPage' data-url='/pages/news_notices/news_notice' class='m-item'>
+                <image mode='widthFix' src='/images/icon_9.png'></image>
+                <view class='rel'>
+                    <text>新手指南</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 最近包裹 -->
+    <view class='list-container'>
+        <view class='list-head'>
+            <text class='list-title'>最近包裹</text>
+            <text bindtouchend='seeMore' class='list-handle'>查看更多</text>
+        </view>
+        <block wx:if='{{packageList.length>0}}'>
+            <latest-pkg package-list='{{packageList}}'></latest-pkg>
+        </block>
+        <view class='get-data' wx:else>正在获取列表...</view>
+    </view>
+    <!-- 选择模态框 -->
+    <view hidden='{{RadioModalHidden}}' class='dialog-alert'>
+        <view class='mask'></view>
+        <view class='dialog'>
+            <view class='dialog-hd'>请选择您需要的物流服务</view>
+            <view class='dialog-bd'>
+                <radio-group class="radio-group" bindchange="radioChange">
+                    <label wx:for='{{radioItem}}' wx:key='{{index}}' class="radio">
+                        <radio value='{{item.name}}' checked='{{item.checked}}' />
+                        <text>{{item.value}}</text>
+                    </label>
+                </radio-group>
+            </view>
+            <view class='dialog-ft'>
+                <view bindtouchend='cancelDelivery' class='m-btn btn-bd-rt cancel-btn'>取消</view>
+                <view bindtouchend='SetDeliveryType' class='m-btn confirm-btn'>确定</view>
+            </view>
+        </view>
+    </view>
+    <!-- 邮箱绑定模态框 -->
+    <view hidden='{{isEmailBind}}' class='dialog-alert'>
+        <view class='mask'></view>
+        <view class='dialog'>
+            <view class='dialog-hd'>请填写您的邮箱，用于接收电子版包裹单</view>
+            <view class='dialog-bd'>
+                <input bindinput='getEmailArr' type='email' placeholder='输入邮箱地址'></input>
+            </view>
+            <text class='err-text'>{{errMsg}}</text>
+            <view class='dialog-ft'>
+                <view bindtouchend='cancelBindHandle' class='m-btn btn-bd-rt cancel-btn'>取消</view>
+                <view bindtouchend='bindEmailHandle' class='m-btn confirm-btn'>确定</view>
+            </view>
+        </view>
+    </view>
+</view>

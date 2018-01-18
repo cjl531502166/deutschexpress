@@ -1,0 +1,20 @@
+<!--components/newslist/newslist.wxml-->
+<template name='newsList'>
+    <navigator url='/pages/newsdetail/newsdetail?&id={{id}}'>
+        <view class='list-item'>
+            <text class='news-title'>{{title}}</text>
+            <text class='news-date'>{{updated_at}}</text>
+        </view>
+    </navigator>
+</template>
+<!-- 最新新闻 -->
+<view class='list-container'>
+    <view class='list-head'>
+        <text class='list-title'>公告资讯</text>
+        <text bindtouchend='seeMore' class='list-handle'>查看更多</text>
+    </view>
+    <!--列表模板渲染-->
+    <block wx:for='{{newsModel.newsList}}' wx:key='{{index}}'>
+        <template is='newsList' data='{{...item}}'></template>
+    </block>
+</view>

@@ -1,0 +1,34 @@
+<!-- 超重补款页面 -->
+<import src='../../components/list_temp/list_item.wxml' />
+<view class='container'>
+    <view class='search-pkg'>
+        <input bindconfirm='searchHandle' class='search-input' placeholder='订单号搜索' />
+    </view>
+    <!-- 筛选  -->
+    <view class='filter'>
+        <picker mode='selector' range-key='delivery_type' bindchange='onDeliveryChagne' value='{{deliverIndex}}' range='{{delivery_types}}'>
+            <view class='picker'>
+                <text>{{delivery_types[deliverIndex].delivery_type}}</text>
+                <icon class='icon-angle iconfont wx-icon-toDown'></icon>
+            </view>
+        </picker>
+        <picker mode='selector' range-key='name_cn' bindchange='onStatusChagne' value='{{statusIndex}}' range='{{status}}'>
+            <view class='picker'>
+                <text>{{status[statusIndex].name_cn}}</text>
+                <icon class='icon-angle iconfont wx-icon-toDown'></icon>
+            </view>
+        </picker>
+        <picker mode="date" fields='month' value="{{date}}" start="new Date()" bindchange="onDateChange">
+            <view class="picker">
+                <text>{{date}}</text>
+                <icon class='icon-angle iconfont wx-icon-toDown'></icon>
+            </view>
+        </picker>
+    </view>
+    <view class='pkg-list'>
+        <view class='list-head'>超重补款列表</view>
+        <navigator wx:for='{{excharge_list}}' wx:for-item='item' wx:key='{{index}}' url='{{navigateto}}pid={{item.packageid}}&oid={{item.order_sn}}'>
+            <template is='exchargeList' data='{{...item}}'></template>
+        </navigator>
+    </view>
+</view>

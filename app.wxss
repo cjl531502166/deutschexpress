@@ -1,0 +1,108 @@
+@import 'style/weui.wxss';
+@import './style/base/icon.wxss';
+
+/**app.wxss**/
+
+.rel {
+    position: relative;
+}
+
+image {
+    width: 100%;
+    display: block;
+}
+
+page {
+    background: #f4f4f4;
+}
+
+/* 区块标题 */
+
+.section-head {
+    height: 46px;
+    font-size: 16px;
+    line-height: 46px;
+    padding-left: 3.3%;
+    color: #333;
+}
+
+.icon-arrow, .icon-angle {
+    color: #999;
+}
+
+.icon-angle {
+    font-size: 12px;
+}
+
+.icon-arrow {
+    font-size: 28px;
+    transform-origin: center center;
+    transform: rotateZ(-90deg);
+}
+
+/* 按钮组 */
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.btn {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    border-radius: 4px;
+    letter-spacing: 2px;
+    margin: 0 15px;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+}
+
+.btn:active {
+    opacity: 0.9;
+}
+
+.btn-sm {
+    padding: 4px 15px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.btn-block {
+    display: block;
+    text-align: center;
+    letter-spacing: 6px;
+    padding: 8px 0;
+}
+
+.btn-icon {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-icon::after {
+    content: "";
+    padding-left: 4px;
+}
+
+.btn-primary {
+    background-color: #469ff8;
+    color: #fff;
+}
+
+.btn-warn {
+    background: #f39a2d;
+    color: #fff;
+}
+
+.btn-default {
+    border-color: #333;
+    background: #fff;
+}
+/* 数据获取空值提示 */
+.get-data{
+    font-size: 14px;
+    color:#666;
+    text-align: center;
+    padding: 6px 0;
+}

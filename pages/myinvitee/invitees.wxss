@@ -1,0 +1,76 @@
+/* pages/myinvitee/invitees.wxss */
+
+.invi-top {
+    position: relative;
+}
+
+.invi-top > image {
+    width: 100%;
+}
+
+.content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.content text {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 5%;
+}
+
+.content .num {
+    transform: scale(1.8);
+    font-size: 30px;
+    color: #f9dd44;
+}
+
+.invite-btn {
+    width: 54.5%;
+    height: 46px;
+    border-radius: 46px;
+    line-height: 44px;
+    border: 1px solid #177ba8;
+    background-color: #f9dd44;
+    color:#c0810d;
+}
+.invitee-list{
+    margin-top: 15px;
+    padding: 15px;
+    background: #fff;
+}
+
+.list-title{
+    padding-bottom: 8px;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-item{
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+
+.list-item view{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.invitee-name{
+    font-size: 16px;
+    font-weight: 600;
+}
+.invitee-order-num{
+    font-size: 14px;
+}
+.join-time{
+    font-size: 12px;
+    color:#666;
+}

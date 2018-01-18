@@ -1,0 +1,4 @@
+/* components/swiper.wxss */
+.wx-swiper-dots{
+    margin-bottom: 5%;
+}

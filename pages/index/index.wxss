@@ -1,0 +1,238 @@
+/**index.wxss**/
+@import '../../components/newslist/newslist.wxss';
+@import '../../components/swiper_comp/swiper.wxss';
+.container {
+    box-sizing: border-box;
+}
+
+.search-box {
+    padding: 10px 15px;
+    background: #fff;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.search-box image {
+    width: 100%;
+}
+
+.err-text {
+    font-size: 14px;
+    color: red;
+    display: block;
+    position: absolute;
+    bottom: 50px;
+    left: 10%;
+}
+
+.input-box {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border: 1px solid #63afe1;
+    width: 100%;
+    /* border-radius: 4px; */
+    background: #fff;
+}
+
+.input-box input {
+    flex: 5;
+    font-size: 14px;
+    height: 40px;
+    padding: 0 10px;
+}
+
+.search-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #63afe1;
+    font-size: 24px;
+    border-radius: 0;
+    color: #fff;
+}
+
+.some-new {
+    position: absolute;
+    padding: 4px;
+    right: -10px;
+    top: 4px;
+    border-radius: 100%;
+    background: red;
+}
+
+.invite {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/*菜单  */
+.menu-container{
+     box-shadow: 0 0 8px 2px #ddd;
+}
+.menu-title{
+    font-size: 16px;
+    color: #008ade;
+    padding: 0 15px;
+    background: #fff;
+    margin-top: 15px;
+    padding-top: 10px;
+}
+.menu-container .menu-row{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background: #fff;
+    padding: 10px 15px 10px 15px;
+    margin-bottom: 10px;
+}
+
+.m-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s;
+}
+
+.m-item:active {
+    background: #f6f6f6;
+}
+
+.m-item image {
+    width: 56%;
+    margin: 6px auto;
+}
+
+.m-item text {
+    font-size: 14px;
+    color: #333;
+}
+
+/* 公告模块 */
+.list-container {
+    background: #fff;
+    padding-top: 10px;
+     box-shadow: 0 0 8px 2px #ddd;
+}
+
+.list-head {
+    font-size: 17px;
+    padding: 0 15px 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    /* border-bottom: 1px solid #eee; */
+}
+
+.list-title {
+    color: #666;
+}
+
+.list-handle {
+    color: #008ade;
+}
+
+/* 选择物流模态框 */
+
+.dialog-alert {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.dialog {
+    overflow: hidden;
+    position: relative;
+    z-index: 999;
+    background: #fff;
+    width: 75%;
+    border-radius: 4px;
+}
+
+.dialog-hd {
+    font-size: 16px;
+    color: #444;
+    text-align: center;
+    flex: 1;
+    padding-top: 12px;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-bd {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    padding: 15px 8% 15px 8%;
+    color: #333;
+    max-height: 150px;
+    overflow: auto;
+    min-height: 80px;
+}
+
+.dialog-bd input {
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    padding: 0 10px;
+    width: 100%;
+}
+
+.dialog-bd .radio {
+    padding: 6px 0;
+    flex: 1;
+}
+
+.dialog-ft {
+    display: flex;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 8px;
+    border-top: 1rpx solid #ddd;
+}
+
+.m-btn {
+    padding: 8px 0;
+    flex: 1;
+    border: 1px solid transparent;
+}
+
+.confirm-btn {
+    color: #4cae16;
+}
+
+.cancel-btn {
+    color: #666;
+}
+
+.btn-bd-rt {
+    border-right-color: #ddd;
+}
+
+.m-btn:active {
+    background: #f5f5f5;
+}

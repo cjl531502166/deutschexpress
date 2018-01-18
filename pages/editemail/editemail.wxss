@@ -1,0 +1,22 @@
+/* pages/editemail/editemail.wxss */
+.edit-email{
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    padding: 0 15px;
+    background: #fff;
+}
+.edit-email text{
+    flex: 3;
+}
+.edit-email input{
+    flex: 7;
+    text-align: right;
+    color:#666;
+}
+
+.btn{
+    margin-top: 30px;
+}

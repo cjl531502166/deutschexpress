@@ -1,0 +1,18 @@
+/* pages/myprofile/profile.wxss */
+@import '../excharge_detail/excharge_detail.wxss';
+.info-item{
+    position: relative;
+    padding: 0;
+    height: 44px;
+}
+.info-item >text{
+   line-height: 44px;
+}
+
+.item-value{
+    margin-right: 30px;
+}
+.icon-arrow{
+    position: absolute;
+    right: 0;
+}

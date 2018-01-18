@@ -1,0 +1,26 @@
+<!-- 选择发票页面 -->
+<view class='invoice-container'>
+    <navigator url='/pages/add_invoice/add?page=order'>
+        <view class='add-receiver'>
+            <text>添加发票</text>
+            <icon class='icon-add iconfont wx-icon-add'></icon>
+        </view>
+    </navigator>
+    <view class='section-head'>常用发票</view>
+    <view wx:if='{{deliveryConfig.invoiceList.length>0}}' class='receiver-list'>
+        <radio-group class="radio-group" bindchange="invoiceChange">
+            <view bindtouchend='getCurrInvoice' data-id='{{item.id}}' wx:for='{{deliveryConfig.invoiceList}}' wx:key='{{item.id}}' class='receiver-info'>
+                <view class='rc-info-item'>
+                    <view>
+                        <text class='rc-name'>{{item.title}}</text>
+                    </view>
+                </view>
+                <view class='rc-info-item'>
+                    <label class="radio">
+                        <radio disabled checked='{{item.asdefault}}' value="{{item.id}}" />默认发票
+                    </label>
+                </view>
+            </view>
+        </radio-group>
+    </view>
+</view>
