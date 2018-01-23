@@ -5,7 +5,14 @@ export default {
     //获取物流运输方式列表
     getDelivers(cb) {
         One.ajax('delivery/config', {}, res => {
-            deliveryConfig.delivers = res.data.data.delivery_types;
+            // deliveryConfig.delivers = res.data.data.delivery_types;
+            let arr = [];
+            res.data.data.delivery_types.forEach((item, index) => {
+                if ((item.name != "德国境内单") && (item.name != "欧盟境内单")){
+                    arr.push(item);
+                }
+            });
+            deliveryConfig.delivers = arr;
             deliveryConfig.hotline = res.data.data.hotline;
             cb && cb(res)
         })
@@ -132,4 +139,15 @@ export default {
             })
         })
     },
+    //计算运费
+    calcFee(data, cb) {
+        One.ajax('delivery/get-order-fee', data, res => {
+            if (res.data.data) {
+                deliveryConfig.fee = res.data.data.fee;
+                cb && cb(res);
+            } else {
+                M._alert(res.data.msg);
+            }
+        })
+    }
 }

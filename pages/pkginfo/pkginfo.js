@@ -36,29 +36,26 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
         let that = this, id;
         this.data.packageId = id = options.packageId ? options.packageId : null;
-        //获取运费模板
-        if (!deliveryConfig.fee_tpl) {
-            deliveryService.getFeeTpl(deliveryConfig.deliver_type);
-        }
-        this.data.fee_tpl = deliveryConfig.fee_tpl;
         if (id) {
-            //计算包裹运费
             let weight = deliveryConfig.packageList[id].weight;
-            // deliveryConfig.fee_tpl.forEach((item, index, arr) => {
-            //     if (deliveryConfig.packageList[id].weight == item.weight) {
-            //         that.data.package.fee = item.fee;
-            //         return
-            //     }
-            // });
-            this.setData({
-                "package": {
-                    "weight": deliveryConfig.packageList[id].weight,
-                    "fee": deliveryConfig.fee_tpl[weight - 1].fee
+            //计算运费
+            deliveryService.calcFee(
+                {
+                    "delivery_range": deliveryConfig.orderType,
+                    "delivery_type_id": deliveryConfig.deliver_type_id,
+                    "weight": weight
                 }
-            });
+                , res => {
+                    this.setData({
+                        "package": {
+                            "weight": weight,
+                            "fee": deliveryConfig.fee
+                        }
+                    });
+                }
+            );
             deliveryConfig.packageList[id].goods.forEach((item, index, arr) => {
                 that.data.viewObj.push({
                     "cateIndex": that.data.cateIndex,
@@ -190,8 +187,17 @@ Page({
         } else {
             this.data.package.weight = weight;
             // 计算运费
-            that.data.package.fee = this.data.fee_tpl[weight - 1].fee;
-            that.setData({ "package": that.data.package });
+            deliveryService.calcFee(
+                {
+                    "delivery_range": deliveryConfig.orderType,
+                    "delivery_type_id": deliveryConfig.deliver_type_id,
+                    "weight": weight
+                }
+                , res => {
+                    that.data.package.fee = deliveryConfig.fee;
+                    that.setData({ "package": that.data.package });
+                }
+            );
         }
     },
     confirmAdd() {

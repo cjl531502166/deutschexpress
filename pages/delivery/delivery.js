@@ -30,13 +30,12 @@ Page({
         // 初始化数据
         let totalWeight = 0,
             amount = deliveryConfig.fee,//订单运费
-            deliver_type_id = deliveryConfig.deliver_type_id,
+            deliver_type_id = deliveryConfig.deliver_type_id ? deliveryConfig.deliver_type_id : '',
             invoice_switch = deliveryConfig.invoice_switch,
             senderInfo = deliveryConfig.currSender ? deliveryConfig.currSender : '',
             receiverInfo = deliveryConfig.currReceiver ? deliveryConfig.currReceiver : '',
             invoiceInfo = deliveryConfig.currInvoice ? adeliveryConfig.currInvoice : '',
             pkgList = deliveryConfig.packageList;
-
         //获取订单类型
         options.delivery_range && (deliveryConfig.orderType = options.delivery_range);
         this.setData({ inputable: options.delivery_range == 'international' ? 'disabled' : '' });
@@ -46,14 +45,23 @@ Page({
                 totalWeight += pkgList[i].weight - 0;
             };
             //计算运费
-            this.setData({ amount: deliveryConfig.fee_tpl[totalWeight - 1].fee});
+            deliveryService.calcFee(
+                {
+                    "delivery_range": deliveryConfig.orderType,
+                    "delivery_type_id": deliveryConfig.deliver_type_id,
+                    "weight": totalWeight
+                }
+                , res => {
+                    this.setData({ amount: deliveryConfig.fee });
+                }
+            );
         };
         //设置发票
         this.setData({
             "invoice_switch": invoice_switch == 'on' ? true : false
         });
-        //获取下单配置
-        if (!deliveryConfig.delivers) {
+        //获取物流配置
+        if (options.delivery_range == 'international' && deliveryConfig.delivers == null) {
             deliveryService.getDelivers(() => {
                 this.setData({
                     "deliveryConfig": deliveryConfig
@@ -63,15 +71,6 @@ Page({
             this.setData({
                 "deliveryConfig": deliveryConfig
             });
-            //计算总运费
-            if (!options.id) {
-                deliveryConfig.fee_tpl.forEach((item, index, arr) => {
-                    if ((item.weight - 0) == totalWeight) {
-                        amount = item.fee
-                        return;
-                    }
-                })
-            }
         };
         this.setData({
             "delivery_range": deliveryConfig.orderType,
@@ -90,13 +89,19 @@ Page({
         let val = e.detail.value;
         this.setData({ "deliver_type_id": val });
         deliveryService.setDeliverType(val);
-        deliveryService.getFeeTpl(val);
-        deliveryConfig.fee_tpl.forEach((item, index, arr) => {
-            if ((item.weight - 0) == this.data.totalWeight) {
-                this.setData({ amount: item.fee })
-                return;
-            }
-        });
+        //计算运费
+        if (this.data.pkgList.length > 0) {
+            deliveryService.calcFee(
+                {
+                    "delivery_range": deliveryConfig.orderType,
+                    "delivery_type_id": deliveryConfig.deliver_type_id,
+                    "weight": this.data.totalWeight
+                }
+                , res => {
+                    this.setData({ amount: deliveryConfig.fee });
+                }
+            );
+        }
     },
     //是否需要发票
     invoWantedChange(e) {
@@ -117,38 +122,33 @@ Page({
     //购买包裹总重量
     weightChange(e) {
         let val = e.detail.value;
-        if (this.data.deliver_type_id == 0) {
+        if (this.data.delivery_range === 'international' && this.data.deliver_type_id == 0) {
             M._alert('请先选择物流渠道');
             return;
         }
-        if (!(/^[0-9]*$/.test(val))) {
-            this.setData({ totalWeight: 0 });
+        if (!val || !(/^[0-9]*$/.test(val))) {
+            this.setData({ totalWeight: "", amount: 0 });
             return;
         } else {
-            this.setData({ totalWeight: val });
+            this.data.totalWeight = val;
             //计算运费
-            deliveryConfig.fee_tpl.forEach((item, index, arr) => {
-                if (val == 0) {
-                    this.setData({
-                        amount: 0
-                    })
-                    return
+            deliveryService.calcFee(
+                {
+                    "delivery_range": deliveryConfig.orderType,
+                    "delivery_type_id": deliveryConfig.deliver_type_id,
+                    "weight": val
                 }
-                if ((item.weight - 0) == val) {
-                    this.setData({
-                        amount: item.fee
-                    })
-                    return;
+                , res => {
+                    this.setData({ amount: deliveryConfig.fee });
                 }
-            })
+            );
         }
     },
     //删除包裹
     delPkg() {
         let pkgList = deliveryConfig.packageList,
             len = pkgList.length,
-            totalWeight = 0,
-            amout;
+            totalWeight = 0;
         if (len > 0) {
             M._confirm(
                 "你确认删除包裹" + len + "？",
@@ -159,12 +159,20 @@ Page({
                         totalWeight += pkgList[i].weight - 0;
                     };
                     //运费
-                    amout = deliveryConfig.fee_tpl[totalWeight - 1].fee;
-                    this.setData({
-                        amount: amout,//
-                        pkgList: pkgList,
-                        totalWeight: totalWeight
-                    });
+                    deliveryService.calcFee(
+                        {
+                            "delivery_range": deliveryConfig.orderType,
+                            "delivery_type_id": deliveryConfig.deliver_type_id,
+                            "weight": val
+                        }
+                        , res => {
+                            this.setData({
+                                amount: deliveryConfig.fee,//
+                                pkgList: pkgList,
+                                totalWeight: totalWeight
+                            });
+                        }
+                    );
                 }
             )
         } else {
@@ -240,6 +248,7 @@ Page({
             if (this.data.order_sn) data.order_sn = this.data.order_sn;
             One.ajax(port, data, res => {
                 if (!res.data.code) {
+                    this.data.order_sn = res.data.data.order_sn;
                     wx.navigateTo({
                         url: redirecturl
                     })
@@ -257,6 +266,6 @@ Page({
     // 提交订单
     submitOrder() {
         let port = (this.data.order_sn ? "delivery/edit-saved-order" : "delivery/create-order");
-        this.orderHandle(port, 'pages/order_detail/detail?&id=' + this.data.order_sn);
+        this.orderHandle(port, '/pages/order_detail/detail?&id=' + this.data.order_sn);
     }
 })

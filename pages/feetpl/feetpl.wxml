@@ -10,12 +10,12 @@
             预计天数：{{item.expected_arrive}}，保额：{{item.extra}}€，收件国：{{item.area}}
         </view>
     </view>
-    <view class='fee-desp'>费用对照（千克（kg）,欧元（€）</view>
+    <view class='fee-desp'>费用对照（千克（kg）,RMB（￥）</view>
     <view class='tbody'>
         <view class='fee-list'>
             <view wx:for='{{item.fee_tpl}}' wx:for-item='tpl' wx:key='{{index}}' class='f-l-item'>
-                <view class='weight'>{{tpl.weight}} kg</view>
-                <view class='cost'>{{tpl.fee}}€</view>
+                <view class='weight'>{{tpl.weight}}kg</view>
+                <view class='cost'>￥{{tpl.fee}}</view>
             </view>
         </view>
     </view>

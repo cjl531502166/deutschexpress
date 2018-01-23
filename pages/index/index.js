@@ -24,9 +24,10 @@ Page({
     },
     onLoad: function (options) {
         Login.meta = options.meta ? options.meta : "";
-        // 上传用户信息
         Login.checkSession(() => {
             let that = this;
+            // 上传用户信息
+            One.ajax('user/upload-info', app.globalData.userInfo);
             //判断是否绑定邮箱
             One.ajax('user/info', {}, res => {
                 if (res.data.data.email) {

@@ -1,23 +1,24 @@
 <!-- 我要下单页面 -->
 <view class='container'>
     <!-- 选择物流 -->
-    <view class='section-head'>请选择物流渠道</view>
-    <view class='delivery-suppliers'>
-        <radio-group class="radio-group" bindchange="radioChange">
-            <label wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}" class="radio supplier">
-                <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
-                <text>{{item.name}}</text>
-                <view hidden='{{item.id != deliver_type_id}}'>
-                    <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
-                    <view class='item-1'>
-                        <text>保额：€{{item.extra}}</text>
-                        <text>收件国：{{item.area}}</text>
+    <block wx:if='{{delivery_range =="international"}}'>
+        <view class='section-head'>请选择物流渠道</view>
+        <view class='delivery-suppliers'>
+            <radio-group class="radio-group" bindchange="radioChange">
+                <label wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}" class="radio supplier">
+                    <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+                    <text>{{item.name}}</text>
+                    <view hidden='{{item.id != deliver_type_id}}'>
+                        <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+                        <view class='item-1'>
+                            <text>保额：€{{item.extra}}</text>
+                            <text>收件国：{{item.area}}</text>
+                        </view>
                     </view>
-                </view>
-            </label>
-        </radio-group>
-    </view>
-
+                </label>
+            </radio-group>
+        </view>
+    </block>
     <!-- 收发件 -->
     <view class='info'>
         <view bindtap='addReceiver' class='info-item'>
@@ -68,7 +69,7 @@
     <!-- 购买包裹单 -->
     <view class='buy-pkg-weight'>
         <text>包裹重量（kg）</text>
-        <input bindinput='weightChange' type='number' disabled='{{inputable}}' placeholder='请填写重量' value='{{totalWeight}}' />
+        <input bindblur='weightChange' type='number' disabled='{{inputable}}' placeholder='{{inputable?"0":"请填写重量"}}' value='{{totalWeight}}' />
     </view>
     <!-- 发票 -->
     <view class='invoice'>
@@ -98,7 +99,7 @@
     <!-- 订单处理 -->
     <view class='ft-btn'>
         <button hover-class='none' open-type='contact' session-from="weapp" class='btn-contact'>
-             <icon class='iconfont wx-icon-lianxikefu'></icon> 客服
+            <icon class='iconfont wx-icon-lianxikefu'></icon> 客服
         </button>
         <view bindtouchend='saveOrder' class='btn-save'>暂存</view>
         <view bindtouchend='submitOrder' class='btn-smt'>提交</view>

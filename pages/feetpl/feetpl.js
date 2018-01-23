@@ -11,7 +11,7 @@ Page({
     onLoad: function () {
         deliveryService.getDelivers(res => {
             this.setData({
-                delivers: deliveryConfig.delivers
+                delivers: res.data.data.delivery_types
             })
         })
     }
