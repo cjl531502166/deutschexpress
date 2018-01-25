@@ -24,10 +24,6 @@
             </view>
         </block>
         <view class='info-item'>
-            <text class='item-name'>运费</text>
-            <view class='item-value'></view>
-        </view>
-        <view class='info-item'>
             <text class='item-name'>状态</text>
             <view class='item-value status'>{{orderInfo.status}}</view>
         </view>

@@ -206,7 +206,7 @@ Page({
     },
     //验证函数
     verifyFn() {
-        if (deliveryConfig.deliver_type_id == 0) {
+        if (this.data.delivery_range =='international' && deliveryConfig.deliver_type_id == 0) {
             M._alert('请添选择物流渠道');
             return false
         }
