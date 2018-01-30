@@ -14,7 +14,7 @@ Page({
     data: {
         userid: '',//用户登录返回的id
         inputVal: '',//搜索框的值
-        packageList:[],
+        packageList: [],
         RadioModalHidden: '',//radiogroup 模态框隐藏状态
         isEmailBind: true,//邮箱绑定状态
         radioItem: null,//订单类型
@@ -27,7 +27,13 @@ Page({
         Login.checkSession(() => {
             let that = this;
             // 上传用户信息
-            One.ajax('user/upload-info', app.globalData.userInfo);
+            if (app.globalData.userInfo) {
+                One.ajax('user/upload-info', app.globalData.userInfo);
+            } else {
+                app.getUserInfo(res => {
+                    One.ajax('user/upload-info', app.globalData.userInfo);
+                });
+            }
             //判断是否绑定邮箱
             One.ajax('user/info', {}, res => {
                 if (res.data.data.email) {
@@ -75,9 +81,9 @@ Page({
                 }, {
                     "value": "国际包裹",
                     "name": "international"
-                },{
-                    "value":"阳光清关",
-                    "name":"clearcustom"
+                }, {
+                    "value": "阳光清关",
+                    "name": "clearcustom"
                 }
             ],
             emailAddr: '',
