@@ -10,7 +10,6 @@ Page({
      */
     data: {
         orderModel: null,
-        weight: '',
         canEdit: false,//是否可编辑
         unPaid: false //是否付款
     },
@@ -18,13 +17,9 @@ Page({
     onLoad: function (options) {
         let order_sn = options.id,
             that = this;
-        that.data.weight = 0;
         orderService.getOrderInfo(order_sn, res => {
             //物流渠道id
             let id = orderModel.orderInfo.delivery_type_id;
-            orderModel.orderInfo.packages.forEach((item, index) => {
-                that.data.weight += parseFloat(item.weight);
-            });
             if (searchModel.delivery_types) {
                 orderModel.orderInfo.deliver_type = searchModel.delivery_types[id]
             } else {
@@ -36,7 +31,6 @@ Page({
             that.data.unPaid = (orderModel.orderInfo.status === "新建" || orderModel.orderInfo.status === "未支付" ? true : false);
             that.setData({
                 orderModel: orderModel,
-                weight: that.data.weight,
                 canEdit: that.data.canEdit,
                 unPaid: that.data.unPaid
             });

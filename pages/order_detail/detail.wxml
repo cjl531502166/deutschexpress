@@ -7,7 +7,7 @@
         </view>
         <view class='info-item'>
             <text class='item-name'>订单重量（kg）</text>
-            <view class='item-value'>{{weight}}</view>
+            <view class='item-value'>{{orderModel.orderInfo.weight}}</view>
         </view>
         <view class='info-item'>
             <text class='item-name'>物流渠道</text>
