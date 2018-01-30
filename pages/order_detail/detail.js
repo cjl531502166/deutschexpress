@@ -18,10 +18,12 @@ Page({
     onLoad: function (options) {
         let order_sn = options.id,
             that = this;
+        that.data.weight = 0;
         orderService.getOrderInfo(order_sn, res => {
-            let id = orderModel.orderInfo.delivery_type_id;//物流渠道id
+            //物流渠道id
+            let id = orderModel.orderInfo.delivery_type_id;
             orderModel.orderInfo.packages.forEach((item, index) => {
-                that.data.weight += item.weight
+                that.data.weight += parseFloat(item.weight);
             });
             if (searchModel.delivery_types) {
                 orderModel.orderInfo.deliver_type = searchModel.delivery_types[id]

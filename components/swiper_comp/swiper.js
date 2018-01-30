@@ -8,6 +8,6 @@ Component({
         interval: '5000',
         circular: true,
         duration: "1500",
-        imgUrl: ["../../images/bg_1.jpg", "../../images/bg_1.jpg", "../../images/bg_1.jpg"]
+        imgUrl: ["../../images/banner_1.jpg", "../../images/banner_2.jpg", "../../images/banner_3.jpg"]
     }
 })

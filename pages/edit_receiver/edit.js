@@ -193,18 +193,24 @@ Page({
             M._alert('固话或者手机号码格式不正确\n，固话请加区号');
             return;
         }
-
         // 判断地址
-        if (!this.data.province) {
-            M._alert('省份未填写');
-            return;
+        if (this.data.country == 'China(中国)') {
+            if (!this.data.province) {
+                M._alert('省份未填写');
+                return;
+            }
+            if (!this.data.city) {
+                M._alert('城市未填写');
+                return;
+            }
+            if (!this.data.county) {
+                M._alert('地区未填写');
+                return;
+            }
         }
+
         if (!this.data.city) {
             M._alert('城市未填写');
-            return;
-        }
-        if (!this.data.county) {
-            M._alert('地区未填写');
             return;
         }
         // 判断门派信息

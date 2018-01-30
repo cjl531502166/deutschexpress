@@ -31,10 +31,10 @@
                     <text>{{radioItem[2].value}}</text>
                 </view>
             </view>
-            <view bindtap='goToPage' data-url='/' class='m-item'>
+            <view bindtap='goToPage' data-url='/pages/delivery/delivery?delivery_range={{radioItem[3].name}}' class='m-item'>
                 <image mode='widthFix' src='/images/icon_8.png'></image>
                 <view class='rel'>
-                    <text>阳光清关</text>
+                    <text>{{radioItem[3].value}}</text>
                 </view>
             </view>
         </view>
@@ -109,7 +109,7 @@
     <view hidden='{{isEmailBind}}' class='dialog-alert'>
         <view class='mask'></view>
         <view class='dialog'>
-            <view class='dialog-hd'>请填写您的邮箱，用于接收电子版包裹单</view>
+            <view class='dialog-hd'><text>请填写您的邮箱\n用于接收电子版包裹单</text></view>
             <view class='dialog-bd'>
                 <input bindinput='getEmailArr' type='email' placeholder='输入邮箱地址'></input>
             </view>

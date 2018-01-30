@@ -21,7 +21,7 @@ Page({
     },
     changeEmail() {
         let email = this.data.userEmail,
-            reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+            reg = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
         if (!email) {
             this.setData({
                 errMsg: "请输入邮箱地址"

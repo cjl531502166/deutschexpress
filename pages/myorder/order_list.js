@@ -66,24 +66,18 @@ Page({
                 if (!res.data.data) return false;
                 res.data.data.forEach((item, index) => {
                     item.packages.forEach((pkg, i) => {
-                        pkg.order_sn = item.order_sn;
-                        pkg.status = item.status;
-                        pkg.updated_at = item.updated_at;
                         pkg.delivery_type_id = item.delivery_type_id;
-                        that.data.order_list.push(pkg);
                     })
                 });
-
+                that.data.order_list = res.data.data;
                 //获取物流方式
                 that.data.order_list.forEach((item, index, arr) => {
-                    item.delivery_type = deliverConfig.delivers[item.delivery_type_id - 1].name;
-                    // deliverConfig.delivers.forEach((del, i) => {
-                    //     if ((item.delivery_type_id - 0) == del.id) {
-                    //         item.delivery_type = del.name;
-                    //     }
-                    // })
+                    deliverConfig.delivers.forEach((del,index)=>{
+                        if(item.delivery_type_id == del.id){
+                            item.delivery_type = del.name;
+                        }
+                    });
                 });
-
                 //更新数据
                 this.setData({ "order_list": that.data.order_list });
             })

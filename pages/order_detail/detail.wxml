@@ -6,7 +6,7 @@
             <view class='item-value'>{{orderModel.orderInfo.order_sn}}</view>
         </view>
         <view class='info-item'>
-            <text class='item-name'>订单总量（kg）</text>
+            <text class='item-name'>订单重量（kg）</text>
             <view class='item-value'>{{weight}}</view>
         </view>
         <view class='info-item'>
@@ -14,7 +14,7 @@
             <view class='item-value'>{{orderModel.orderInfo.deliver_type}}</view>
         </view>
         <view class='info-item'>
-            <text class='item-name'>总运费（€）</text>
+            <text class='item-name'>总运费（￥）</text>
             <view class='item-value'>{{orderModel.orderInfo.fee}}</view>
         </view>
         <view class='info-item'>

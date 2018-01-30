@@ -41,11 +41,11 @@
         </view>
         <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
     </navigator>
-    <navigator url='/pages/invoice/invoice'>
+    <!-- <navigator url='/pages/invoice/invoice'>
         <view class='list-lf'>
             <icon style='color:#c733ce;' class='icon-menu iconfont wx-icon-icon-test'></icon>
             <text class='menu-text'>我的发票</text>
         </view>
         <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
-    </navigator>
+    </navigator> -->
 </view>

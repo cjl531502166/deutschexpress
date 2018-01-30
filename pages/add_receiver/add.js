@@ -45,7 +45,7 @@ Page({
         })
     },
     inputCity(e) {
-        let city = e.detail.value,addressZn;
+        let city = e.detail.value, addressZn;
         if (city && /^[A-Za-z]+$/.test(city) == false) {
             M._alert('请用英文填写');
             this.setData({
@@ -71,12 +71,11 @@ Page({
     //选择国家
     bindCountryChange(e) {
         let country = this.data.countrys[e.detail.value].v;
-
         this.setData({
             country: country,
-            province:'',
-            city:'',
-            county:'',
+            province: '',
+            city: '',
+            county: '',
             addressZn: ''
         })
     },
@@ -166,16 +165,23 @@ Page({
         }
 
         // 判断地址
-        if (!this.data.province) {
-            M._alert('省份未填写');
-            return;
+        if (this.data.country == 'China(中国)') {
+            if (!this.data.province) {
+                M._alert('省份未填写');
+                return;
+            }
+            if (!this.data.city) {
+                M._alert('城市未填写');
+                return;
+            }
+            if (!this.data.county) {
+                M._alert('地区未填写');
+                return;
+            }
         }
+
         if (!this.data.city) {
             M._alert('城市未填写');
-            return;
-        }
-        if (!this.data.county) {
-            M._alert('地区未填写');
             return;
         }
         // 判断门牌信息

@@ -5,17 +5,41 @@
         <view class='section-head'>请选择物流渠道</view>
         <view class='delivery-suppliers'>
             <radio-group class="radio-group" bindchange="radioChange">
-                <label wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}" class="radio supplier">
-                    <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
-                    <text>{{item.name}}</text>
-                    <view hidden='{{item.id != deliver_type_id}}'>
-                        <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
-                        <view class='item-1'>
-                            <text>保额：€{{item.extra}}</text>
-                            <text>收件国：{{item.area}}</text>
+                <block wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}">
+                    <label wx:if='{{item.name=="DHL-Pre优先包"}}' class="radio supplier">
+                        <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+                        <text>{{item.name}}</text>
+                        <view hidden='{{item.id != deliver_type_id}}'>
+                            <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+                            <view class='item-1'>
+                                <text>保额：€{{item.extra}}</text>
+                                <text>收件国：{{item.area}}</text>
+                            </view>
                         </view>
-                    </view>
-                </label>
+                    </label>
+                    <label wx:if='{{item.name=="DHL-Eco经济包"}}' class="radio supplier">
+                        <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+                        <text>{{item.name}}</text>
+                        <view hidden='{{item.id != deliver_type_id}}'>
+                            <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+                            <view class='item-1'>
+                                <text>保额：€{{item.extra}}</text>
+                                <text>收件国：{{item.area}}</text>
+                            </view>
+                        </view>
+                    </label>
+                    <label wx:if='{{item.name=="EMS"}}' class="radio supplier">
+                        <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+                        <text>{{item.name}}</text>
+                        <view hidden='{{item.id != deliver_type_id}}'>
+                            <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+                            <view class='item-1'>
+                                <text>保额：€{{item.extra}}</text>
+                                <text>收件国：{{item.area}}</text>
+                            </view>
+                        </view>
+                    </label>
+                </block>
             </radio-group>
         </view>
     </block>
@@ -33,7 +57,7 @@
             <view class='receive rel'>
                 <text>发</text>
             </view>
-            <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息（{{delivery_range!='international'?'选填':'必填'}}）</text>
+            <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息</text>
             <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address}},{{senderInfo.city}},{{senderInfo.country}}</text>
             <icon class='icon-add iconfont wx-icon-add'></icon>
         </view>

@@ -68,3 +68,6 @@
     line-height: 44px;
     padding: 0;
 }
+.specify-style{
+    text-align: right;
+}

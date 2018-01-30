@@ -38,7 +38,9 @@ Page({
             pkgList = deliveryConfig.packageList;
         //获取订单类型
         options.delivery_range && (deliveryConfig.orderType = options.delivery_range);
-        this.setData({ inputable: options.delivery_range == 'international' ? 'disabled' : '' });
+        this.setData({ inputable: deliveryConfig.orderType == 'international' ? 'disabled' : '' });
+        //直接返回首页之后，重新选了订单类型，应该清空之前的pkglist
+        deliveryConfig.orderType != 'international' && (deliveryConfig.packageList = []);
         if (pkgList.length > 0) {
             //计算重量
             for (let i = 0, len = pkgList.length; i < len; i++) {
@@ -218,10 +220,6 @@ Page({
             M._alert('请添加发件人');
             return false
         }
-        if (this.data.invoice_switch && this.data.invoiceInfo == '') {
-            M._alert('请填写发票信息');
-            return false
-        }
         if (this.data.delivery_range == 'international' && this.data.pkgList.length == 0) {
             M._alert('请添加包裹');
             return false
@@ -232,7 +230,7 @@ Page({
         this.data.isOK = true;
     },
     //暂存或者提交操作
-    orderHandle(port, redirecturl) {
+    orderHandle(port,cb) {
         this.verifyFn();
         if (this.data.isOK) {
             let data = {
@@ -249,9 +247,7 @@ Page({
             One.ajax(port, data, res => {
                 if (!res.data.code) {
                     this.data.order_sn = res.data.data.order_sn;
-                    wx.navigateTo({
-                        url: redirecturl
-                    })
+                    cb && cb()
                 } else {
                     One.showError(res.data.msg);
                 }
@@ -266,6 +262,10 @@ Page({
     // 提交订单
     submitOrder() {
         let port = (this.data.order_sn ? "delivery/edit-saved-order" : "delivery/create-order");
-        this.orderHandle(port, '/pages/order_detail/detail?&id=' + this.data.order_sn);
+        this.orderHandle(port, ()=>{
+            wx.navigateTo({
+                url: '/pages/order_detail/detail?&id=' + this.data.order_sn
+            })
+        });
     }
 })

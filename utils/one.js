@@ -16,7 +16,6 @@ class One {
             success: (res) => {
                 wx.hideLoading();
                 if (res.data.code != 0) {
-                    console.log(res);
                     wx.showModal({
                         title: '',
                         content:res.data.msg

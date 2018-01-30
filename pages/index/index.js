@@ -17,7 +17,7 @@ Page({
         packageList:[],
         RadioModalHidden: '',//radiogroup 模态框隐藏状态
         isEmailBind: true,//邮箱绑定状态
-        radioItem: null,//订单类型索引值
+        radioItem: null,//订单类型
         orderType: '', //物流订单类型
         emailAddr: '', //邮箱地址
         errMsg: ''//错误提示
@@ -59,8 +59,7 @@ Page({
                     });
                 })
             });
-        })
-        // One.ajax('user/upload-info', res.userInfo);
+        });
     },
     onShow: function () {
         // 初始化所有数据
@@ -76,6 +75,9 @@ Page({
                 }, {
                     "value": "国际包裹",
                     "name": "international"
+                },{
+                    "value":"阳光清关",
+                    "name":"clearcustom"
                 }
             ],
             emailAddr: '',
@@ -154,7 +156,7 @@ Page({
     // 绑定邮箱
     bindEmailHandle() {
         let email = this.data.emailAddr,
-            reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+            reg = /^(?:\w+\.?)*\w+@(?:\w+\.)*\w+$/;
         if (!email) {
             this.setData({
                 errMsg: "请输入邮箱地址"

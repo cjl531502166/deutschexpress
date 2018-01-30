@@ -135,7 +135,7 @@ Page({
         let val = e.detail.value,
             id = e.currentTarget.dataset.id;
         if (val <= 0) {
-            M._alert('单价必须大于0')
+            M._alert('单价必须大于0');
             return
         }
         if (val && isNaN(val)) {
@@ -180,7 +180,10 @@ Page({
         let weight = e.detail.value,
             id = e.currentTarget.dataset.id,
             that = this;
-        if (weight <= 0 || isNaN(weight)) {
+        if (!weight || weight == '') {
+            this.data.package.weight = '';
+            this.setData({"package":this.data.package});
+        } else if (weight <= 0 || isNaN(weight)) {
             M._alert('重量必须为大于0的整数');
         } else if (weight > 30) {
             M._alert('包裹重量不能大于30kg');
