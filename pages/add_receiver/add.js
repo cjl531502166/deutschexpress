@@ -10,7 +10,7 @@ Page({
     data: {
         condition: false,
         countrys: [],
-        country: "China(中国)",
+        country: "",
         provinces: [],
         province: '',
         citys: [],
@@ -29,20 +29,49 @@ Page({
     },
 
     onLoad: function (options) {
-        let countrys = [], provinces = [];
-        One.ajax('geo/country', {}, res => {
-            countrys = res.data.data;
-            this.setData({
-                countrys: countrys
-            })
-        })
-        One.ajax('geo/province', {}, res => {
-            provinces = res.data.data;
-            this.setData({ provinces: provinces })
-        });
+        let countrys = [], provinces = [], that = this;
+        this.data.fromPage = options.page ? options.page : null;
+        // 如果源页面是下单页面--则需要对国家进行筛选
+        if (this.data.fromPage) {
+            if (deliveryConfig.orderType == 'germany') {
+                this.setData({
+                    country: 'Germany(Deutschland)',
+                    countrys: ['Germany(Deutschland)']
+                })
+            } else if (deliveryConfig.orderType == 'europe') {
+                One.ajax('geo/country', {}, res => {
+                    for (var i = 0, len = res.data.data.length; i < len; i++) {
+                        if (res.data.data[i].v != "China(中国)" && res.data.data[i].v != "Germany(Deutschland)") {
+                            countrys.push(res.data.data[i]);
+                        }
+                    }
+                    that.setData({
+                        countrys: countrys
+                    });
+                })
+            } else {
+                One.ajax('geo/country', {}, res => {
+                    countrys = res.data.data;
+                    this.setData({
+                        countrys: countrys
+                    });
+                });
+            }
+        } else {
+            One.ajax('geo/country', {}, res => {
+                countrys = res.data.data;
+                this.setData({
+                    countrys: countrys
+                })
+            });
+            One.ajax('geo/province', {}, res => {
+                provinces = res.data.data;
+                this.setData({ provinces: provinces })
+            });
+        }
         this.setData({
-            'fromPage': options.page ? options.page : null
-        })
+            'fromPage': this.data.fromPage
+        });
     },
     inputCity(e) {
         let city = e.detail.value, addressZn;

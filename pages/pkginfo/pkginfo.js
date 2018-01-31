@@ -4,7 +4,7 @@ import deliveryConfig from '../../models/delivery.config.js';
 import deliveryService from '../../services/delivery.service.js';
 import Category from '../../models/goods.categories.js';
 import categoryService from '../../services/category.service.js'
-const app = getApp()
+const app = getApp();
 Page({
     /**
      * 页面的初始数据

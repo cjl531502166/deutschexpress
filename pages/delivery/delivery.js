@@ -14,7 +14,6 @@ Page({
         deliveryConfig: deliveryConfig, //物流配置
         senderInfo: null,//发件人信息
         receiverInfo: null,//收件人信息
-        invoiceInfo: null, //发票信息
         invoice_switch: null,//是否需要发票
         amount: 0,//订单总金额
         totalWeight: '',//包裹总重量
@@ -34,7 +33,6 @@ Page({
             invoice_switch = deliveryConfig.invoice_switch,
             senderInfo = deliveryConfig.currSender ? deliveryConfig.currSender : '',
             receiverInfo = deliveryConfig.currReceiver ? deliveryConfig.currReceiver : '',
-            invoiceInfo = deliveryConfig.currInvoice ? adeliveryConfig.currInvoice : '',
             pkgList = deliveryConfig.packageList;
         //获取订单类型
         options.delivery_range && (deliveryConfig.orderType = options.delivery_range);
@@ -78,13 +76,20 @@ Page({
             "delivery_range": deliveryConfig.orderType,
             "senderInfo": senderInfo,
             "receiverInfo": receiverInfo,
-            "invoiceInfo": invoiceInfo,
             "amount": amount,
             "totalWeight": totalWeight == 0 ? '' : totalWeight,
             "pkgList": pkgList,
             "order_sn": options.id ? options.id : '',
             "deliver_type_id": deliver_type_id
         });
+    },
+    onUnload:function(){
+        //页面卸载的时候，初始化所有数据
+        deliveryConfig.fee = 0;
+        deliveryConfig.currSender = null;
+        deliveryConfig.currReceiver = null;
+        deliveryConfig.packageList = [];
+        deliveryConfig.invoice_switch = 'off';
     },
     //选择物流渠道
     radioChange(e) {

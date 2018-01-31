@@ -15,8 +15,8 @@ Page({
         deliveryService.getReceivers(res => {
             this.setData({
                 'deliveryConfig': deliveryConfig
-            })
-        })
+            });
+        });
     },
     getCurrReceiver(e) {
         let id = e.currentTarget.dataset.id;

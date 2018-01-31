@@ -9,19 +9,36 @@
     <view class='section-head'>常用收件人</view>
     <view wx:if='{{deliveryConfig.receiverList.length>0}}' class='receiver-list'>
         <radio-group class="radio-group" bindchange="addressChange">
-            <view bindtouchend='getCurrReceiver' wx:for='{{deliveryConfig.receiverList}}' wx:key='{{item.id}}' data-id='{{item.id}}' class='receiver-info'>
-                <view class='rc-info-item'>
-                    <view>
-                        <text class='rc-name'>{{item.name}}</text>
-                        <text class='rc-addr'>{{item.province}} {{item.city}} {{item.address}} {{item.cellphone}}</text>
+            <block wx:if='{{deliveryConfig.orderType!="international"}}'>
+                <view wx:if='{{item.country !="China(中国)"}}' wx:for='{{deliveryConfig.receiverList}}' wx:key='{{item.id}}' data-id='{{item.id}}' class='receiver-info'  bindtouchend='getCurrReceiver'>
+                    <view class='rc-info-item'>
+                        <view>
+                            <text class='rc-name'>{{item.name}}</text>
+                            <text class='rc-addr'>{{item.province}} {{item.city}} {{item.address}} {{item.cellphone}}</text>
+                        </view>
+                    </view>
+                    <view class='rc-info-item'>
+                        <label class="radio">
+                            <radio disabled checked='{{item.asdefault}}' value='{{item.id}}' />默认收件人
+                        </label>
                     </view>
                 </view>
-                <view class='rc-info-item'>
-                    <label class="radio">
-                        <radio disabled checked='{{item.asdefault}}' value='{{item.id}}'/>默认收件人
-                    </label>
+            </block>
+            <block wx:else>
+                <view bindtouchend='getCurrReceiver' wx:for='{{deliveryConfig.receiverList}}' wx:key='{{item.id}}' data-id='{{item.id}}' class='receiver-info'>
+                    <view class='rc-info-item'>
+                        <view>
+                            <text class='rc-name'>{{item.name}}</text>
+                            <text class='rc-addr'>{{item.province}} {{item.city}} {{item.address}} {{item.cellphone}}</text>
+                        </view>
+                    </view>
+                    <view class='rc-info-item'>
+                        <label class="radio">
+                            <radio disabled checked='{{item.asdefault}}' value='{{item.id}}' />默认收件人
+                        </label>
+                    </view>
                 </view>
-            </view>
+            </block>
         </radio-group>
     </view>
 </view>

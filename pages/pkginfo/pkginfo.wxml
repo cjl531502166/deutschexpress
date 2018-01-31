@@ -2,7 +2,7 @@
 <view class='detail-info'>
     <view class='info-item'>
         <text class='item-name'>购买包裹重量（kg）</text>
-        <input bindconfirm='chkPkgWeight' value='{{package.weight}}' placeholder='包裹重量' />
+        <input bindinput='chkPkgWeight' value='{{package.weight}}' placeholder='包裹重量' />
     </view>
     <view class='info-item'>
         <text class='item-name'>包裹运费（￥）</text>

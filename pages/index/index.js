@@ -7,7 +7,6 @@ import One from '../../utils/one.js';
 import newsModel from '../../models/news.model.js';
 import newsSevice from '../../services/news.service.js';
 import deliveryConfig from '../../models/delivery.config.js';
-import deliveryService from '../../services/delivery.service.js';
 import searchModel from '../../models/search.model.js';
 import searchService from '../../services/search.service.js';
 Page({
@@ -77,7 +76,7 @@ Page({
                     "checked": true
                 }, {
                     "value": "欧盟境内",
-                    "name": "europ"
+                    "name": "europe"
                 }, {
                     "value": "国际包裹",
                     "name": "international"
@@ -141,15 +140,7 @@ Page({
             url: url
         })
     },
-    // 选择物流类型
-    // SetDeliveryType() {
-    //     this.setData({ "RadioModalHidden": true });
-    //     wx.navigateTo({
-    //         url: '/pages/delivery/delivery'
-    //     })
-    //     deliveryConfig.orderType = this.data.orderType;
-    // },
-    //查看更多
+    //查看更多包裹
     seeMore() {
         wx.navigateTo({
             url: '/pages/mypackage/pkglist'
