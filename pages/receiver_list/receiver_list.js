@@ -14,6 +14,7 @@ Page({
         var list;
         wx.showLoading();
         deliveryService.getReceivers(res => {
+            console.log(res.data.data);
             if (deliveryConfig.orderType != 'international') {
                 deliveryConfig.receiverList.forEach((item, index, arr) => {
                     if (/[(China)(中国)]/.test(item.country)) {

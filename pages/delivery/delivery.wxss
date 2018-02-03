@@ -70,6 +70,7 @@
 .info-item > text {
     display: flex;
     white-space: wrap;
+    word-break: break-all;
     align-items: center;
     width: 64%;
     font-size: 14px;

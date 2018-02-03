@@ -84,7 +84,7 @@
         <block wx:if='{{packageList.length>0}}'>
             <latest-pkg package-list='{{packageList}}'></latest-pkg>
         </block>
-        <view class='get-data' wx:else>正在获取列表...</view>
+        <view class='get-data' wx:else>暂无数据</view>
     </view>
     <!-- 选择模态框 -->
     <view hidden='{{RadioModalHidden}}' class='dialog-alert'>

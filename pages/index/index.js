@@ -49,19 +49,21 @@ Page({
             that.data.packageList = [];
             searchService.getDeliverTypes(res => {
                 One.ajax('user/delivery-orders', {}, res => {
-                    res.data.data.forEach((item, index, arr) => {
-                        if (arr[index].packages.length > 0) {
-                            arr[index].packages.forEach((pkg, i, pkgArr) => {
-                                pkgArr[i].status = arr[index].status;
-                                pkgArr[i].order_sn = arr[index].order_sn;
-                                pkgArr[i].created_at = arr[index].created_at;
-                                pkgArr[i].sender = arr[index].sender;
-                                pkgArr[i].delivery_no = arr[index].delivery_no;
-                                pkgArr[i].deliver_type = searchModel.delivery_types[item.delivery_type_id];
-                                that.data.packageList.push(pkgArr[i]);
-                            });
-                        }
-                    });
+                    if (res.data.data != null) {
+                        res.data.data.forEach((item, index, arr) => {
+                            if (arr[index].packages.length > 0) {
+                                arr[index].packages.forEach((pkg, i, pkgArr) => {
+                                    pkgArr[i].status = arr[index].status;
+                                    pkgArr[i].order_sn = arr[index].order_sn;
+                                    pkgArr[i].created_at = arr[index].created_at;
+                                    pkgArr[i].sender = arr[index].sender;
+                                    pkgArr[i].delivery_no = arr[index].delivery_no;
+                                    pkgArr[i].deliver_type = searchModel.delivery_types[item.delivery_type_id];
+                                    that.data.packageList.push(pkgArr[i]);
+                                });
+                            }
+                        });
+                    }
                     this.setData({
                         packageList: this.data.packageList
                     });
