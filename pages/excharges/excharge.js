@@ -5,7 +5,6 @@ import deliverService from '../../services/delivery.service.js';
 import searchModel from '../../models/search.model.js';
 import searchService from '../../services/search.service.js';
 Page({
-
     /**
      * 页面的初始数据
      */
@@ -43,7 +42,7 @@ Page({
         }
 
         //获取订单列表
-        
+
         this.getList();
         //获取物流
         if (searchModel.delivery_types) {
@@ -58,11 +57,13 @@ Page({
         searchService.getStatus(res => {
             let obj;
             for (let key in searchModel.status) {
-                obj = {
-                    "name_en": key,
-                    "name_cn": searchModel.status[key]
+                if (key == "delivery_outofweight") {
+                    obj = {
+                        "name_en": key,
+                        "name_cn": searchModel.status[key]
+                    }
+                    that.data.status.push(obj);
                 }
-                that.data.status.push(obj);
             }
             that.setData({
                 status: that.data.status
@@ -73,20 +74,26 @@ Page({
         let that = this;
         that.data.excharge_list = [];
         deliverService.getDelivers(res => {
-            One.ajax('user/delivery-orders', data ? data : {}, res => {
-                if (!res.data.data) return false;
-                res.data.data.forEach((item, index) => {
-                    if (item.status === '超重补款') {
+            One.ajax('user/delivery-out-of-weight-orders', data ? data : {}, res => {
+                if (res.data.data != null) {
+                    res.data.data.forEach((item, index) => {
                         item.packages.forEach((pkg, i) => {
-                            pkg.order_sn = item.order_sn;
-                            pkg.status = item.status;
-                            pkg.updated_at = item.updated_at;
-                            that.data.excharge_list.push(pkg)
+                            pkg.delivery_type_id = item.delivery_type_id;
                         })
-                    }
-                });
+                    });
+                    that.data.excharge_list = res.data.data;
+                    //获取物流方式
+                    that.data.excharge_list.forEach((item, index, arr) => {
+                        deliverConfig.delivers.forEach((del, index) => {
+                            if (item.delivery_type_id == del.id) {
+                                item.delivery_type = del.name;
+                            }
+                        });
+                    });
+                }
+                //更新数据
                 this.setData({ "excharge_list": that.data.excharge_list });
-            })
+            });
         })
     },
     onDeliveryChagne(e) {

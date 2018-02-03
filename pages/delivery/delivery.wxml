@@ -93,7 +93,7 @@
     <!-- 购买包裹单 -->
     <view class='buy-pkg-weight'>
         <text>包裹重量（kg）</text>
-        <input bindblur='weightChange' type='number' disabled='{{inputable}}' placeholder='{{inputable?"0":"请填写重量"}}' value='{{totalWeight}}' />
+        <input bindinput='weightChange' type='number' disabled='{{inputable}}' placeholder='{{inputable?"0":"请填写重量"}}' value='{{totalWeight}}' />
     </view>
     <!-- 发票 -->
     <view class='invoice'>

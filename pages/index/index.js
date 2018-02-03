@@ -48,16 +48,18 @@ Page({
             that.data.packageList = [];
             searchService.getDeliverTypes(res => {
                 One.ajax('user/delivery-orders', {}, res => {
-                    res.data.data.forEach((item, key) => {
-                        item.packages.forEach((pkg, k) => {
-                            pkg.status = item.status;
-                            pkg.order_sn = item.order_sn;
-                            pkg.updated_at = item.updated_at;
-                            pkg.sender = item.sender;
-                            pkg.pid = pkg.packageid;
-                            pkg.deliver_type = searchModel.delivery_types[item.delivery_type_id];
-                            that.data.packageList.push(pkg);
-                        });
+                    res.data.data.forEach((item, index, arr) => {
+                        if (arr[index].packages.length > 0) {
+                            arr[index].packages.forEach((pkg, i, pkgArr) => {
+                                pkgArr[i].status = arr[index].status;
+                                pkgArr[i].order_sn = arr[index].order_sn;
+                                pkgArr[i].created_at = arr[index].created_at;
+                                pkgArr[i].sender = arr[index].sender;
+                                pkgArr[i].delivery_no = arr[index].delivery_no;
+                                pkgArr[i].deliver_type = searchModel.delivery_types[item.delivery_type_id];
+                                that.data.packageList.push(pkgArr[i]);
+                            });
+                        }
                     });
                     this.setData({
                         packageList: this.data.packageList
@@ -76,7 +78,7 @@ Page({
                     "checked": true
                 }, {
                     "value": "欧盟境内",
-                    "name": "europe"
+                    "name": "europ"
                 }, {
                     "value": "国际包裹",
                     "name": "international"
@@ -132,8 +134,9 @@ Page({
     },
     goToPage(e) {
         let url = e.currentTarget.dataset.url;
-        if (url == '/pages/delivery/delivery') {
-            return this.setData({ "RadioModalHidden": false })
+        if (url ==='/pages/delivery/delivery?delivery_range=clearcustom'){
+            M._alert('该功能将在后期版本开放');
+            return false;
         }
         // 页面跳转
         wx.navigateTo({

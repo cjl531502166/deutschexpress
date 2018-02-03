@@ -44,17 +44,24 @@ Page({
         });
     },
     getList(data) {
-        let that = this;
-        that.data.pkg_list = [];
+        let that = this,
+            len = 0;
+            that.data.pkg_list = [];
         One.ajax('user/delivery-orders', data ? data : {}, res => {
-            res.data.data.forEach((item, index) => {
-                item.packages.forEach((pkg, i) => {
-                    pkg.status = item.status;
-                    pkg.order_sn = item.order_sn;
-                    pkg.updated_at = item.updated_at;
-                    that.data.pkg_list.push(pkg)
-                })
-            })
+            if(res.data.data !=null){
+                res.data.data.forEach((item, index, arr) => {
+                    len = item.packages.length;
+                    if (len > 0) {
+                        arr[index].packages.forEach((pkg, i, pkgArr) => {
+                            pkgArr[i].delivery_no = arr[index].delivery_no;
+                            pkgArr[i].status = arr[index].status;
+                            pkgArr[i].order_sn = arr[index].order_sn;
+                            pkgArr[i].created_at = arr[index].created_at;
+                            that.data.pkg_list.push(pkgArr[i]);
+                        });
+                    }
+                });
+            }
             this.setData({ "pkg_list": that.data.pkg_list })
         });
     },

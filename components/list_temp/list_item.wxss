@@ -77,3 +77,12 @@ navigator {
 .li-item-2 icon {
     font-size: 18px;
 }
+.li-item-3{
+    font-size: 14px;
+    color: #666;
+}
+.no-result{
+    font-size: 14px;
+    color: #666;
+    padding: 5px 0;
+}

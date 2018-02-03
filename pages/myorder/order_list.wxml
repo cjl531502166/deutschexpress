@@ -18,7 +18,7 @@
                 <icon class='icon-angle iconfont wx-icon-toDown'></icon>
             </view>
         </picker>
-        <picker mode="date" fields='month' value="{{date}}" start="new Date()" bindchange="onDateChange">
+        <picker mode="date" fields='month' value="{{date}}" start="2017-01-01" bindchange="onDateChange">
             <view class="picker">
                 <text>{{date}}</text>
                 <icon class='icon-angle iconfont wx-icon-toDown'></icon>
@@ -30,5 +30,6 @@
         <navigator wx:for='{{order_list}}' wx:for-item='item' wx:key='{{index}}' url='{{navigateto}}{{item.order_sn}}'>
             <template is='orderList' data='{{...item}}'></template>
         </navigator>
+        <view wx:if='{{order_list.length==0}}' class='no-result'>找到0条数据</view>
     </view>
 </view>

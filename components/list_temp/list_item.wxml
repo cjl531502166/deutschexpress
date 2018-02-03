@@ -4,7 +4,7 @@
         <view class='li-item-0'>
             <text>订单号：{{order_sn}}</text>
             <text wx:if='{{status ==="问题件"}}' class='icon-status icon-status-warn'>{{status}}</text>
-            <text wx:elif='{{status ==="超重补款"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:elif='{{status ==="超重订单"}}' class='icon-status icon-status-warn'>{{status}}</text>
             <text wx:elif='{{status ==="未支付"}}' class='icon-status icon-status-warn'>{{status}}</text>
             <text wx:else class='icon-status icon-status-ok'>{{status}}</text>
         </view>
@@ -20,8 +20,9 @@
             <view>
                 <icon class='iconfont wx-icon-jifen'></icon>{{packages.weight}}kg</view>
         </view>
+        <view wx:if='{{delivery_no}}' class='li-item-3'>物流单号：{{delivery_no}}</view>
         <view class='li-item-2'>
-            <text>{{updated_at}}</text>
+            <text>创建时间：{{created_at}}</text>
             <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
         </view>
     </view>
@@ -33,14 +34,21 @@
             <text>订单号：{{order_sn}}</text>
             <text class='icon-status icon-status-warn'>{{status}}</text>
         </view>
-        <view wx:for='{{goods}}' wx:for-item='goods' wx:key='{{index}}' class='li-item-1'>
+        <view wx:if='{{packages.length==0}}' class='li-item-1'>
             <view>
                 <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
             <view>
-                <icon class='iconfont wx-icon-jifen'></icon>{{weight}}g</view>
+                <icon class='iconfont wx-icon-jifen'></icon>{{weight}}kg</view>
         </view>
+        <view wx:for='{{packages}}' wx:for-item='packages' wx:key='{{index}}' class='li-item-1'>
+            <view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+            <view>
+                <icon class='iconfont wx-icon-jifen'></icon>{{packages.weight}}kg</view>
+        </view>
+        <view wx:if='{{delivery_no}}' class='li-item-3'>物流单号：{{delivery_no}}</view>
         <view class='li-item-2'>
-            <text>{{updated_at}}</text>
+            <text>创建时间：{{created_at}}</text>
             <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
         </view>
     </view>
@@ -51,7 +59,7 @@
         <view class='li-item-0'>
             <text>包裹{{packageid}}</text>
             <text wx:if='{{status ==="问题件"}}' class='icon-status icon-status-warn'>{{status}}</text>
-            <text wx:elif='{{status ==="超重补款"}}' class='icon-status icon-status-warn'>{{status}}</text>
+            <text wx:elif='{{status ==="超重订单"}}' class='icon-status icon-status-warn'>{{status}}</text>
             <text wx:elif='{{status ==="未支付"}}' class='icon-status icon-status-warn'>{{status}}</text>
             <text wx:else class='icon-status icon-status-ok'>{{status}}</text>
         </view>
@@ -60,8 +68,9 @@
                 <icon class='iconfont wx-icon-fenlei'></icon>{{goods.catename}}</view>
             <view>￥{{goods.price*goods.num}}</view>
         </view>
+        <view wx:if='{{delivery_no}}' class='li-item-3'>物流单号：{{delivery_no}}</view>
         <view class='li-item-2'>
-            <text>{{updated_at}}</text>
+            <text>创建时间：{{created_at}}</text>
             <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
         </view>
     </view>

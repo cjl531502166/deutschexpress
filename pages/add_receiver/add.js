@@ -36,9 +36,9 @@ Page({
             if (deliveryConfig.orderType == 'germany') {
                 this.setData({
                     country: 'Germany(Deutschland)',
-                    countrys: ['Germany(Deutschland)']
+                    countrys: [{ "k": "DEUTSCHLAND", "v": "Germany(Deutschland)" }]
                 })
-            } else if (deliveryConfig.orderType == 'europe') {
+            } else if (deliveryConfig.orderType == 'europ') {
                 One.ajax('geo/country', {}, res => {
                     for (var i = 0, len = res.data.data.length; i < len; i++) {
                         if (res.data.data[i].v != "China(中国)" && res.data.data[i].v != "Germany(Deutschland)") {

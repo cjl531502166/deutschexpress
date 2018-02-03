@@ -11,8 +11,17 @@ Page({
         deliveryConfig: deliveryConfig
     },
     onLoad: function () {
+        var list;
         wx.showLoading();
         deliveryService.getReceivers(res => {
+            if (deliveryConfig.orderType != 'international') {
+                deliveryConfig.receiverList.forEach((item, index, arr) => {
+                    if (/[(China)(中国)]/.test(item.country)) {
+                        list = deliveryConfig.receiverList.slice(index + 1, 1);
+                    }
+                });
+                deliveryConfig.receiverList = list;
+            }
             this.setData({
                 'deliveryConfig': deliveryConfig
             });

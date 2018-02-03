@@ -1,7 +1,10 @@
 // pages/order_detail/detail.js
+import M from '../../components/modals/common.js';
 import One from '../../utils/one.js';
 import orderModel from '../../models/order.model.js';
 import orderService from '../../services/orderInfo.service.js';
+import deliverConfig from '../../models/delivery.config.js';
+import deliverService from '../../services/delivery.service.js';
 import searchModel from '../../models/search.model.js';
 import searchService from '../../services/search.service.js';
 Page({
@@ -11,7 +14,8 @@ Page({
     data: {
         orderModel: null,
         canEdit: false,//是否可编辑
-        unPaid: false //是否付款
+        unPaid: false, //是否付款
+        additionalPay:false //是否需要补款
     },
 
     onLoad: function (options) {
@@ -28,11 +32,13 @@ Page({
                 })
             }
             that.data.canEdit = (orderModel.orderInfo.status === "暂存" ? true : false);
-            that.data.unPaid = (orderModel.orderInfo.status === "新建" || orderModel.orderInfo.status === "未支付" ? true : false);
+            that.data.unPaid = /delivery_unpaid/.test(orderModel.orderInfo.status_en);
+                that.data.additionalPay = /delivery_outofweight/.test(orderModel.orderInfo.status_en);
             that.setData({
                 orderModel: orderModel,
                 canEdit: that.data.canEdit,
-                unPaid: that.data.unPaid
+                unPaid: that.data.unPaid,
+                additionalPay: that.data.additionalPay
             });
         })
     },
@@ -47,39 +53,43 @@ Page({
         deliverConfig.fee = orderModel.orderInfo.fee;
         wx.redirectTo({
             url: '/pages/delivery/delivery?id=' + order_sn
-        })
+        });
     },
     //支付订单
     payOrder(e) {
         let order_sn = orderModel.orderInfo.order_sn;
         One.ajax('wxapay/pay-params', { "order_sn": order_sn }, res => {
-            wx.requestPayment({
-                "appId": res.data.data.params.appId,
-                "timeStamp": res.data.data.params.timeStamp,
-                "nonceStr": res.data.data.params.nonceStr,
-                "package": res.data.data.params.package,
-                "signType": res.data.data.params.signType,
-                "paySign": res.data.data.params.paySign,
-                "success": res => {
-                    this.data.orderModel.orderInfo.status = '已支付';
-                    this.setData({
-                        orderInfo: this.data.orderInfo
-                    })
-                    wx.showToast({
-                        title: '支付成功',
-                        success: res => {
-                            wx.redirectTo({
-                                url: '/pages/myorder/order_list'
-                            })
-                        }
-                    })
-                },
-                "fail": res => {
-                    wx.showToast({
-                        title: '支付失败'
-                    })
-                }
-            })
+            if (res.data.data.params){
+                wx.requestPayment({
+                    "appId": res.data.data.params.appId,
+                    "timeStamp": res.data.data.params.timeStamp,
+                    "nonceStr": res.data.data.params.nonceStr,
+                    "package": res.data.data.params.package,
+                    "signType": res.data.data.params.signType,
+                    "paySign": res.data.data.params.paySign,
+                    "success": res => {
+                        this.data.orderModel.orderInfo.status = '已支付';
+                        this.setData({
+                            orderInfo: this.data.orderInfo
+                        })
+                        wx.showToast({
+                            title: '支付成功',
+                            success: res => {
+                                wx.redirectTo({
+                                    url: '/pages/myorder/order_list'
+                                })
+                            }
+                        })
+                    },
+                    "fail": res => {
+                        wx.showToast({
+                            title: '支付失败'
+                        })
+                    }
+                });
+            }else{
+                M._alert(res.data.data.error_msg);
+            }
         })
     },
     //物流查询

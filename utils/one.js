@@ -8,7 +8,7 @@ class One {
             title: '数据加载中',
             mask: true
         });
-        
+
         wx.request({
             url: this.config.requestURI + port + '?token=' + this.config.token,
             data: data,
@@ -16,9 +16,10 @@ class One {
             success: (res) => {
                 wx.hideLoading();
                 if (res.data.code != 0) {
+                    res.data.msg ? res.data.msg : "Error";
                     wx.showModal({
                         title: '',
-                        content:res.data.msg
+                        content: `${res.data.msg}`
                     })
                     return
                 }

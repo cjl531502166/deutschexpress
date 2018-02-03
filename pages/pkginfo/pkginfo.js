@@ -5,6 +5,7 @@ import deliveryService from '../../services/delivery.service.js';
 import Category from '../../models/goods.categories.js';
 import categoryService from '../../services/category.service.js'
 const app = getApp();
+let timer = null;
 Page({
     /**
      * 页面的初始数据
@@ -112,7 +113,7 @@ Page({
     chkNum(e) {
         let val = e.detail.value,
             id = e.currentTarget.dataset.id,
-            regNum = /^[1-9]*$/;
+            regNum = /^[1-9]\d*$/;
         if (!regNum.test(val)) {
             M._alert('数量必须为非0整数')
         } else {
@@ -179,28 +180,32 @@ Page({
     chkPkgWeight(e) {
         let weight = e.detail.value,
             id = e.currentTarget.dataset.id,
-            that = this;
+            that = this,
+            timer = null;
         if (!weight || weight == '') {
             this.data.package.weight = '';
-            this.setData({"package":this.data.package});
+            this.setData({ "package": this.data.package });
         } else if (weight <= 0 || isNaN(weight)) {
             M._alert('重量必须为大于0的整数');
         } else if (weight > 30) {
             M._alert('包裹重量不能大于30kg');
         } else {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                // 计算运费
+                deliveryService.calcFee(
+                    {
+                        "delivery_range": deliveryConfig.orderType,
+                        "delivery_type_id": deliveryConfig.deliver_type_id,
+                        "weight": weight
+                    }
+                    , res => {
+                        that.data.package.fee = deliveryConfig.fee;
+                        that.setData({ "package": that.data.package });
+                    }
+                );
+            }, 800);
             this.data.package.weight = weight;
-            // 计算运费
-            deliveryService.calcFee(
-                {
-                    "delivery_range": deliveryConfig.orderType,
-                    "delivery_type_id": deliveryConfig.deliver_type_id,
-                    "weight": weight
-                }
-                , res => {
-                    that.data.package.fee = deliveryConfig.fee;
-                    that.setData({ "package": that.data.package });
-                }
-            );
         }
     },
     confirmAdd() {
@@ -224,6 +229,7 @@ Page({
             goodsArr.push(that.data.viewObj[index].goods)
             currPackage = {
                 "weight": that.data.package.weight,
+                "fee": that.data.package.fee,
                 "goods": goodsArr
             }
         });

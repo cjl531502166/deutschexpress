@@ -78,4 +78,8 @@
         <view bindtouchend='payOrder' class='btn btn-block btn-primary'>立即支付</view>
         <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
     </view>
+    <view wx:if='{{additionalPay}}' class='btns'>
+        <view bindtouchend='payOrder' class='btn btn-block btn-primary'>补款</view>
+        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
+    </view>
 </view>

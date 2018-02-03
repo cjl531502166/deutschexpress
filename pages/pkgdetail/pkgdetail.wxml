@@ -29,7 +29,7 @@
         </view>
         <view class='info-item'>
             <text class='item-name'>时间</text>
-            <view class='item-value'>{{orderInfo.updated_at}}</view>
+            <view class='item-value'>{{orderInfo.created_at}}</view>
         </view>
         <view class='info-item'>
             <text class='item-name'>境内单号</text>

@@ -63,21 +63,22 @@ Page({
         that.data.order_list = [];
         deliverService.getDelivers(res => {
             One.ajax('user/delivery-orders', data ? data : {}, res => {
-                if (!res.data.data) return false;
-                res.data.data.forEach((item, index) => {
-                    item.packages.forEach((pkg, i) => {
-                        pkg.delivery_type_id = item.delivery_type_id;
-                    })
-                });
-                that.data.order_list = res.data.data;
-                //获取物流方式
-                that.data.order_list.forEach((item, index, arr) => {
-                    deliverConfig.delivers.forEach((del,index)=>{
-                        if(item.delivery_type_id == del.id){
-                            item.delivery_type = del.name;
-                        }
+                if (res.data.data != null) {
+                    res.data.data.forEach((item, index) => {
+                        item.packages.forEach((pkg, i) => {
+                            pkg.delivery_type_id = item.delivery_type_id;
+                        })
                     });
-                });
+                    that.data.order_list = res.data.data;
+                    //获取物流方式
+                    that.data.order_list.forEach((item, index, arr) => {
+                        deliverConfig.delivers.forEach((del, index) => {
+                            if (item.delivery_type_id == del.id) {
+                                item.delivery_type = del.name;
+                            }
+                        });
+                    });
+                }
                 //更新数据
                 this.setData({ "order_list": that.data.order_list });
             })
