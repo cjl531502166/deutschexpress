@@ -27,21 +27,16 @@
             <text class='item-name'>状态</text>
             <view class='item-value status'>{{orderInfo.status}}</view>
         </view>
+        <view wx:if='{{orderInfo.delivery_no}}' class='info-item'>
+            <text class='item-name'>物流单号</text>
+            <view class='item-value status'>{{orderInfo.delivery_no}}</view>
+        </view>
         <view class='info-item'>
             <text class='item-name'>时间</text>
             <view class='item-value'>{{orderInfo.created_at}}</view>
         </view>
-        <view class='info-item'>
-            <text class='item-name'>境内单号</text>
-            <view class='item-value'></view>
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>航班信息</text>
-            <view class='item-value'></view>
-        </view>
     </view>
-    <view wx:if='{{!isPaid}}' bindtap='payOrder' class='btn btn-block btn-primary'>去支付</view>
-    <!-- <view wx:if="{{canDownloadBill}}" bindtap='downLoadBill' class='btn btn-block btn-primary'>下载境内单</view> -->
-    <view wx:if="{{canTrack}}" bindtap='trackOrder' class='btn btn-block btn-primary'>查看物流</view>
+    <view wx:if='{{!unPaid}}' bindtap='payOrder' class='btn btn-block btn-primary'>去支付</view>
+    <view wx:if="{{canTrack}}" bindtap='trackPkg' class='btn btn-block btn-primary'>查看物流</view>
     <view wx:if="{{canCancel}}" bindtap='cancelPackage' class='btn btn-block btn-default'>取消包裹</view>
 </view>

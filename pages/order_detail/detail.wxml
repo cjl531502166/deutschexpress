@@ -13,6 +13,10 @@
             <text class='item-name'>物流渠道</text>
             <view class='item-value'>{{orderModel.orderInfo.deliver_type}}</view>
         </view>
+        <view wx:if='{{orderModel.orderInfo.delivery_no}}' class='info-item'>
+            <text class='item-name'>物流单号</text>
+            <view class='item-value'>{{orderModel.orderInfo.delivery_no}}</view>
+        </view>
         <view class='info-item'>
             <text class='item-name'>总运费（￥）</text>
             <view class='item-value'>{{orderModel.orderInfo.fee}}</view>
@@ -80,6 +84,10 @@
     </view>
     <view wx:if='{{additionalPay}}' class='btns'>
         <view bindtouchend='payOrder' class='btn btn-block btn-primary'>补款</view>
+        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
+    </view>
+    <view wx:if='{{canTrack}}' class='btns'>
+        <view bindtouchend='trackPkg' class='btn btn-block btn-primary'>查看物流</view>
         <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
     </view>
 </view>

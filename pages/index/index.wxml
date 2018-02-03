@@ -5,7 +5,7 @@
     <!--搜索框  -->
     <view class='search-box'>
         <view class='input-box'>
-            <input type='text' bindinput='getDeliveryNo' placeholder='输入13位数字物流单号' />
+            <input type='text' bindinput='getDeliveryNo' placeholder='输入物流单号' />
             <icon bindtouchend='trackPkg' class='search-btn iconfont wx-icon-sousuo'></icon>
         </view>
     </view>

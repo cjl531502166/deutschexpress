@@ -9,6 +9,7 @@ import newsSevice from '../../services/news.service.js';
 import deliveryConfig from '../../models/delivery.config.js';
 import searchModel from '../../models/search.model.js';
 import searchService from '../../services/search.service.js';
+import deliveryTrack from '../../services/delivery.track.js';
 Page({
     data: {
         userid: '',//用户登录返回的id
@@ -117,14 +118,13 @@ Page({
         }
         else if (!(/^[a-zA-Z0-9]+$/.test(value))) {
             this.data.errMsg = '您输入的快递单号格式不正确';
-        }
-        else if (value.length < 13) {
-            this.data.errMsg = '请输入13位快递单号';
         } else {
             //操作
-            wx.navigateTo({
-                url: '/pages/delivery_detail/delivery_detail?tracknum=' + value
-            })
+            deliveryTrack.getState(value, res => {
+                wx.navigateTo({
+                    url: '/pages/delivery_detail/delivery_detail'
+                });
+            });
             return false;
         }
         M._alert(this.data.errMsg);
@@ -134,7 +134,7 @@ Page({
     },
     goToPage(e) {
         let url = e.currentTarget.dataset.url;
-        if (url ==='/pages/delivery/delivery?delivery_range=clearcustom'){
+        if (url === '/pages/delivery/delivery?delivery_range=clearcustom') {
             M._alert('该功能将在后期版本开放');
             return false;
         }

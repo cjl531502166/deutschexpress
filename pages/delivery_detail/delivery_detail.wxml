@@ -1,32 +1,6 @@
 <!-- 物流详情 -->
 <view class='dl-detail-container'>
-    <view class='detail-info'>
-        <view class='info-item'>
-            <text class='item-name'>收件人</text>
-            <view class='item-value'>
-                <text class='name'>陈欣欣</text>
-                <text>15497894888</text>
-            </view>
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>收货地址</text>
-            <view class='item-value'>湖北省武汉市洪山区马场角路都市花园上园2901</view>
-        </view>
-    </view>
     <view class='delivery-detail'>
-        <view class='stateBox'>
-            <view wx:for='{{delivery_data}}' wx:key='index' class='li {{index==0?"active":""}}'>
-                <view class='view'>
-                    <text></text>
-                    <text></text>
-                </view>
-                <view class='view'>
-                    <view>{{item.currPos}}</view>
-                    <view>
-                        <text>{{item.datestr}}</text>
-                    </view>
-                </view>
-            </view>
-        </view>
+        <view class='stateBox' nodes='{{deliveryState.shipment}}'></view>
     </view>
 </view>
