@@ -50,7 +50,7 @@
                 <text>收</text>
             </view>
             <text wx:if='{{!receiverInfo}}' class='add-info'>添加收件人信息</text>
-            <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country}}{{receiverInfo.province}}{{receiverInfo.city}}{{receiverInfo.district}}{{receiverInfo.address}}</text>
+            <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country?receiverInfo.country:''}},{{receiverInfo.province?receiverInfo.province:''}}{{receiverInfo.city?receiverInfo.city:''}}{{receiverInfo.district?receiverInfo.district:''}},{{receiverInfo.address?receiverInfo.address:''}}</text>
             <icon class='icon-add iconfont wx-icon-add'></icon>
         </view>
         <view bindtap='addSender' class='info-item'>
@@ -58,7 +58,7 @@
                 <text>发</text>
             </view>
             <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息</text>
-            <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address}},{{senderInfo.city}},{{senderInfo.country}}</text>
+            <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address?senderInfo.address:''}},{{senderInfo.city?senderInfo.city:''}},{{senderInfo.country?senderInfo.country:''}}</text>
             <icon class='icon-add iconfont wx-icon-add'></icon>
         </view>
     </view>

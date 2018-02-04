@@ -29,7 +29,6 @@ Page({
         Geo.getLocation({
             success: data => {
                 Geo.getCity(data, (res) => {
-
                     that.setData({
                         city: res.data.result.addressComponent.city,
                         country: res.data.result.addressComponent.country,

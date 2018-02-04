@@ -13,7 +13,7 @@
                 <view class='rc-info-item'>
                     <view>
                         <text class='rc-name'>{{item.name}}</text>
-                        <text class='rc-addr'>{{item.province?item.province:''}} {{item.city}} {{item.address}} {{item.cellphone}}</text>
+                        <text class='rc-addr'>{{item.province?item.province:''}} {{item.city?item.city:''}} {{item.address?item.address:''}} {{item.cellphone}}</text>
                     </view>
                 </view>
                 <view class='rc-info-item'>

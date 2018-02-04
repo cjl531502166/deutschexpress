@@ -237,7 +237,8 @@ Page({
             "asdefault": this.data.saveAddr,
             "name_en": this.data.receiverZn,
             "address_en": this.data.addressZn
-        }
+        };
+        //如果是下单页面-则应该直接返回
         if (this.data.fromPage == 'order') {
             deliveryService.addReceiver('user/receiver-add', receiverInfo, res => {
                 receiverInfo.id = res.data.data.id;
