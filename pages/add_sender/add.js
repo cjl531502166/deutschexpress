@@ -29,12 +29,22 @@ Page({
         Geo.getLocation({
             success: data => {
                 Geo.getCity(data, (res) => {
+<<<<<<< HEAD
                     that.setData({
                         city: res.data.result.addressComponent.city,
                         country: res.data.result.addressComponent.country,
                         street: res.data.result.addressComponent.street,
                         address: res.data.result.formatted_address
                     })
+=======
+                  console.log(res);
+                    // that.setData({
+                    //     city: res.data.result.addressComponent.city,
+                    //     country: res.data.result.addressComponent.country,
+                    //     street: res.data.result.addressComponent.street,
+                    //     address: res.data.result.formatted_address
+                    // })
+>>>>>>> 8304bfac9f8277a32f6f8e440f32c79d3b736d94
                 })
             }
         })
