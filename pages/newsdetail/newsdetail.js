@@ -3,7 +3,7 @@ import newsModel from '../../models/news.model.js';
 import newsSevice from '../../services/news.service.js';
 Page({
     data: {
-        newsModel: newsModel
+        newsModel: newsModel,
     },
     onLoad: function (options) {
         let id = options.id;

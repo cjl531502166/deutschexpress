@@ -44,15 +44,15 @@
         </view>
         <view class='info-item'>
             <text class='item-name'>收货地址</text>
-            <view class='item-value'>{{orderModel.orderInfo.receiver.province}}{{orderModel.orderInfo.receiver.city}}{{orderModel.orderInfo.receiver.county}}{{orderModel.orderInfo.receiver.address}}</view>
+            <view class='item-value'>{{orderModel.orderInfo.receiver.province?orderModel.orderInfo.receiver.province:''}}{{orderModel.orderInfo.receiver.city}}{{orderModel.orderInfo.receiver.county?orderModel.orderInfo.receiver.county:''}}{{orderModel.orderInfo.receiver.address}}</view>
         </view>
     </view>
     <!-- 包裹信息 -->
-    <view class='pkg-section'>
+    <view wx:if='{{orderModel.orderInfo.packages.length>0}}' class='pkg-section'>
         <view wx:for='{{orderModel.orderInfo.packages}}' wx:key='{{item.packageid}}' class='pkg-info'>
             <view class='pkg-list'>
                 <view class='list-No'>
-                    <text>编号：包裹{{item.packageid}}</text>
+                    <text>编号：包裹{{index+1}}</text>
                     <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
                 </view>
                 <view wx:for='{{item.goods}}' wx:key='{{index}}' wx:for-item='goods' class='list-item'>
@@ -76,18 +76,21 @@
     </view>
     <view wx:if='{{canEdit}}' class='btns'>
         <view bindtouchend='editOrder' class='btn btn-block btn-primary'>修改订单</view>
-        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
+        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>返回首页</view>
     </view>
     <view wx:if='{{unPaid}}' class='btns'>
         <view bindtouchend='payOrder' class='btn btn-block btn-primary'>立即支付</view>
-        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
+        <!-- <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view> -->
+         <navigator url='/pages/index/index' open-type='reLaunch' class='btn btn-block btn-default'>返回首页</navigator>
     </view>
     <view wx:if='{{additionalPay}}' class='btns'>
         <view bindtouchend='payOrder' class='btn btn-block btn-primary'>补款</view>
-        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
+        <!-- <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>返回首页</view> -->
+         <navigator url='/pages/index/index' open-type='reLaunch' class='btn btn-block btn-default'>返回首页</navigator>        
     </view>
     <view wx:if='{{canTrack}}' class='btns'>
         <view bindtouchend='trackPkg' class='btn btn-block btn-primary'>查看物流</view>
-        <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>取消订单</view>
+        <!-- <view bindtouchend='cancelOrder' class='btn btn-block btn-default'>返回首页</view> -->
+         <navigator url='/pages/index/index' open-type='reLaunch' class='btn btn-block btn-default'>返回首页</navigator>        
     </view>
 </view>

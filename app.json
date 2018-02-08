@@ -38,7 +38,7 @@
         "list": [
             {
                 "pagePath": "pages/index/index",
-                "text": "快递下单",
+                "text": "首页",
                 "iconPath": "images/pkg_0.png",
                 "selectedIconPath": "images/pkg_1.png"
             },

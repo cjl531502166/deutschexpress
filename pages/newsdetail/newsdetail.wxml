@@ -5,6 +5,6 @@
         <view>{{newsModel.newsDetail.updated_at}}</view>
     </view>
     <view class='detail-content'>
-          <rich-text nodes='{{newsModel.newsDetail.body}}'></rich-text>
+        <rich-text nodes='{{newsModel.newsDetail.body}}'></rich-text>
     </view>
 </view>

@@ -61,9 +61,12 @@ Page({
                                     pkgArr[i].deliver_type = searchModel.delivery_types[item.delivery_type_id];
                                     that.data.packageList.push(pkgArr[i]);
                                 });
+                            }else{
+                                item.deliver_type = searchModel.delivery_types[item.delivery_type_id];
+                                that.data.packageList.push(item);
                             }
                         });
-                    }
+                    };
                     this.setData({
                         packageList: this.data.packageList
                     });

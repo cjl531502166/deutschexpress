@@ -75,7 +75,7 @@
                         </view>
                         <view class='list-item'>
                             <view wx:for='{{package.goods}}' wx:for-item='goods' wx:key='{{index}}' class='item'>
-                                <text>品种：{{goods.category}}*{{goods.num}}</text>
+                                <text>品种：{{goods.category ||goods.catename}}*{{goods.num}}</text>
                                 <text>单价：{{goods.price}}</text>
                             </view>
                         </view>

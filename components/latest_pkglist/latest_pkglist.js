@@ -2,6 +2,7 @@
 import One from '../../utils/one.js';
 import searchModel from '../../models/search.model.js';
 import searchService from '../../services/search.service.js';
+import deliveryTrack from '../../services/delivery.track.js';
 Component({
     /**
      * 组件的属性列表
@@ -20,5 +21,13 @@ Component({
     /**
      * 组件的初始数据
      */
-    data:{}
+    data:{},
+    trackPkg(e){
+        let num = e.currentTarget.dataset.num;
+        deliveryTrack.getState(num, res => {
+            wx.navigateTo({
+                url: '/pages/delivery_detail/delivery_detail'
+            });
+        });
+    }
 })

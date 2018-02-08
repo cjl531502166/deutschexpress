@@ -32,4 +32,5 @@
         </navigator>
         <view wx:if='{{order_list.length==0}}' class='no-result'>找到0条数据</view>
     </view>
+    <navigator url='/pages/index/index' open-type='reLaunch' class='btn btn-block btn-default'>返回首页</navigator>
 </view>

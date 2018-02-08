@@ -11,14 +11,11 @@
             <view class='ps-name'>
                 <icon class='iconfont'></icon>{{item.sender.name}}</view>
             <view>
-                <block wx:if='{{item.delivery_no}}'>单号：
-                    <text class='order-num'>{{item.delivery_no}}</text>
-                </block>
-                <block wx:else>单号：
-                    <text>暂无单号</text>
-                </block>
+                单号：<text wx:if='{{item.delivery_no}}' data-num='{{item.delivery_no}}' bindtouchend='trackPkg' class='order-num'>{{item.delivery_no}}</text>
+                <text wx:else>暂无单号</text>
             </view>
-            <navigator url='/pages/pkgdetail/pkgdetail?oid={{item.order_sn}}&pid={{item.packageid}}' class='read-detail'>查看详情</navigator>
+            <navigator wx:if='{{item.packageid}}' url='/pages/pkgdetail/pkgdetail?oid={{item.order_sn}}&pid={{item.packageid}}' class='read-detail'>查看详情</navigator>
+            <navigator wx:if='{{!item.packageid}}' url='/pages/order_detail/detail?id={{item.order_sn}}'  class='read-detail'>查看详情</navigator>
         </view>
     </view>
 </view>

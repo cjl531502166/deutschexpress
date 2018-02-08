@@ -3,9 +3,10 @@ import Login from './components/modals/login.js';
 import One from './utils/one.js';
 App({
     onLaunch: function () {
-        this.getUserInfo();
+        // this.getUserInfo();
     },
     getUserInfo(cb) {
+        var that = this;
         wx.getSetting({
             success: res => {
                 if (!res.authSetting['scope.userInfo']) {
@@ -16,7 +17,7 @@ App({
                             wx.getUserInfo({
                                 success: res => {
                                     // 可以将 res 发送给后台解码出 unionId
-                                    this.globalData.userInfo = res.userInfo;
+                                    that.globalData.userInfo = res.userInfo;
                                     cb && cb(res)
                                 }
                             });
@@ -26,7 +27,7 @@ App({
                     wx.getUserInfo({
                         success: res => {
                             // 可以将 res 发送给后台解码出 unionId
-                            this.globalData.userInfo = res.userInfo;
+                            that.globalData.userInfo = res.userInfo;
                             cb && cb(res)
                         }
                     })

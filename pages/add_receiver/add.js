@@ -31,8 +31,9 @@ Page({
     onLoad: function (options) {
         let countrys = [], provinces = [], that = this;
         this.data.fromPage = options.page ? options.page : null;
+        console.log(this.data.fromPage);
         // 如果源页面是下单页面--则需要对国家进行筛选
-        if (this.data.fromPage) {
+        if (this.data.fromPage == 'order') {
             if (deliveryConfig.orderType == 'germany') {
                 this.setData({
                     country: 'Germany(Deutschland)',
@@ -56,6 +57,10 @@ Page({
                         countrys: countrys
                     });
                 });
+                One.ajax('geo/province', {}, res => {
+                    provinces = res.data.data;
+                    this.setData({ provinces: provinces })
+                });
             }
         } else {
             One.ajax('geo/country', {}, res => {
@@ -75,7 +80,7 @@ Page({
     },
     inputCity(e) {
         let city = e.detail.value, addressZn;
-        if (city && /^[A-Za-z]+$/.test(city) == false) {
+        if (city && /^[A-Za-z]+$/.test(city.replace(/\s+/g, "")) == false) {
             M._alert('请用英文填写');
             this.setData({
                 city: '',
@@ -229,9 +234,9 @@ Page({
             "name": name,
             "cellphone": tel,
             "country": this.data.country,
-            "county": this.data.county,
-            "province": this.data.province,
-            "city": this.data.city || this.data.city,
+            "county": this.data.county ? this.data.county : '',
+            "province": this.data.province ? this.data.province : '',
+            "city": this.data.city ? this.data.city:'',
             "address": addrDetail,
             "postnumber": code,
             "asdefault": this.data.saveAddr,

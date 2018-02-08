@@ -30,7 +30,8 @@ Page({
         },
         "viewObj": [
 
-        ]
+        ],
+        "completed": false
     },
 
     /**
@@ -114,7 +115,7 @@ Page({
         let val = e.detail.value,
             id = e.currentTarget.dataset.id,
             regNum = /^[1-9]\d*$/;
-        if (!regNum.test(val)) {
+        if (val && !regNum.test(val)) {
             M._alert('数量必须为非0整数')
         } else {
             this.data.viewObj[id].goods.num = val;
@@ -130,17 +131,28 @@ Page({
     chkDescp(e) {
         let val = e.detail.value,
             id = e.currentTarget.dataset.id;
-        this.data.viewObj[id].goods.description = val
+        if (val == '') return false;
+        if (/^[a-zA-Z]+$/.test(val)) {
+            this.data.viewObj[id].goods.description = val;
+        } else {
+            M._alert('请输入英文描述');
+        }
     },
     chkPrice(e) {
         let val = e.detail.value,
-            id = e.currentTarget.dataset.id;
+            id = e.currentTarget.dataset.id,
+            reg = /^\d+(?=\.{0,1}\d+$|$)/;
+        if (val == '') return false;
+        if (val && !reg.test(val)) {
+            M._alert('请输入正确的数字');
+            return false
+        };
         if (val <= 0) {
             M._alert('单价必须大于0');
-            return
-        }
-        if (val && isNaN(val)) {
-            M._alert('价格必须为数字')
+            return false
+        };
+        if (isNaN(val)) {
+            M._alert('价格必须为数字');
         } else {
             this.data.viewObj[id].goods.price = val;
             // 计算海关报价
@@ -150,12 +162,15 @@ Page({
                     "viewObj": this.data.viewObj
                 })
             }
-        }
+        };
     },
     chkWeight(e) {
         let val = e.detail.value,
             id = e.currentTarget.dataset.id;
-        if (val && val > 0) {
+        if (val != '' && val == 0) {
+            M._alert('总净重必须大于0')
+            return false;
+        } else {
             let total = 0;
             if (isNaN(val)) {
                 M._alert('重量必须为数字');
@@ -171,9 +186,6 @@ Page({
             } else {
                 this.data.viewObj[id].goods.weight = val;
             }
-
-        } else {
-            M._alert('总净重必须大于0')
         }
     },
     // 购买包裹重量
@@ -212,36 +224,44 @@ Page({
         let currPackage = {}, goodsArr = [], that = this;
         if (!this.data.package.weight) {
             M._alert('请填写购买包裹总重量');
-            return
+            return false
         }
         if (this.data.viewObj.length <= 0) {
             M._alert('请添加品种');
-            return
+            return false
         }
         // 判断包裹内容
-        this.data.viewObj.forEach((item, index) => {
+        this.data.viewObj.forEach((item, index, arr) => {
             for (let key in item.goods) {
                 if (item.goods[key] == '') {
                     M._alert('请确认页面信息填写正确后提交');
-                    return;
+                    that.data.completed = false;
+                    return false;
+                } else {
+                    that.data.completed = true;
                 }
             }
-            goodsArr.push(that.data.viewObj[index].goods)
+            goodsArr.push(that.data.viewObj[index].goods);
+        });
+        if (that.data.completed) {
             currPackage = {
                 "weight": that.data.package.weight,
                 "fee": that.data.package.fee,
                 "goods": goodsArr
-            }
-        });
-        if (that.data.packageId) {
-            //修改
-            deliveryConfig.packageList.splice(that.data.id, 1, currPackage)
-        } else {
-            //添加
-            deliveryConfig.packageList.push(currPackage);
-        }
-        wx.redirectTo({
-            url: '/pages/delivery/delivery'
-        })
+            };
+            if (that.data.packageId) {
+                deliveryConfig.packageList.map((item, index, arr) => {
+                    if (item.id == that.data.packageId) {
+                        deliveryConfig.packageList.splice(index, 1, currPackage);
+                    }
+                });
+            } else {
+                //添加
+                deliveryConfig.packageList.push(currPackage);
+            };
+            wx.redirectTo({
+                url: '/pages/delivery/delivery'
+            });
+        };
     }
 })

@@ -1,6 +1,6 @@
 <!-- 物流详情 -->
 <view class='dl-detail-container'>
     <view class='delivery-detail'>
-        <view class='stateBox' nodes='{{deliveryState.shipment}}'></view>
+        <rich-text class='stateBox' nodes='{{html}}'></rich-text>
     </view>
 </view>

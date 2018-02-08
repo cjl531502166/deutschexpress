@@ -40,6 +40,7 @@
   background: #fff;
   padding: 15px;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 .list-head{
   font-size: 16px;

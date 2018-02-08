@@ -1,4 +1,5 @@
 /* pages/newsdetail/newsdetail.wxss */
+
 .news-detail{
     padding: 15px;
     margin: 10px 0;

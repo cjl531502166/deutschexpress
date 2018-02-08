@@ -53,5 +53,5 @@
         </view> -->
     </view>
     <view wx:if='{{orderInfo.status == "超重订单"}}' bindtap='payExcharge' class='btn btn-block btn-primary'>补款</view>
-    <view class='btn btn-block btn-default'>取消包裹</view>
+    <navigator url='/pages/index/index' open-type='redirectTo' class='btn btn-block btn-default'>返回首页</navigator>
 </view>

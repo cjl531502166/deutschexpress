@@ -44,7 +44,8 @@ Page({
                 unPaid: that.data.unPaid,
                 additionalPay: that.data.additionalPay
             });
-        })
+        });
+        
     },
     //修改订单
     editOrder(e) {
@@ -53,7 +54,8 @@ Page({
         deliverConfig.deliver_type_id = orderModel.orderInfo.delivery_type_id;
         deliverConfig.currReceiver = orderModel.orderInfo.receiver;
         deliverConfig.currSender = orderModel.orderInfo.sender;
-        deliverConfig.packageList = orderModel.orderInfo.packages;
+        deliverConfig.packageList = orderModel.orderInfo.packages ? orderModel.orderInfo.packages:[];
+        deliverConfig.weight = orderModel.orderInfo.weight;
         deliverConfig.fee = orderModel.orderInfo.fee;
         wx.redirectTo({
             url: '/pages/delivery/delivery?id=' + order_sn
