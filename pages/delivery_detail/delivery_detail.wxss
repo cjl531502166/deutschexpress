@@ -1,84 +1,44 @@
 /* 物流详情样式 */
 @import '../excharge_detail/excharge_detail.wxss';
-.item-value .name {
-    margin-right: 10px;
+
+.hover {
+    background-color: #ef5285 !important;
+    color: white;
 }
 
-.delivery-detail{
-    margin-top: 10px;
-    padding: 15px;
+a, a:visited {
+    text-decoration: none;
+    color: 004e66;
+}
+
+th {
+    text-align: center;
+}
+
+
+.highlight {
+    background-color: #a5dff9;
+    font-size: 16px;
+}
+
+
+.ui-body-d{
+    width: 100%!important;
+    display: flex;
+    flex-direction: column;
+    font-size: 16px!important;
     background: #fff;
-    color:#666;
 }
-.li .view:last-child{
-    border-bottom: 1px solid #eee;
-    margin-bottom: 8px;
+.ui-body-d th{
+    width: auto!important;
+    font-size: 16px!important;
+    flex: 1 !important;
 }
-.li:last-child .view:last-child{
-    border-bottom: none;
+.ui-body-d tr{
+    display: flex !important;
+    justify-content: space-between!important;
 }
-.li .view:last-child{
-    text-align: right;
-}
-.stateBox .li{
-    position: relative;
-    font-size: 14px;
-}
-.stateBox .li:last-child .view:nth-child(1) text:nth-child(2){
-    display: none;
-}
-.stateBox .li .view:nth-child(1){
-    width: 14px;
-    height: 100%;
-    position: absolute;
-}
-.stateBox .li .view:nth-child(1) text:nth-child(1){
-    display: block;
-    width: 10px;
-    height: 10px;
-    background: #999;
-    border: 2px solid #dfdfdf;
-    border-radius: 50%;
-}
-.stateBox .li .view:nth-child(1) text:nth-child(2){
-    display: block;
-    width: 1px;
-    height: calc(100% - 6px);
-    background: #999;
-    margin: 0 auto;
-}
-
-.stateBox .li .view:nth-child(2){
-    margin-left: 24px;
-    padding-bottom: 10px;
-}
-.stateBox .li .view:nth-child(2) view{
-    margin-bottom: 5px;
-}
-.stateBox .li .view:nth-child(2) view:last-child{
-    margin-bottom: 0;
-}
-.stateBox .li button{
-    font-size: 1.2rem;
-    height: auto;
-    padding: 3px 10px;
-    background: #999;
-    border-radius: 2px;
-}
-
-.stateBox .li.active{
-    color: #66b010;
-}
-.stateBox .li.active .light{
-    color: #82a8ff;
-}
-.stateBox .li.active .view:nth-child(1) text:nth-child(1){
-    background: #6ab305;
-    border: 2px solid #b9e9b0;
-}
-.stateBox .li.active .view:nth-child(1) text:nth-child(2){
-    background: #6ab305;
-}
-.stateBox li.active button{
-    background: #ff4c45;
+.ui-body-d td{
+    font-size: 12px!important;
+    border: 1px solid #eee !important;
 }

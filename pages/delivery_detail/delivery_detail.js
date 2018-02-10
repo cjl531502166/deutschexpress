@@ -3,12 +3,13 @@ import deliveryState from '../../models/delivery.state.js';
 Page({
     data: {
         deliveryState: deliveryState,
-        html:''
+        html: ''
     },
-    onLoad(){
-        console.log(this.data.deliveryState.shipment);
+    onLoad() {
+        let that = this,
+            str = this.data.deliveryState.shipment;
         this.setData({
-            html: `${this.data.deliveryState.shipment}`
+            html: str
         });
     }
 })
