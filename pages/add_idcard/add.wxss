@@ -1,0 +1,32 @@
+/* pages/add_idcard/add.wxss */
+@import '../pkginfo/pkginfo.wxss';
+
+.detail-info {
+    margin-top: 0;
+}
+
+.btn {
+    margin-top: 30px;
+}
+
+checkbox-group {
+    padding: 10px 15px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+.upload{
+    padding: 10px 15px;
+    background: #fff;
+    height: 40px;
+}
+.upload-btn{
+    border: 1px dashed #469ff8;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+.upload-btn text{
+    font-size: 16px;
+    color:#999;
+}

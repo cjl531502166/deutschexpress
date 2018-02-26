@@ -1,6 +1,20 @@
 <!-- 物流详情 -->
 <view class='dl-detail-container'>
     <view class='delivery-detail'>
-        <rich-text class='stateBox' nodes='{{html}}'></rich-text>
+        <view wx:if='{{result.length>0}}' class='stateBox'>
+            <view wx:for='{{result}}' wx:key='index' class='li {{index==0?"active":""}}'>
+                <view class='view'>
+                    <text></text>
+                    <text></text>
+                </view>
+                <view class='view'>
+                    <view>{{item.context}}</view>
+                    <view>
+                        <text>{{item.time}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class='get-data' wx:else>暂无数据</view>
     </view>
 </view>

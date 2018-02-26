@@ -7,7 +7,7 @@ export default {
             { "delivery_no": delivery_no },
             res => {
                 if (res.data.data != null) {
-                    deliveryState.shipment = res.data.data.html;
+                    deliveryState.shipment = res.data.data.html.data;
                     cb && cb(res);
                 } else {
                     M._alert(res.data.msg);
