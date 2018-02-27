@@ -21,7 +21,12 @@ Page({
         pkgList: [],
         isOK: false,
         inputable: '',
-        deliver_type_id: 0
+        deliver_type_id: 0,
+        needPkg: false,//是否需要添加包裹,
+        showDeliveryRange: false,
+        uploadIDCard: false,//是否需要上传身份证
+        IDFrontUploaded: false,//是否上传在身份证正面
+        IDBackUploaded: false,//是否上传身份证反面
     },
     /**
      * 生命周期函数--监听页面加载
@@ -29,7 +34,7 @@ Page({
     onLoad: function (options) {
         // 初始化数据
         let totalWeight = 0,
-            order_sn = options.id?options.id:'',
+            order_sn = options.id ? options.id : '',
             amount = deliveryConfig.fee - 0,//订单运费
             deliver_type_id = deliveryConfig.deliver_type_id ? deliveryConfig.deliver_type_id : '',
             invoice_switch = deliveryConfig.invoice_switch,
@@ -38,7 +43,21 @@ Page({
             pkgList = deliveryConfig.packageList;
         //获取订单类型
         options.delivery_range && (deliveryConfig.orderType = options.delivery_range);
-        this.setData({ inputable: deliveryConfig.orderType == 'international' ? 'disabled' : '' });
+        if (['international', 'clearcustom'].indexOf(deliveryConfig.orderType) >= 0) {
+            this.data.inputable = 'disabled';
+            this.data.needPkg = true;
+            this.data.showDeliveryRange = true;
+        } else {
+            this.data.inputable = 'disabed';
+            this.data.needPkg = false;
+            this.data.showDeliveryRange = false;
+        };
+        //是否需要上传身份证
+        if (receiverInfo && receiverInfo.idcard_no == null) {
+            this.data.uploadIDCard = true;
+        } else {
+            this.data.uploadIDCard = false;
+        }
         //直接返回首页之后，重新选了订单类型，应该清空之前的pkglist
         deliveryConfig.orderType != 'international' && (deliveryConfig.packageList = []);
         if (pkgList.length > 0) {
@@ -47,10 +66,10 @@ Page({
                 totalWeight += pkgList[i].weight - 0;
             };
         } else {
-            totalWeight = deliveryConfig.weight?deliveryConfig.weight - 0:0;
+            totalWeight = deliveryConfig.weight ? deliveryConfig.weight - 0 : 0;
         }
         //计算运费
-        if (totalWeight > 0 && totalWeight <=30) {
+        if (totalWeight > 0 && totalWeight <= 30) {
             deliveryService.calcFee(
                 {
                     "delivery_range": deliveryConfig.orderType,
@@ -61,17 +80,13 @@ Page({
                     this.setData({ amount: deliveryConfig.fee });
                 }
             );
-        }else if(totalWeight>30){
+        } else if (totalWeight > 30) {
             M.alert('订单超重');
         }
-
-        //设置发票
-        this.setData({
-            "invoice_switch": invoice_switch == 'on' ? true : false
-        });
         //获取物流配置
-        if (options.delivery_range == 'international' && deliveryConfig.delivers == null) {
+        if (this.data.showDeliveryRange && deliveryConfig.delivers == null) {
             deliveryService.getDelivers(() => {
+                console.log(deliveryConfig);
                 this.setData({
                     "deliveryConfig": deliveryConfig
                 })
@@ -89,7 +104,12 @@ Page({
             "totalWeight": totalWeight == 0 ? '' : totalWeight,
             "pkgList": pkgList,
             "order_sn": order_sn,
-            "deliver_type_id": deliver_type_id
+            "deliver_type_id": deliver_type_id,
+            "invoice_switch": invoice_switch == 'on' ? true : false,
+            "inputable": this.data.inputable,
+            "needPkg": this.data.needPkg,
+            "showDeliveryRange": this.data.showDeliveryRange,
+            "uploadIDCard": this.data.uploadIDCard
         });
     },
     onHide() {
@@ -208,6 +228,17 @@ Page({
             url: '/pages/receiver_list/receiver_list'
         })
     },
+    // 身份证上传
+    uploadImage() {
+        wx.chooseImage({
+            success: function (res) {
+                let path = res.tempFilePaths[0];
+                One.uploadFile('url', path, res => {
+                    console.log(res.data);
+                });
+            },
+        })
+    },
     // 添加发件人信息
     addSender() {
         wx.navigateTo({
@@ -241,19 +272,29 @@ Page({
             M._alert('请添加收件人');
             return false
         }
-        if (this.data.delivery_range == 'international' && this.data.senderInfo == '') {
-            M._alert('请添加发件人');
-            return false
+        if (this.data.delivery_range == 'clearcustom') {
+            if (!this.data.IDFrontUploaded) {
+                M._alert('请上传身份证正面照');
+                return false
+            } else if (!this.data.IDBackUploaded) {
+                M._alert('请上传身份证背面照');
+                return false
+            }
         }
-        if (this.data.delivery_range == 'international' && this.data.pkgList.length == 0) {
-            M._alert('请添加包裹');
-            return false
+        if (['international', 'clearcustom'].indexOf(this.data.delivery_range) >= 0) {
+            if (this.data.senderInfo == '') {
+                M._alert('请添加发件人');
+                return false
+            } else if (this.data.pkgList.length == 0) {
+                M._alert('请添加包裹');
+                return false
+            }
         }
         if (this.data.totalWeight == 0) {
             M._alert('购买包裹总重量不能为0');
             return false;
         }
-        if(this.data.totalWeight >=30){
+        if (this.data.totalWeight >= 30) {
             M._alert('订单超重');
             return false;
         }
@@ -273,7 +314,7 @@ Page({
                 "packages": this.data.pkgList,
                 "weight": this.data.totalWeight
             };
-            if (this.data.order_sn !='') data.order_sn = this.data.order_sn;
+            if (this.data.order_sn != '') data.order_sn = this.data.order_sn;
             One.ajax(port, data, res => {
                 if (!res.data.code) {
                     this.data.order_sn = res.data.data.order_sn;

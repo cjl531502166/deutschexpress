@@ -2,7 +2,7 @@ class One {
     config = {
         requestURI: 'https://gd.letwx.com/v1/',
         token: wx.getStorageSync('token')
-    }
+    };
     ajax(port, data, succCb, failCb, method) {
         wx.showLoading({
             title: '数据加载中',
@@ -31,12 +31,26 @@ class One {
                 this.showError(JSON.stringify(res.data));
             }
         })
-    }
+    };
     showError(errMsg) {
         wx.showModal({
             title: '错误',
             content: errMsg,
             showCancel: false
+        })
+    };
+    uploadFile(port, filepath, formData, succCb, failCb) {
+        wx.uploadFile({
+            url: this.config.requestURI + port + '?token=' + this.config.token,
+            filePath: filepath,
+            name: 'file',
+            formData: formData ? formData : {},
+            success: (res) => {
+                succCb && succCb(res);
+            },
+            fail: (res) => {
+                failCb && failCb(res);
+            }
         })
     }
 }

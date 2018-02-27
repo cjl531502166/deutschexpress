@@ -1,9 +1,9 @@
 {
     "pages": [
+        "pages/index/index",
         "pages/add_idcard/add",
         "pages/idcards/idcards_list",
         "pages/edit_idcard/edit",
-        "pages/index/index",
         "pages/pkginfo/pkginfo",
         "pages/news_notices/news_notice",
         "pages/invoice_copy/invoice_copy",

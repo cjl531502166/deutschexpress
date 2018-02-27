@@ -115,6 +115,26 @@
     justify-content: center;
 }
 
+/* 身份证上传 */
+
+.upload {
+    padding: 10px 15px;
+    background: #fff;
+    height: 40px;
+}
+
+.upload-btn {
+    border: 1px dashed #469ff8;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.upload-btn text {
+    font-size: 16px;
+    color: #999;
+}
+
 /* 发票 */
 
 .invoice {
@@ -258,7 +278,7 @@
     color: #555;
 }
 
-.ft-btn view,.btn-contact{
+.ft-btn view, .btn-contact {
     flex: 1;
     font-size: 18px;
     border-radius: 0px;
@@ -281,14 +301,17 @@
 .btn-smt {
     background: #1a81fd;
 }
-.btn-contact{
+
+.btn-contact {
     line-height: 1;
     background: #fff;
 }
-.btn-contact::after{
+
+.btn-contact::after {
     border: none;
     border-radius: none;
 }
+
 .btn-contact icon {
     font-size: 24px;
     margin-right: 6px;

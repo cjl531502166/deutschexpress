@@ -1,7 +1,7 @@
 <!-- 我要下单页面 -->
 <view class='container'>
     <!-- 选择物流 -->
-    <block wx:if='{{delivery_range =="international"}}'>
+    <block wx:if='{{showDeliveryRange}}'>
         <view class='section-head'>请选择物流渠道</view>
         <view class='delivery-suppliers'>
             <radio-group class="radio-group" bindchange="radioChange">
@@ -53,6 +53,18 @@
             <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country?receiverInfo.country:''}},{{receiverInfo.province?receiverInfo.province:''}}{{receiverInfo.city?receiverInfo.city:''}}{{receiverInfo.district?receiverInfo.district:''}},{{receiverInfo.address?receiverInfo.address:''}}</text>
             <icon class='icon-add iconfont wx-icon-add'></icon>
         </view>
+        <view wx:if='{{uploadIDCard}}' class='upload-zone'>
+            <view bindtap='uploadImage' class='upload'>
+                <view class='upload-btn'>
+                    <text>点击上传身份证（正面）</text>
+                </view>
+            </view>
+            <view bindtap='uploadImage' class='upload'>
+                <view class='upload-btn'>
+                    <text>点击上传身份证（反面）</text>
+                </view>
+            </view>
+        </view>
         <view bindtap='addSender' class='info-item'>
             <view class='receive rel'>
                 <text>发</text>
@@ -63,7 +75,7 @@
         </view>
     </view>
     <!-- 包裹信息 -->
-    <block wx:if='{{delivery_range =="international"}}'>
+    <block wx:if='{{needPkg}}'>
         <view class='section-head'>包裹信息</view>
         <view class='pkg-section'>
             <view class='pkg-info'>

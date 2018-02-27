@@ -139,10 +139,6 @@ Page({
     },
     goToPage(e) {
         let url = e.currentTarget.dataset.url;
-        if (url === '/pages/delivery/delivery?delivery_range=clearcustom') {
-            M._alert('该功能将在后期版本开放');
-            return false;
-        }
         // 页面跳转
         wx.navigateTo({
             url: url
