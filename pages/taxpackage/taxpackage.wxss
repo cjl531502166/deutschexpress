@@ -1,0 +1,25 @@
+/* pages/taxpackage/taxpackage.wxss */
+@import '../pkginfo/pkginfo.wxss';
+
+.icon-arrow {
+  width: 30px;
+}
+.info-item{
+  justify-content: space-between;
+}
+.item-name {
+  white-space: nowrap !important;
+}
+.specify-style{
+  width: 100%;
+}
+.specify-style text{
+  display: inline-block;
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-default{
+  text-align: right;
+}

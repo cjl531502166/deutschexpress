@@ -24,7 +24,7 @@ Page({
     },
     onShareAppMessage(res) {
         return {
-            "title": "德意志物流",
+            "title": "乐志物流，十分钟快速出单",
             "path": "/pages/index/index?meta=" + this.data.userid,
             "imageUrl": "/images/share.jpg",
             "success":res =>{

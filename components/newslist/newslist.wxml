@@ -2,8 +2,8 @@
 <template name='newsList'>
     <navigator url='/pages/newsdetail/newsdetail?&id={{id}}'>
         <view class='list-item'>
-            <text class='news-title'>{{title}}</text>
-            <text class='news-date'>{{updated_at}}</text>
+            <text class='news-title'>{{id}}、{{title}}</text>
+            <!-- <text class='news-date'>{{updated_at}}</text> -->
         </view>
     </navigator>
 </template>

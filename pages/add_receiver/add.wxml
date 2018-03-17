@@ -1,79 +1,79 @@
 <!-- 添加收件人 -->
 <view class='add-receiver'>
-    <view class='section-head'>收件人信息</view>
-    <view class='detail-info'>
-        <view class='info-item'>
-            <text class='item-name'>收件人</text>
-            <input bindblur='setCnName' type='text' placeholder='真实姓名' value='{{name}}' />
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>联系电话</text>
-            <input bindblur='getTel' type='text' value='{{cellphone}}' placeholder='手机或固话' />
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>收件国</text>
-            <picker bindchange='bindCountryChange' value='{{countryIndex}}' range-key="v" range='{{countrys}}'>
-                <view class="picker">
-                    <input placeholder="请选择国家" value="{{country}}" disabled='disabled' />
-                </view>
-            </picker>
-        </view>
-        <block wx:if='{{country =="China(中国)"}}'>
-            <view class='info-item'>
-                <text class='item-name'>省份</text>
-                <picker bindchange="bindProvinceChange" value="{{index}}" range="{{provinces}}">
-                    <view class="picker">
-                        <input placeholder="请选择省份" value="{{province}}" disabled='disabled' />
-                    </view>
-                </picker>
-            </view>
-            <view class='info-item'>
-                <text class='item-name'>城市</text>
-                <picker bindchange="bindCityChange" value="{{index}}" range="{{citys}}">
-                    <view class="picker">
-                        <input placeholder="请选择城市" value="{{city}}" disabled='disabled' />
-                    </view>
-                </picker>
-            </view>
-            <view class='info-item'>
-                <text class='item-name'>地区</text>
-                <picker bindchange="bindCountyChange" value="{{index}}" range="{{countys}}">
-                    <view class="picker">
-                        <input placeholder="请选择地区" value="{{county}}" disabled='disabled' />
-                    </view>
-                </picker>
-            </view>
-        </block>
-        <block wx:else>
-            <view class='info-item'>
-                <text class='item-name'>城市</text>
-                <input bindinput='inputCity' type='text' placeholder='请输入城市' value='{{city}}' />
-            </view>
-        </block>
-        <view class='info-item'>
-            <text class='item-name'>详细地址</text>
-            <textarea bindblur='getDetailAddr' type='text' placeholder='街道门牌信息' value='{{addrDetail}}'></textarea>
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>邮政编码</text>
-            <input bindblur='checkPostcode' type='text' value='{{postnumber}}' placeholder='填写邮政编码' />
-        </view>
+  <view class='section-head'>收件人信息</view>
+  <view class='detail-info'>
+    <view class='info-item'>
+      <text class='item-name'>收件人</text>
+      <input bindblur='setCnName' type='text' placeholder='真实姓名' value='{{name}}' />
     </view>
-    <view class='warn-text'>收件人拼音信息，填写上面的中文信息后系统将会自动翻译，请人工检查确认无误后再提交</view>
-    <view class='detail-info'>
-        <view class='info-item'>
-            <text class='item-name'>收件人</text>
-            <input class='translate-text' type='text' value="{{receiverZn}}" placeholder='收件人姓名（拼音）' />
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>地址</text>
-            <textarea class='translate-text' type='text' placeholder='地址' value='{{addressZn}}'></textarea>
-        </view>
+    <view class='info-item'>
+      <text class='item-name'>联系电话</text>
+      <input bindblur='getTel' type='text' value='{{cellphone}}' placeholder='手机或固话' />
     </view>
-    <checkbox-group bindchange="checkboxChange">
-        <label wx:if='{{fromPage}}' class="checkbox">
-            <checkbox value='{{saveAddr}}' checked="{{saveAddr}}" />设为默认收件人
-        </label>
-    </checkbox-group>
-    <view bindtouchend='saveHandle' class='btn btn-block btn-primary'>保存</view>
+    <view class='info-item'>
+      <text class='item-name'>收件国</text>
+      <picker bindchange='bindCountryChange' value='{{countryIndex}}' range-key="v" range='{{countrys}}'>
+        <view class="picker">
+          <input placeholder="请选择国家" value="{{country}}" disabled='disabled' />
+        </view>
+      </picker>
+    </view>
+    <block wx:if='{{country =="中国"}}'>
+      <view class='info-item'>
+        <text class='item-name'>省份</text>
+        <picker bindchange="bindProvinceChange" value="{{index}}" range="{{provinces}}">
+          <view class="picker">
+            <input placeholder="请选择省份" value="{{province}}" disabled='disabled' />
+          </view>
+        </picker>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>城市</text>
+        <picker bindchange="bindCityChange" value="{{index}}" range="{{citys}}">
+          <view class="picker">
+            <input placeholder="请选择城市" value="{{city}}" disabled='disabled' />
+          </view>
+        </picker>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>地区</text>
+        <picker bindchange="bindCountyChange" value="{{index}}" range="{{countys}}">
+          <view class="picker">
+            <input placeholder="请选择地区" value="{{county}}" disabled='disabled' />
+          </view>
+        </picker>
+      </view>
+    </block>
+    <block wx:else>
+      <view class='info-item'>
+        <text class='item-name'>城市</text>
+        <input bindinput='inputCity' type='text' placeholder='请输入城市' value='{{city}}' />
+      </view>
+    </block>
+    <view class='info-item'>
+      <text class='item-name'>详细地址</text>
+      <textarea bindblur='getDetailAddr' type='text' placeholder='街道门牌信息' value='{{addrDetail}}'></textarea>
+    </view>
+    <view class='info-item'>
+      <text class='item-name'>邮政编码</text>
+      <input bindblur='checkPostcode' type='text' value='{{postnumber}}' placeholder='填写邮政编码' />
+    </view>
+  </view>
+  <view class='warn-text'>收件人拼音信息，填写上面的中文信息后系统将会自动翻译，请人工检查确认无误后再提交</view>
+  <view class='detail-info'>
+    <view class='info-item'>
+      <text class='item-name'>收件人</text>
+      <input class='translate-text' type='text' value="{{receiverZn}}" placeholder='收件人姓名（拼音）' />
+    </view>
+    <view class='info-item'>
+      <text class='item-name'>地址</text>
+      <textarea class='translate-text' type='text' placeholder='地址' value='{{addressZn}}'></textarea>
+    </view>
+  </view>
+  <checkbox-group bindchange="checkboxChange">
+    <label wx:if='{{fromPage}}' class="checkbox">
+      <checkbox value='{{saveAddr}}' checked="{{saveAddr}}" />设为默认收件人
+    </label>
+  </checkbox-group>
+  <view bindtouchend='saveHandle' class='btn btn-block btn-primary'>保存</view>
 </view>

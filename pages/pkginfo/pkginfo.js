@@ -79,7 +79,6 @@ Page({
             })
         });
     },
-
     // 添加品种
     addCate() {
         if (!this.data.package.weight) {
@@ -92,7 +91,7 @@ Page({
         });
         this.setData({
             "viewObj": this.data.viewObj
-        })
+        });
     },
     // 品种选择
     bindCateChange(e) {
@@ -264,4 +263,4 @@ Page({
             });
         };
     }
-})
+});

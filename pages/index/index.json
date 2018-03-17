@@ -1,5 +1,5 @@
 {
-    "navigationBarTitleText": "乐智一路通",
+    "navigationBarTitleText": "乐智物流",
     "usingComponents": {
         "swiper-comp": "../../components/swiper_comp/swiper",
         "latest-pkg":"../../components/latest_pkglist/latest_pkglist"

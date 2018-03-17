@@ -112,10 +112,10 @@
             <view class='dialog-hd'><text>请填写您的邮箱\n用于接收电子版包裹单</text></view>
             <view class='dialog-bd'>
                 <input bindinput='getEmailArr' type='email' placeholder='输入邮箱地址'></input>
+                <text class='err-text'>{{errMsg}}</text>
             </view>
-            <text class='err-text'>{{errMsg}}</text>
             <view class='dialog-ft'>
-                <view bindtouchend='cancelBindHandle' class='m-btn btn-bd-rt cancel-btn'>取消</view>
+                <!-- <view bindtouchend='cancelBindHandle' class='m-btn btn-bd-rt cancel-btn'>取消</view> -->
                 <view bindtouchend='bindEmailHandle' class='m-btn confirm-btn'>确定</view>
             </view>
         </view>

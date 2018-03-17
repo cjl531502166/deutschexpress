@@ -4,18 +4,19 @@ import newsSevice from '../../services/news.service.js';
 const app = getApp();
 Page({
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    newsModel: newsModel
+  },
+  onLoad() {
+    //获取新闻
+    newsSevice.getNews((res) => {
+      newsModel.newsList.reverse();
+      this.setData({
         newsModel: newsModel
-    },
-    onLoad() {
-        //获取新闻
-        newsSevice.getNews((res) => {
-            this.setData({
-                newsModel: newsModel
-            })
-        });
-    }
+      })
+    });
+  }
 })

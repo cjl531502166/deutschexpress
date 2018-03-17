@@ -1,62 +1,63 @@
 {
-    "pages": [
-        "pages/index/index",
-        "pages/add_idcard/add",
-        "pages/idcards/idcards_list",
-        "pages/edit_idcard/edit",
-        "pages/pkginfo/pkginfo",
-        "pages/news_notices/news_notice",
-        "pages/invoice_copy/invoice_copy",
-        "pages/add_invoice/add",
-        "pages/invoice/invoice",
-        "pages/invoice_list/invoice_list",
-        "pages/edit_invoice/edit",
-        "pages/sender/sender",
-        "pages/add_sender/add",
-        "pages/edit_sender/edit",
-        "pages/sender_list/sender_list",
-        "pages/add_receiver/add",
-        "pages/edit_receiver/edit",
-        "pages/receivers/receivers",
-        "pages/receiver_list/receiver_list",
-        "pages/myinvitee/invitees",
-        "pages/user/user",
-        "pages/delivery_detail/delivery_detail",
-        "pages/editemail/editemail",
-        "pages/order_detail/detail",
-        "pages/excharge_detail/excharge_detail",
-        "pages/myorder/order_list",
-        "pages/myprofile/profile",
-        "pages/excharges/excharge",
-        "pages/mypackage/pkglist",
-        "pages/pkgdetail/pkgdetail",
-        "pages/delivery/delivery",
-        "pages/newsdetail/newsdetail",
-        "pages/feetpl/feetpl"
-    ],
-    "tabBar": {
-        "color": "#000",
-        "selectedColor": "#009aff",
-        "backgroundColor": "#fff",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "text": "首页",
-                "iconPath": "images/pkg_0.png",
-                "selectedIconPath": "images/pkg_1.png"
-            },
-            {
-                "pagePath": "pages/user/user",
-                "text": "我的",
-                "iconPath": "images/user_0.png",
-                "selectedIconPath": "images/user_1.png"
-            }
-        ]
-    },
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#000",
-        "navigationBarTitleText": "德意志服务平台",
-        "navigationBarTextStyle": "#fff"
-    }
+  "pages": [
+    "pages/index/index",
+    "pages/add_idcard/add",
+    "pages/idcards/idcards_list",
+    "pages/edit_idcard/edit",
+    "pages/pkginfo/pkginfo",
+    "pages/news_notices/news_notice",
+    "pages/invoice_copy/invoice_copy",
+    "pages/add_invoice/add",
+    "pages/invoice/invoice",
+    "pages/invoice_list/invoice_list",
+    "pages/edit_invoice/edit",
+    "pages/sender/sender",
+    "pages/add_sender/add",
+    "pages/edit_sender/edit",
+    "pages/sender_list/sender_list",
+    "pages/add_receiver/add",
+    "pages/edit_receiver/edit",
+    "pages/receivers/receivers",
+    "pages/receiver_list/receiver_list",
+    "pages/myinvitee/invitees",
+    "pages/user/user",
+    "pages/delivery_detail/delivery_detail",
+    "pages/editemail/editemail",
+    "pages/order_detail/detail",
+    "pages/excharge_detail/excharge_detail",
+    "pages/myorder/order_list",
+    "pages/myprofile/profile",
+    "pages/excharges/excharge",
+    "pages/mypackage/pkglist",
+    "pages/pkgdetail/pkgdetail",
+    "pages/delivery/delivery",
+    "pages/newsdetail/newsdetail",
+    "pages/feetpl/feetpl",
+    "pages/taxpackage/taxpackage"
+  ],
+  "tabBar": {
+    "color": "#000",
+    "selectedColor": "#009aff",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/pkg_0.png",
+        "selectedIconPath": "images/pkg_1.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "images/user_0.png",
+        "selectedIconPath": "images/user_1.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "乐智物流",
+    "navigationBarTextStyle": "#fff"
+  }
 }

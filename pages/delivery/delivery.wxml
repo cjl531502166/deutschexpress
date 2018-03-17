@@ -1,122 +1,124 @@
 <!-- 我要下单页面 -->
 <view class='container'>
-    <!-- 选择物流 -->
-    <block wx:if='{{showDeliveryRange}}'>
-        <view class='section-head'>请选择物流渠道</view>
-        <view class='delivery-suppliers'>
-            <radio-group class="radio-group" bindchange="radioChange">
-                <block wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}">
-                    <label wx:if='{{item.name=="DHL-Pre优先包"}}' class="radio supplier">
-                        <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
-                        <text>{{item.name}}</text>
-                        <view hidden='{{item.id != deliver_type_id}}'>
-                            <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
-                            <view class='item-1'>
-                                <text>保额：€{{item.extra}}</text>
-                                <text>收件国：{{item.area}}</text>
-                            </view>
-                        </view>
-                    </label>
-                    <label wx:if='{{item.name=="DHL-Eco经济包"}}' class="radio supplier">
-                        <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
-                        <text>{{item.name}}</text>
-                        <view hidden='{{item.id != deliver_type_id}}'>
-                            <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
-                            <view class='item-1'>
-                                <text>保额：€{{item.extra}}</text>
-                                <text>收件国：{{item.area}}</text>
-                            </view>
-                        </view>
-                    </label>
-                    <label wx:if='{{item.name=="EMS"}}' class="radio supplier">
-                        <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
-                        <text>{{item.name}}</text>
-                        <view hidden='{{item.id != deliver_type_id}}'>
-                            <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
-                            <view class='item-1'>
-                                <text>保额：€{{item.extra}}</text>
-                                <text>收件国：{{item.area}}</text>
-                            </view>
-                        </view>
-                    </label>
-                </block>
-            </radio-group>
-        </view>
-    </block>
-    <!-- 收发件 -->
-    <view class='info'>
-        <view bindtap='addReceiver' class='info-item'>
-            <view class='send rel'>
-                <text>收</text>
+  <!-- 选择物流 -->
+  <block wx:if='{{showDeliveryRange}}'>
+    <view class='section-head'>请选择物流渠道</view>
+    <view class='delivery-suppliers'>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <block wx:for='{{deliveryConfig.delivers}}' wx:key="{{item.id}}">
+          <label wx:if='{{item.name=="DHL-Pre优先包"}}' class="radio supplier">
+            <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+            <text>{{item.name}}</text>
+            <view hidden='{{item.id != deliver_type_id}}'>
+              <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+              <view class='item-1'>
+                <text>保额：€{{item.extra}}</text>
+                <text>收件国：{{item.area}}</text>
+              </view>
             </view>
-            <text wx:if='{{!receiverInfo}}' class='add-info'>添加收件人信息</text>
-            <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country?receiverInfo.country:''}},{{receiverInfo.province?receiverInfo.province:''}}{{receiverInfo.city?receiverInfo.city:''}}{{receiverInfo.district?receiverInfo.district:''}},{{receiverInfo.address?receiverInfo.address:''}}</text>
-            <icon class='icon-add iconfont wx-icon-add'></icon>
-        </view>
-        <view wx:if='{{uploadIDCard}}' class='upload-zone'>
-            <view bindtap='uploadImage' class='upload'>
-                <view class='upload-btn'>
-                    <text>点击上传身份证（正面）</text>
-                </view>
+          </label>
+          <label wx:if='{{item.name=="DHL-Eco经济包"}}' class="radio supplier">
+            <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+            <text>{{item.name}}</text>
+            <view hidden='{{item.id != deliver_type_id}}'>
+              <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+              <view class='item-1'>
+                <text>保额：€{{item.extra}}</text>
+                <text>收件国：{{item.area}}</text>
+              </view>
             </view>
-            <view bindtap='uploadImage' class='upload'>
-                <view class='upload-btn'>
-                    <text>点击上传身份证（反面）</text>
-                </view>
+          </label>
+          <label wx:if='{{item.name=="EMS"}}' class="radio supplier">
+            <radio checked='{{item.id == deliveryConfig.deliver_type_id?true:false}}' value='{{item.id}}' />
+            <text>{{item.name}}</text>
+            <view hidden='{{item.id != deliver_type_id}}'>
+              <view class='item-0'>预计天数（工作日）：{{item.expected_arrive}}</view>
+              <view class='item-1'>
+                <text>保额：€{{item.extra}}</text>
+                <text>收件国：{{item.area}}</text>
+              </view>
             </view>
-        </view>
-        <view bindtap='addSender' class='info-item'>
-            <view class='receive rel'>
-                <text>发</text>
-            </view>
-            <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息</text>
-            <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address?senderInfo.address:''}},{{senderInfo.city?senderInfo.city:''}},{{senderInfo.country?senderInfo.country:''}}</text>
-            <icon class='icon-add iconfont wx-icon-add'></icon>
-        </view>
+          </label>
+        </block>
+      </radio-group>
     </view>
-    <!-- 包裹信息 -->
-    <block wx:if='{{needPkg}}'>
-        <view class='section-head'>包裹信息</view>
-        <view class='pkg-section'>
-            <view class='pkg-info'>
-                <view wx:if='{{pkgList.length>0}}' wx:for='{{pkgList}}' wx:for-item='package' wx:key='{{index}}' class='pkg-list'>
-                    <navigator open-type='redirect' url='/pages/pkginfo/pkginfo?packageId={{index}}'>
-                        <view class='list-No'>
-                            <text>包裹{{index+1}}</text>
-                            <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
-                        </view>
-                        <view class='list-item'>
-                            <view wx:for='{{package.goods}}' wx:for-item='goods' wx:key='{{index}}' class='item'>
-                                <text>品种：{{goods.category ||goods.catename}}*{{goods.num}}</text>
-                                <text>单价：{{goods.price}}</text>
-                            </view>
-                        </view>
-                    </navigator>
-                </view>
-            </view>
-            <view class='btn-group'>
-                <view bindtouchend='addPkg' class='btn btn-sm btn-primary'>
-                    <text class='btn-icon'>+</text>添加包裹</view>
-                <view bindtouchend='delPkg' class='btn btn-sm btn-warn'>
-                    <text class='btn-icon'>-</text>删除包裹</view>
-            </view>
-        </view>
-    </block>
-    <!-- 购买包裹单 -->
-    <view class='buy-pkg-weight'>
-        <text>包裹重量（kg）</text>
-        <input bindinput='weightChange' type='number' disabled='{{inputable}}' placeholder='{{inputable?"0":"请填写重量"}}' value='{{totalWeight}}' />
+  </block>
+  <!-- 收发件 -->
+  <view class='info'>
+    <view bindtap='addReceiver' class='info-item'>
+      <view class='send rel'>
+        <text>收</text>
+      </view>
+      <text wx:if='{{!receiverInfo}}' class='add-info'>添加收件人信息</text>
+      <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country?receiverInfo.country:''}},{{receiverInfo.province?receiverInfo.province:''}}{{receiverInfo.city?receiverInfo.city:''}}{{receiverInfo.district?receiverInfo.district:''}},{{receiverInfo.address?receiverInfo.address:''}}</text>
+      <icon class='icon-add iconfont wx-icon-add'></icon>
     </view>
-    <!-- 发票 -->
-    <view class='invoice'>
-        <view class='invo-hd'>
-            <text>是否需要发票</text>
-            <view class='switch-control'>
-                <text>{{invoice_switch?"是":"否"}}</text>
-                <switch checked='{{invoice_switch}}' bindchange='invoWantedChange'></switch>
-            </view>
+    <view wx:if='{{uploadIDCard}}' class='upload-zone'>
+      <view data-side='front' bindtap='uploadImage' class='upload'>
+        <view wx:if='{{fpercent==0}}' class='upload-btn'>
+          <text>点击上传身份证（正面）</text>
         </view>
-        <!-- <view bindtap='addInvoice' hidden='{{!invoice_switch}}' class='invo-bd'>
+        <progress wx:else='percent>0' percent='{{fpercent}}' show-info></progress>
+      </view>
+      <view data-side='back' bindtap='uploadImage' class='upload'>
+        <view wx:if='{{bpercent==0}}' class='upload-btn'>
+          <text>点击上传身份证（反面）</text>
+        </view>
+        <progress wx:else='percent>0' percent='{{bpercent}}' show-info></progress>
+      </view>
+    </view>
+    <view bindtap='addSender' class='info-item'>
+      <view class='receive rel'>
+        <text>发</text>
+      </view>
+      <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息</text>
+      <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address?senderInfo.address:''}},{{senderInfo.city?senderInfo.city:''}},{{senderInfo.country?senderInfo.country:''}}</text>
+      <icon class='icon-add iconfont wx-icon-add'></icon>
+    </view>
+  </view>
+  <!-- 包裹信息 -->
+  <block wx:if='{{needPkg}}'>
+    <view class='section-head'>包裹信息</view>
+    <view class='pkg-section'>
+      <view class='pkg-info'>
+        <view wx:if='{{pkgList.length>0}}' wx:for='{{pkgList}}' wx:for-item='package' wx:key='{{index}}' class='pkg-list'>
+          <navigator open-type='redirect' url='/pages/pkginfo/pkginfo?packageId={{index}}'>
+            <view class='list-No'>
+              <text>包裹{{index+1}}</text>
+              <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
+            </view>
+            <view class='list-item'>
+              <view wx:for='{{package.goods}}' wx:for-item='goods' wx:key='{{index}}' class='item'>
+                <text>品种：{{goods.category ||goods.catename}}*{{goods.num}}</text>
+                <text>单价：{{goods.price}}</text>
+              </view>
+            </view>
+          </navigator>
+        </view>
+      </view>
+      <view class='btn-group'>
+        <view bindtouchend='addPkg' class='btn btn-sm btn-primary'>
+          <text class='btn-icon'>+</text>添加包裹</view>
+        <view bindtouchend='delPkg' class='btn btn-sm btn-warn'>
+          <text class='btn-icon'>-</text>删除包裹</view>
+      </view>
+    </view>
+  </block>
+  <!-- 购买包裹单 -->
+  <view class='buy-pkg-weight'>
+    <text>包裹重量（kg）</text>
+    <input bindinput='weightChange' type='number' disabled='{{inputable}}' placeholder='{{inputable?"0":"请填写重量"}}' value='{{totalWeight}}' />
+  </view>
+  <!-- 发票 -->
+  <view class='invoice'>
+    <view class='invo-hd'>
+      <text>是否需要发票</text>
+      <view class='switch-control'>
+        <text>{{invoice_switch?"是":"否"}}</text>
+        <switch checked='{{invoice_switch}}' bindchange='invoWantedChange'></switch>
+      </view>
+    </view>
+    <!-- <view bindtap='addInvoice' hidden='{{!invoice_switch}}' class='invo-bd'>
             <block wx:if="{{!invoiceInfo}}">
                 <text class='add-info'>添加发票信息</text>
                 <icon class='icon-add iconfont wx-icon-add'></icon>
@@ -126,18 +128,18 @@
                 <icon class='icon-arrow iconfont wx-icon-xiala'></icon>
             </block>
         </view> -->
-    </view>
-    <!-- 订单金额 -->
-    <view class='order-amount'>
-        订单金额（元）：
-        <text>￥{{amount}}</text>
-    </view>
-    <!-- 订单处理 -->
-    <view class='ft-btn'>
-        <button hover-class='none' open-type='contact' session-from="weapp" class='btn-contact'>
-            <icon class='iconfont wx-icon-lianxikefu'></icon> 客服
-        </button>
-        <view bindtouchend='saveOrder' class='btn-save'>暂存</view>
-        <view bindtouchend='submitOrder' class='btn-smt'>提交</view>
-    </view>
+  </view>
+  <!-- 订单金额 -->
+  <view class='order-amount'>
+    订单金额（元）：
+    <text>￥{{amount}}</text>
+  </view>
+  <!-- 订单处理 -->
+  <view class='ft-btn'>
+    <button hover-class='none' open-type='contact' session-from="weapp" class='btn-contact'>
+      <icon class='iconfont wx-icon-lianxikefu'></icon> 客服
+    </button>
+    <view bindtouchend='saveOrder' class='btn-save'>暂存</view>
+    <view bindtouchend='submitOrder' class='btn-smt'>提交</view>
+  </view>
 </view>

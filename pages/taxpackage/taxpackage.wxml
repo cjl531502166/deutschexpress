@@ -1,0 +1,91 @@
+<!--阳光清关-->
+<view class='detail-info'>
+  <view class='info-item'>
+    <text class='item-name'>购买包裹重量（kg）</text>
+    <input type='number' bindinput='chkPkgWeight' value='{{package.weight}}' placeholder='包裹重量' />
+  </view>
+  <view class='info-item'>
+    <text class='item-name'>包裹运费（￥）</text>
+    <input type='number' disabled value='{{package.fee}}' placeholder='包裹运费' />
+  </view>
+</view>
+<block wx:for="{{viewObj}}" wx:for-item="item" wx:key="{{index}}">
+  <view class='section-head'>包裹品种{{index+1}}
+    <button data-id='{{index}}' bindtap='removeItem' type='warn' size='mini'>删除</button>
+  </view>
+  <view class='pkg-detail'>
+    <view style='margin-top:0;' class='detail-info'>
+      <view wx:if='{{tax_categories && tax_categories.length>0}}' class='info-item pinzhong'>
+        <text class='item-name'>品种</text>
+        <picker bindchange="bindCateChange" data-id='{{index}}' range-key='categorycn' value='{{tax_categories[item.cateIndex]}}' range='{{tax_categories}}'>
+          <view class="picker specify-style">
+            <text wx:if="{{item.goods.tax_category}}">{{item.goods.tax_category}}</text>
+            <text class='default-text' wx:else>请选择品种</text>
+
+          </view>
+        </picker>
+      </view>
+      <view wx:if='{{tax_brands && tax_brands.length>0}}' class='info-item pinzhong'>
+        <text class='item-name'>品牌</text>
+        <picker bindchange="bindBrandChange" data-id='{{index}}' range-key='brandcn' value='{{tax_brands[item.brandIndex]}}' range='{{tax_brands}}'>
+          <view class='specify-style'>
+            <text wx:if='{{item.goods.tax_brand}}'>{{item.goods.tax_brand}}</text>
+            <text class='default-text' wx:else>请选择品牌</text>
+          </view>
+        </picker>
+      </view>
+      <view wx:if='{{tax_brand_types && tax_brand_types.length>0}}' class='info-item pinzhong'>
+        <text class='item-name'>品牌类型</text>
+        <picker bindchange='bindTypeChange' data-id='{{index}}' range-key='typecn' value='{{tax_brand_types[item.typeIndex]}}' range='{{tax_brand_types}}'>
+          <view class='specify-style'>
+            <text wx:if='{{item.goods.tax_brand_type}}'>{{item.goods.tax_brand_type}}</text>
+            <text class='default-text' wx:else>请选择品牌类型</text>
+          </view>
+        </picker>
+      </view>
+      <view wx:if='{{specs && specs.length>0}}' class='info-item pinzhong'>
+        <text class='item-name'>规格</text>
+        <picker bindchange='bindSpecChange' data-id='{{index}}' range-key='speccn' value='{{specs[item.specIndex]}}' range='{{specs}}'>
+          <view class='specify-style'>
+            <text wx:if='{{item.goods.spec}}'>{{item.goods.spec}}</text>
+            <text class='default-text' wx:else>请选择规格</text>
+          </view>
+        </picker>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>数量</text>
+        <input type='number' bindblur='chkNum' data-id='{{index}}' value='{{item.goods.num}}' placeholder='请输入数量' />
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>描述</text>
+        <text class='text-default'>{{item.goods.description}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>单价（￥）</text>
+        <text class='text-default'>{{item.goods.pricecn}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>税率</text>
+        <text class='text-default'>{{item.goods.taxrate}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>税费（￥）</text>
+        <text class='text-default'>{{item.goods.taxcn}}</text>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>总净重（kg）</text>
+        <input type='number' bindblur='chkWeight' data-id='{{index}}' value='{{item.goods.weight}}' placeholder='商品净重' />
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>海关报价</text>
+        <text data-id='{{index}}' class='item-text'>{{item.goods.customdeclarprice}}</text>
+      </view>
+    </view>
+  </view>
+</block>
+<view class='btn-group'>
+  <view bindtouchend='addCate' class='btn btn-sm btn-primary'>
+    <text class='btn-icon'>+</text>添加包裹品种</view>
+  <!-- <view bindtouchend='delCate' class='btn btn-sm btn-warn'><text class='btn-icon'>-</text>删除品种</view> -->
+</view>
+<view bindtouchend='confirmAdd' class='btn btn-block btn-primary'>确认</view>
