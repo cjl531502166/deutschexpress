@@ -41,6 +41,7 @@ class One {
     })
   };
   uploadFile(port, filepath, formData, succCb, failCb, processCb) {
+    let that = this;
     wx.uploadFile({
       url: that.config.requestURI + port + '?token=' + that.config.token,
       filePath: filepath,

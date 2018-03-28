@@ -1,10 +1,8 @@
 <!-- 公告列表页面 -->
 <import src='../../components/newslist/newslist.wxml' />
 <block wx:for='{{newsModel.newsList}}' wx:key='{{index}}'>
-    <!-- <view wx:if='{{newsModel.newsList[index].module !=newsModel.newsList[index+1].module}}' class='section-head'>{{item.module}}</view> -->
-    <view class='news-notices'>
-        <block wx:key='{{index}}'>
-            <template is='newsList' data='{{...item}}'></template>
-        </block>
-    </view>
+  <!-- <view wx:if='{{newsModel.newsList[index].module !=newsModel.newsList[index+1].module}}' class='section-head'>{{item.module}}</view> -->
+  <view class='news-notices'>
+    <template is='newsList' data='{{...item}}'></template>
+  </view>
 </block>

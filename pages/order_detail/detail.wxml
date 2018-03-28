@@ -58,7 +58,7 @@
                 <view wx:for='{{item.goods}}' wx:key='{{index}}' wx:for-item='goods' class='list-item'>
                     <view class='item'>
                         <text>品种：{{goods.catename}}</text>
-                        <text>价格：{{goods.price*goods.num}}€</text>
+                        <text>价格：￥{{goods.price*goods.num}}</text>
                     </view>
                     <view class='item'>
                         <text>海关代码</text>

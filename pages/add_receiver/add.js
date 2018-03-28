@@ -37,11 +37,11 @@ Page({
         this.setData({
           country: 'Germany(Deutschland)',
           countrys: [{ "k": "DEUTSCHLAND", "v": "Germany(Deutschland)" }]
-        })
+        });
       } else if (deliveryConfig.orderType == 'europ') {
         One.ajax('geo/country', {}, res => {
           for (var i = 0, len = res.data.data.length; i < len; i++) {
-            if (res.data.data[i].v.indexOf('中国') != -1 && res.data.data[i].v != "Germany(Deutschland)") {
+            if (res.data.data[i].v.indexOf('中国') == -1 && res.data.data[i].v != "Germany(Deutschland)") {
               countrys.push(res.data.data[i]);
             }
           }
@@ -58,7 +58,7 @@ Page({
         });
         One.ajax('geo/province', {}, res => {
           provinces = res.data.data;
-          this.setData({ provinces: provinces })
+          this.setData({ provinces: provinces });
         });
       }
     } else {
@@ -79,8 +79,8 @@ Page({
   },
   inputCity(e) {
     let city = e.detail.value, addressZn;
-    if (city && /^[A-Za-z]+$/.test(city.replace(/\s+/g, "")) == false) {
-      M._alert('请用英文填写');
+    if (city && /^[\u4E00-\u9FA5]$/.test(city.replace(/\s+/g, "")) == true) {
+      M._alert('城市不能包含中文字符');
       this.setData({
         city: '',
         addressZn: ''

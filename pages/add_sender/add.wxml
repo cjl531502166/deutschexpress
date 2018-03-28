@@ -16,7 +16,7 @@
         </view>
         <view class='info-item'>
             <text class='item-name'>邮政编码</text>
-            <input maxlength='5' bindblur='checkPostcode' type='text' value='{{postCode}}' placeholder='5位邮政编码' />
+            <input maxlength='5' bindblur='checkPostcode' type='text' value='{{postnumber}}' placeholder='5位邮政编码' />
         </view>
         <view class='info-item'>
             <text class='item-name'>地址补充信息</text>

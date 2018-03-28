@@ -6,21 +6,21 @@ import deliveryService from '../../services/delivery.service.js';
 import One from '../../utils/one.js';
 Page({
   data: {
-    "fee_tpl": null,
     "packageId": '',
     "tax_categories": null,
     "tax_brands": null,
     "tax_brand_types": null,
+    "specs": null,
+    "maxium": [],
     "brand": '',
     "type": "",
     "spec": "",
-    "specs": null,
     "packageId": '',
     "package": {
       "weight": '',//购买包裹重量
       "fee": 0,//运费
       "goods": {
-        "tax_category": "",
+        "category": "",
         "tax_brand": "",
         "tax_brand_type": "",
         "spec": "",
@@ -30,9 +30,9 @@ Page({
         "taxrate": "",
         "taxeuro": "",
         "taxcn": "",
-        "pricecn": "",
+        "price": "",
         "priceeuro": "",
-        "weight": "",
+        "weight": 1,
         "customdeclarprice": ""
       }
     },
@@ -51,7 +51,8 @@ Page({
     });
   },
   onLoad: function (options) {
-    let id = this.data.packageId = options.packageId ? options.packageId : '';
+    let id = this.data.packageId = options.packageId ? options.packageId : ''
+      , that = this
     // 存在id 则为包裹修改，否则为添加
     if (id) {
       let weight = deliveryConfig.packageList[id].weight;
@@ -62,10 +63,11 @@ Page({
           "brandIndex": null,
           "typeIndex": null,
           "specIndex": null,
+          "numIndex": null,
           "goods": item
-        })
+        });
       });
-      this.setData({ "viewObj": that.data.viewObj });
+      this.setData({ "viewObj": that.data.viewObj, "package": deliveryConfig.packageList[id] });
     }
   },
   // 增加包裹
@@ -80,7 +82,8 @@ Page({
       "cateIndex": null,
       "brandIndex": null,
       "specIndex": null,
-      "typeIndex": null
+      "typeIndex": null,
+      "numIndex": null
     });
     this.setData({
       "viewObj": viewObj
@@ -93,12 +96,21 @@ Page({
       , viewObj = this.data.viewObj
       , tax_categories = this.data.tax_categories
       , tax_brands = null;
+    this.setData({
+      "tax_brands": null,
+      "tax_brand_types": null,
+      "specs": null
+    });
     viewObj[id].cateIndex = val;
-    viewObj[id].goods.tax_category = tax_categories[val].categorycn;
+    viewObj[id].brandIndex = null;
+    viewObj[id].typeIndex = null;
+    viewObj[id].specIndex = null;
+    viewObj[id].numIndex = null;
+    viewObj[id].goods.category = tax_categories[val].categorycn;
     this.setData({
       viewObj: viewObj
     });
-    One.ajax('delivery/tax-brand', { "categorycn": viewObj[id].goods.tax_category }, res => {
+    One.ajax('delivery/tax-brand', { "categorycn": viewObj[id].goods.category }, res => {
       tax_brands = res.data.data;
       this.setData({
         tax_brands: tax_brands
@@ -109,9 +121,16 @@ Page({
     let id = e.currentTarget.dataset.id
       , val = e.detail.value
       , viewObj = this.data.viewObj
-      , tax_category = viewObj[id].goods.tax_category
+      , category = viewObj[id].goods.category
       , tax_brands = this.data.tax_brands
       , tax_brand_types = null;
+    viewObj[id].typeIndex = null;
+    viewObj[id].specIndex = null;
+    viewObj[id].numIndex = null;
+    this.setData({
+      "tax_brand_types": null,
+      "specs": null
+    });
     viewObj[id].brandIndex = val;
     viewObj[id].goods.tax_brand = tax_brands[val].brandcn;
     this.data.brand = tax_brands[val].brand;
@@ -120,7 +139,7 @@ Page({
     });
     One.ajax('delivery/tax-brand-type',
       {
-        "categorycn": tax_category,
+        "categorycn": category,
         "brand": this.data.brand
       },
       res => {
@@ -135,10 +154,15 @@ Page({
     let id = id = e.currentTarget.dataset.id
       , val = e.detail.value
       , viewObj = this.data.viewObj
-      , tax_category = viewObj[id].goods.tax_category
+      , category = viewObj[id].goods.category
       , tax_brand = this.data.brand
       , tax_brand_types = this.data.tax_brand_types
       , specs = null;
+    viewObj[id].specIndex = null;
+    viewObj[id].numIndex = null;
+    this.setData({
+      "specs": null
+    });
     viewObj[id].typeIndex = val;
     viewObj[id].goods.tax_brand_type = tax_brand_types[val].typecn;
     this.data.type = tax_brand_types[val].type;
@@ -147,7 +171,7 @@ Page({
     });
     One.ajax('delivery/tax-brand-type-spec'
       , {
-        "categorycn": tax_category,
+        "categorycn": category,
         "brand": tax_brand,
         "type": this.data.type
       }
@@ -163,10 +187,11 @@ Page({
     let id = e.currentTarget.dataset.id
       , val = e.detail.value
       , viewObj = this.data.viewObj
-      , tax_category = viewObj[id].goods.tax_category
+      , category = viewObj[id].goods.category
       , tax_brand = this.data.brand
       , brand_type = this.data.type
       , specs = this.data.specs;
+    viewObj[id].numIndex = null;
     viewObj[id].specIndex = val;
     viewObj[id].goods.spec = specs[val].speccn;
     this.data.spec = specs[val].spec;
@@ -175,65 +200,45 @@ Page({
     });
     One.ajax('delivery/tax-good-detail'
       , {
-        "categorycn": tax_category,
+        "categorycn": category,
         "brand": tax_brand,
         "type": brand_type,
         "spec": this.data.spec
       }
       , res => {
-        viewObj[id].goods.description = res.data.data[0].importname;
-        viewObj[id].goods.pricecn = res.data.data[0].importpricecn;
-        viewObj[id].goods.priceeuro = res.data.data[0].importpriceeuro;
-        viewObj[id].goods.taxrate = res.data.data[0].taxrate;
-        viewObj[id].goods.taxcn = res.data.data[0].taxcn;
-        viewObj[id].goods.taxeuro = res.data.data[0].taxeuro;
+        viewObj[id].goods.description = res.data.data.importname;
+        viewObj[id].goods.price = res.data.data.importpricecn;
+        viewObj[id].goods.priceeuro = res.data.data.importpriceeuro;
+        viewObj[id].goods.taxrate = res.data.data.taxrate;
+        viewObj[id].goods.taxcn = res.data.data.taxcn;
+        viewObj[id].goods.taxeuro = res.data.data.taxeuro;
+        viewObj[id].goods.customcode = res.data.data.EAN;
+        for (var i = 0; i < res.data.data.maximum; i++) {
+          this.data.maxium[i] = i + 1;
+        }
         this.setData({
-          viewObj: viewObj
+          viewObj: viewObj,
+          maxium: this.data.maxium
         });
       }
     )
   },
-  chkNum(e) {
+  bindNumChange(e) {
     let val = e.detail.value
       , id = e.currentTarget.dataset.id
-      , regNum = /^[1-9]\d*$/
       , sum = 0
       , viewObj = this.data.viewObj;
-    if (val && !regNum.test(val)) {
-      M._alert('数量必须为非0整数')
+    if (!val) {
+      M._alert('请选择输入数量');
     } else {
-      viewObj[id].goods.num = val;
-      sum = viewObj[id].goods.taxcn * val + viewObj[id].goods.pricecn * val;
-      viewObj[id].goods.customdeclarprice = sum;
-    }
+      viewObj[id].goods.num = this.data.maxium[val];
+      viewObj[id].numIndex = val - 1;
+      sum = viewObj[id].goods.price * (viewObj[id].goods.num);
+      viewObj[id].goods.customdeclarprice = sum.toFixed(2);
+    };
     this.setData({
       viewObj: viewObj
     });
-  },
-  chkWeight(e) {
-    let val = e.detail.value
-      , id = e.currentTarget.dataset.id
-      , viewObj = this.data.viewObj;
-    if (val != '' && val == 0) {
-      M._alert('总净重必须大于0')
-      return false;
-    } else {
-      let total = 0;
-      if (isNaN(val)) {
-        M._alert('重量必须为数字');
-      } else {
-        viewObj[id].goods.weight = val;
-      }
-      viewObj.map((item, index, arr) => {
-        total += item.goods.weight * 1;
-      });
-      if (total > this.data.package.weight) {
-        M._alert('物品净重之和不能大于包裹总重量')
-        viewObj[id].goods.weight = 0;
-      } else {
-        viewObj[id].goods.weight = val;
-      }
-    }
   },
   // 购买包裹重量
   chkPkgWeight(e) {
@@ -249,11 +254,6 @@ Page({
     } else if (weight > 30) {
       M._alert('包裹重量不能大于30kg');
     } else {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        // 计算运费
-
-      }, 800);
       this.data.package.weight = weight;
     }
   },
@@ -285,6 +285,7 @@ Page({
       goodsArr.push(viewObj[index].goods);
     });
     if (that.data.completed) {
+      // 修改
       currPackage = {
         "weight": pkg.weight,
         "fee": pkg.fee,
@@ -301,7 +302,7 @@ Page({
         deliveryConfig.packageList.push(currPackage);
       };
       wx.redirectTo({
-        url: '/pages/delivery/delivery'
+        url: '/pages/delivery/delivery?page=tax'
       });
     };
   }
