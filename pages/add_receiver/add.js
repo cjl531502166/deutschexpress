@@ -249,7 +249,7 @@ Page({
         deliveryConfig.currReceiver = receiverInfo;
         wx.redirectTo({
           url: '/pages/delivery/delivery'
-        })
+        });
       })
     } else {
       // 保存并返回我的联系人页面
@@ -259,7 +259,7 @@ Page({
           success: () => {
             deliveryConfig.receiverList.push(receiverInfo);
           }
-        })
+        });
       })
     }
   }

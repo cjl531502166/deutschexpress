@@ -50,7 +50,7 @@
         <text>收</text>
       </view>
       <text wx:if='{{!receiverInfo}}' class='add-info'>添加收件人信息</text>
-      <text wx:else>{{receiverInfo.name}},{{receiverInfo.cellphone}},{{receiverInfo.country?receiverInfo.country:''}},{{receiverInfo.province?receiverInfo.province:''}}{{receiverInfo.city?receiverInfo.city:''}}{{receiverInfo.district?receiverInfo.district:''}},{{receiverInfo.address?receiverInfo.address:''}}</text>
+      <text decode='nbsp' wx:else>{{receiverInfo.name}}&nbsp;{{receiverInfo.cellphone}}&nbsp;{{receiverInfo.country?receiverInfo.country:''}}&nbsp;{{receiverInfo.province?receiverInfo.province:''}}{{receiverInfo.city?receiverInfo.city:''}}{{receiverInfo.district?receiverInfo.district:''}}&nbsp;{{receiverInfo.address?receiverInfo.address:''}}</text>
       <icon class='icon-add iconfont wx-icon-add'></icon>
     </view>
     <view wx:if='{{uploadIDCard}}' class='upload-zone'>
@@ -58,13 +58,30 @@
         <view wx:if='{{fpercent==0}}' class='upload-btn'>
           <text>点击上传身份证（正面）</text>
         </view>
-        <progress wx:else='percent>0' percent='{{fpercent}}' show-info></progress>
+        <view wx:if='{{fpercent>0}}' class='staus-bar'>
+          <view class='upload-preview'>
+            <text class='percent-text'>{{fpercent}}%</text>
+            <image wx:if='{{fidCardImage}}' mode='widthFix' src='{{fidCardImage}}'></image>
+          </view>
+          <progress stroke-width='30' percent='{{fpercent}}'>
+            <text class='upload-status {{fpercent==100?"upload-succ":""}}'>{{frontUploadStatus}}</text>
+          </progress>
+
+        </view>
       </view>
       <view wx:if='{{!idcardBackUploaded}}' data-side='back' bindtap='uploadImage' class='upload'>
         <view wx:if='{{bpercent==0}}' class='upload-btn'>
           <text>点击上传身份证（反面）</text>
         </view>
-        <progress wx:else='percent>0' percent='{{bpercent}}' show-info></progress>
+        <view wx:if='{{bpercent>0}}' class='staus-bar'>
+          <view class='upload-preview'>
+            <text class='percent-text'>{{bpercent}}%</text>
+            <image wx:if='{{bidCardImage}}' mode='widthFix' src='{{bidCardImage}}'></image>
+          </view>
+          <progress stroke-width='30' percent='{{bpercent}}'>
+            <text class='upload-status {{bpercent==100?"upload-succ":""}}'>{{backUploadStatus}}</text>
+          </progress>
+        </view>
       </view>
     </view>
     <view bindtap='addSender' class='info-item'>
@@ -72,7 +89,7 @@
         <text>发</text>
       </view>
       <text wx:if='{{!senderInfo}}' class='add-info'>添加发件人信息</text>
-      <text wx:else>{{senderInfo.name}},{{senderInfo.cellphone}},{{senderInfo.address?senderInfo.address:''}},{{senderInfo.city?senderInfo.city:''}},{{senderInfo.country?senderInfo.country:''}}</text>
+      <text decode='nbsp' wx:else>{{senderInfo.name}}&nbsp;{{senderInfo.cellphone}}&nbsp;{{senderInfo.address?senderInfo.address:''}}&nbsp;{{senderInfo.city?senderInfo.city:''}}&nbsp;{{senderInfo.country?senderInfo.country:''}}</text>
       <icon class='icon-add iconfont wx-icon-add'></icon>
     </view>
   </view>

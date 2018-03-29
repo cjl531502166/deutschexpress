@@ -31,6 +31,10 @@ Page({
     idcardBackUploaded: false,//是否上传身份证反面
     fpercent: 0,
     bpercent: 0,
+    frontUploadStatus: '',
+    backUploadStatus: '',
+    bidCardImage: '',
+    fidCardImage: ''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -308,15 +312,24 @@ Page({
             if (!resData.code) {
               if (side == 'front') {
                 that.data.idcardFrontUploaded = true;
-                deliveryConfig.currReceiver.idcard_no = resData.cardno;
                 that.data.fpercent = 100;
+                that.data.frontUploadStatus = '上传成功(点击可重新上传)';
+                that.data.fidCardImage = path;
+                deliveryConfig.currReceiver.idcard_no = resData.cardno;
               } else {
                 that.data.idcardBackUploaded = true;
                 that.data.bpercent = 100;
+                that.data.backUploadStatus = '上传成功(点击可重新上传)';
+                that.data.bidCardImage = path;
               }
+              //更新数据
               that.setData({
                 fpercent: that.data.fpercent,
-                bpercent: that.data.bpercent
+                bpercent: that.data.bpercent,
+                frontUploadStatus: that.data.frontUploadStatus,
+                backUploadStatus: that.data.backUploadStatus,
+                fidCardImage: that.data.fidCardImage,
+                bidCardImage: that.data.bidCardImage
               });
 
             } else {
@@ -342,10 +355,12 @@ Page({
             if (side == 'front') {
               that.setData({
                 fpercent: p,
+                frontUploadStatus: '上传中...'
               });
             } else {
               that.setData({
                 bpercent: p,
+                backUploadStatus: '上传中...'
               });
             }
           }
