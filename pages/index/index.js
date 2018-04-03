@@ -89,7 +89,7 @@ Page({
           "value": "国际包裹",
           "name": "international"
         }, {
-          "value": "阳光清关",
+          "value": "BC杂货线",
           "name": "clearcustom"
         }
       ],

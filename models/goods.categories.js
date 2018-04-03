@@ -1,3 +1,3 @@
-export default{
-    categoryArr:[]
+export default {
+  categoryArr: []
 }

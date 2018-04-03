@@ -7,23 +7,22 @@ import One from '../../utils/one.js';
 Page({
   data: {
     "packageId": '',
-    "tax_categories": null,
-    "tax_brands": null,
-    "tax_brand_types": null,
-    "specs": null,
-    "maxium": [],
-    "brand": '',
-    "type": "",
-    "spec": "",
-    "packageId": '',
     "package": {
       "weight": '',//购买包裹重量
       "fee": 0,//运费
       "goods": {
         "category": "",
         "tax_brand": "",
-        "tax_brand_type": "",
+        "brand": '',
+        "type": "",
         "spec": "",
+        "tax_categories": null,
+        "tax_brands": null,
+        "tax_brand_types": null,
+        "specs": null,
+        "maxium": [],
+        "tax_brand_type": "",
+        "tax_spec": "",
         "customcode": "",
         "description": "",
         "num": "",
@@ -44,19 +43,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function () {
+    let that = this;
     One.ajax('delivery/tax-category', {}, res => {
+      that.data.package.goods.tax_categories = res.data.data;
       this.setData({
-        tax_categories: res.data.data
+        "package": this.data.package
       });
     });
   },
   onLoad: function (options) {
     let id = this.data.packageId = options.packageId ? options.packageId : ''
-      , that = this
+      , that = this;
+    that.data.viewObj = [];
     // 存在id 则为包裹修改，否则为添加
     if (id) {
       let weight = deliveryConfig.packageList[id].weight;
-      // 阳光清关包裹运费
       deliveryConfig.packageList[id].goods.forEach((item, index, arr) => {
         that.data.viewObj.push({
           "cateIndex": null,
@@ -67,7 +68,8 @@ Page({
           "goods": item
         });
       });
-      this.setData({ "viewObj": that.data.viewObj, "package": deliveryConfig.packageList[id] });
+      that.data.package.weight = deliveryConfig.packageList[id].weight;
+      this.setData({ "viewObj": that.data.viewObj });
     }
   },
   // 增加包裹
@@ -94,26 +96,23 @@ Page({
     let id = e.currentTarget.dataset.id
       , val = e.detail.value
       , viewObj = this.data.viewObj
-      , tax_categories = this.data.tax_categories
+      , tax_categories = this.data.package.goods.tax_categories
       , tax_brands = null;
-    this.setData({
-      "tax_brands": null,
-      "tax_brand_types": null,
-      "specs": null
-    });
     viewObj[id].cateIndex = val;
     viewObj[id].brandIndex = null;
     viewObj[id].typeIndex = null;
     viewObj[id].specIndex = null;
     viewObj[id].numIndex = null;
+    viewObj[id].goods.tax_categories = tax_categories;
     viewObj[id].goods.category = tax_categories[val].categorycn;
-    this.setData({
-      viewObj: viewObj
-    });
+    viewObj[id].goods.tax_brand = '';
+    viewObj[id].goods.tax_brand_type = '';
+    viewObj[id].goods.spec = '';
     One.ajax('delivery/tax-brand', { "categorycn": viewObj[id].goods.category }, res => {
       tax_brands = res.data.data;
+      viewObj[id].goods.tax_brands = tax_brands;
       this.setData({
-        tax_brands: tax_brands
+        viewObj: viewObj
       });
     });
   },
@@ -122,30 +121,26 @@ Page({
       , val = e.detail.value
       , viewObj = this.data.viewObj
       , category = viewObj[id].goods.category
-      , tax_brands = this.data.tax_brands
+      , tax_brands = viewObj[id].goods.tax_brands
       , tax_brand_types = null;
+    viewObj[id].brandIndex = val;
     viewObj[id].typeIndex = null;
     viewObj[id].specIndex = null;
     viewObj[id].numIndex = null;
-    this.setData({
-      "tax_brand_types": null,
-      "specs": null
-    });
-    viewObj[id].brandIndex = val;
+    viewObj[id].goods.tax_brand_type = '';
+    viewObj[id].goods.spec = '';
     viewObj[id].goods.tax_brand = tax_brands[val].brandcn;
-    this.data.brand = tax_brands[val].brand;
-    this.setData({
-      viewObj: viewObj
-    });
+    viewObj[id].goods.brand = tax_brands[val].brand;
     One.ajax('delivery/tax-brand-type',
       {
         "categorycn": category,
-        "brand": this.data.brand
+        "brand": viewObj[id].goods.brand
       },
       res => {
         tax_brand_types = res.data.data;
+        viewObj[id].goods.tax_brand_types = tax_brand_types;
         this.setData({
-          tax_brand_types: tax_brand_types
+          viewObj: viewObj
         });
       }
     )
@@ -155,55 +150,49 @@ Page({
       , val = e.detail.value
       , viewObj = this.data.viewObj
       , category = viewObj[id].goods.category
-      , tax_brand = this.data.brand
-      , tax_brand_types = this.data.tax_brand_types
+      , tax_brand = viewObj[id].goods.brand
+      , tax_brand_types = viewObj[id].goods.tax_brand_types
       , specs = null;
     viewObj[id].specIndex = null;
     viewObj[id].numIndex = null;
-    this.setData({
-      "specs": null
-    });
     viewObj[id].typeIndex = val;
+    viewObj[id].goods.spec = '';
     viewObj[id].goods.tax_brand_type = tax_brand_types[val].typecn;
-    this.data.type = tax_brand_types[val].type;
-    this.setData({
-      viewObj: viewObj
-    });
+    viewObj[id].goods.type = tax_brand_types[val].type;
     One.ajax('delivery/tax-brand-type-spec'
       , {
         "categorycn": category,
         "brand": tax_brand,
-        "type": this.data.type
+        "type": viewObj[id].goods.type
       }
       , res => {
         specs = res.data.data;
+        viewObj[id].goods.specs = specs;
         this.setData({
-          specs: specs
-        })
+          viewObj: viewObj
+        });
       }
     )
   },
   bindSpecChange(e) {
-    let id = e.currentTarget.dataset.id
+    let that = this
+      , id = e.currentTarget.dataset.id
       , val = e.detail.value
       , viewObj = this.data.viewObj
       , category = viewObj[id].goods.category
-      , tax_brand = this.data.brand
-      , brand_type = this.data.type
-      , specs = this.data.specs;
+      , tax_brand = viewObj[id].goods.brand
+      , brand_type = viewObj[id].goods.type
+      , specs = viewObj[id].goods.specs;
     viewObj[id].numIndex = null;
     viewObj[id].specIndex = val;
-    viewObj[id].goods.spec = specs[val].speccn;
-    this.data.spec = specs[val].spec;
-    this.setData({
-      viewObj: viewObj
-    });
+    viewObj[id].goods.tax_spec = specs[val].speccn;
+    viewObj[id].goods.spec = specs[val].spec;
     One.ajax('delivery/tax-good-detail'
       , {
         "categorycn": category,
         "brand": tax_brand,
         "type": brand_type,
-        "spec": this.data.spec
+        "spec": viewObj[id].goods.spec
       }
       , res => {
         viewObj[id].goods.description = res.data.data.importname;
@@ -214,11 +203,10 @@ Page({
         viewObj[id].goods.taxeuro = res.data.data.taxeuro;
         viewObj[id].goods.customcode = res.data.data.EAN;
         for (var i = 0; i < res.data.data.maximum; i++) {
-          this.data.maxium[i] = i + 1;
+          viewObj[id].goods.maxium[i] = i + 1;
         }
-        this.setData({
+        that.setData({
           viewObj: viewObj,
-          maxium: this.data.maxium
         });
       }
     )
@@ -231,7 +219,7 @@ Page({
     if (!val) {
       M._alert('请选择输入数量');
     } else {
-      viewObj[id].goods.num = this.data.maxium[val];
+      viewObj[id].goods.num = viewObj[id].goods.maxium[val];
       viewObj[id].numIndex = val - 1;
       sum = viewObj[id].goods.price * (viewObj[id].goods.num);
       viewObj[id].goods.customdeclarprice = sum.toFixed(2);
@@ -282,7 +270,7 @@ Page({
           that.data.completed = true;
         }
       }
-      goodsArr.push(viewObj[index].goods);
+      goodsArr.push(item.goods);
     });
     if (that.data.completed) {
       // 修改
@@ -293,7 +281,7 @@ Page({
       };
       if (that.data.packageId) {
         deliveryConfig.packageList.map((item, index, arr) => {
-          if (item.id == that.data.packageId) {
+          if (index == that.data.packageId) {
             deliveryConfig.packageList.splice(index, 1, currPackage);
           }
         });
@@ -305,5 +293,13 @@ Page({
         url: '/pages/delivery/delivery?page=tax'
       });
     };
+  },
+  // 删除包裹
+  removeItem(e) {
+    let id = id = e.currentTarget.dataset.id;
+    this.data.viewObj.splice(id, 1);
+    this.setData({
+      "viewObj": this.data.viewObj
+    });
   }
 });

@@ -15,9 +15,9 @@
   </view>
   <view class='pkg-detail'>
     <view style='margin-top:0;' class='detail-info'>
-      <view wx:if='{{tax_categories && tax_categories.length>0}}' class='info-item pinzhong'>
+      <view wx:if='{{item.goods.tax_categories && item.goods.tax_categories.length>0}}' class='info-item pinzhong'>
         <text class='item-name'>品种</text>
-        <picker bindchange="bindCateChange" data-id='{{index}}' range-key='categorycn' value='{{tax_categories[item.cateIndex]}}' range='{{tax_categories}}'>
+        <picker bindchange="bindCateChange" data-id='{{index}}' range-key='categorycn' value='{{tax_categories[item.cateIndex]}}' range='{{item.goods.tax_categories}}'>
           <view class="picker specify-style">
             <text wx:if="{{item.goods.category}}">{{item.goods.category}}</text>
             <text class='default-text' wx:else>请选择品种</text>
@@ -26,25 +26,25 @@
       </view>
       <view wx:if='{{viewObj[index].goods.category}}' class='info-item pinzhong'>
         <text class='item-name'>品牌</text>
-        <picker bindchange="bindBrandChange" data-id='{{index}}' range-key='brandcn' value='{{tax_brands[item.brandIndex]}}' range='{{tax_brands}}'>
+        <picker bindchange="bindBrandChange" data-id='{{index}}' range-key='brand' value='{{tax_brands[item.brandIndex]}}' range='{{item.goods.tax_brands}}'>
           <view class='specify-style'>
-            <text wx:if='{{item.goods.tax_brand}}'>{{item.goods.tax_brand}}</text>
+            <text wx:if='{{item.goods.tax_brand}}'>{{item.goods.brand}}</text>
             <text class='default-text' wx:else>请选择品牌</text>
           </view>
         </picker>
       </view>
       <view wx:if='{{viewObj[index].goods.tax_brand}}' class='info-item pinzhong'>
         <text class='item-name'>品牌类型</text>
-        <picker bindchange='bindTypeChange' data-id='{{index}}' range-key='typecn' value='{{tax_brand_types[item.typeIndex]}}' range='{{tax_brand_types}}'>
+        <picker bindchange='bindTypeChange' data-id='{{index}}' range-key='type' value='{{tax_brand_types[item.typeIndex]}}' range='{{item.goods.tax_brand_types}}'>
           <view class='specify-style'>
-            <text wx:if='{{item.goods.tax_brand_type}}'>{{item.goods.tax_brand_type}}</text>
+            <text wx:if='{{item.goods.tax_brand_type}}'>{{item.goods.type}}</text>
             <text class='default-text' wx:else>请选择品牌类型</text>
           </view>
         </picker>
       </view>
       <view wx:if='{{viewObj[index].goods.tax_brand_type}}' class='info-item pinzhong'>
         <text class='item-name'>规格</text>
-        <picker bindchange='bindSpecChange' data-id='{{index}}' range-key='speccn' value='{{specs[item.specIndex]}}' range='{{specs}}'>
+        <picker bindchange='bindSpecChange' data-id='{{index}}' range-key='spec' value='{{specs[item.specIndex]}}' range='{{item.goods.specs}}'>
           <view class='specify-style'>
             <text wx:if='{{item.goods.spec}}'>{{item.goods.spec}}</text>
             <text wx:else class='default-text'>请选择规格</text>
@@ -53,7 +53,7 @@
       </view>
       <view wx:if='{{item.goods.spec}}' class='info-item'>
         <text class='item-name'>数量</text>
-        <picker bindchange='bindNumChange' data-id='{{index}}' value='{{maxium[item.numIndex]}}' range='{{maxium}}'>
+        <picker bindchange='bindNumChange' data-id='{{index}}' value='{{maxium[item.numIndex]}}' range='{{item.goods.maxium}}'>
           <view class='specify-style'>
             <text wx:if='{{item.goods.num}}'>{{item.goods.num}}</text>
             <text wx:else class='default-text'>请选择数量</text>
@@ -76,10 +76,6 @@
       <view class='info-item'>
         <text class='item-name'>税费（￥）</text>
         <text class='text-default'>{{item.goods.taxcn}}</text>
-      </view>
-      <view class='info-item'>
-        <text class='item-name'>总净重（kg）</text>
-        <text class='text-default'>{{item.goods.weight}}</text>
       </view>
       <view class='info-item'>
         <text class='item-name'>海关代码</text>

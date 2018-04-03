@@ -66,7 +66,7 @@ Page({
         countrys = res.data.data;
         this.setData({
           countrys: countrys
-        })
+        });
       });
       One.ajax('geo/province', {}, res => {
         provinces = res.data.data;

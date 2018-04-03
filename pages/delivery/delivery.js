@@ -10,7 +10,6 @@ Page({
    */
   data: {
     order_sn: '',
-    pageFrom: '',
     packageEditPath: '',//包裹编辑的页面路径
     delivery_range: null,//订单类型
     deliveryConfig: deliveryConfig, //物流配置
@@ -51,6 +50,7 @@ Page({
       senderInfo = deliveryConfig.currSender ? deliveryConfig.currSender : '',
       receiverInfo = deliveryConfig.currReceiver ? deliveryConfig.currReceiver : '',
       pkgList = deliveryConfig.packageList;
+
     //获取订单类型
     options.delivery_range && (deliveryConfig.orderType = options.delivery_range);
     if (['international', 'clearcustom'].indexOf(deliveryConfig.orderType) >= 0) {
@@ -91,7 +91,7 @@ Page({
     }
     //计算运费
     if (totalWeight > 0 && totalWeight <= 30) {
-      if (page == 'tax') {
+      if (deliveryConfig.orderType === 'clearcustom') {
         // 清关运费计算
         One.ajax(
           'delivery/get-tax-order-fee',
@@ -134,7 +134,6 @@ Page({
       });
     };
     this.setData({
-      "pageFrom": page,
       "packageEditPath": this.data.packageEditPath,
       "delivery_range": deliveryConfig.orderType,
       "senderInfo": senderInfo,
@@ -205,7 +204,6 @@ Page({
         url: '/pages/taxpackage/taxpackage'
       })
     }
-
   },
   //购买包裹总重量
   weightChange(e) {
@@ -250,7 +248,7 @@ Page({
           for (let i = 0, len = pkgList.length; i < len; i++) {
             totalWeight += pkgList[i].weight - 0;
           };
-          if (this.data.pageFrom == 'tax') {
+          if (deliveryConfig.orderType === 'clearcustom') {
             // 清关运费计算
             One.ajax(
               'delivery/get-tax-order-fee',
@@ -394,7 +392,7 @@ Page({
   //验证函数
   verifyFn() {
     // 清关的总价计算
-    if (this.data.pageFrom == "tax" && deliveryConfig.packageList.length > 1) {
+    if (deliveryConfig.orderType === 'clearcustom' && deliveryConfig.packageList.length > 1) {
       for (let i = 0, len = deliveryConfig.packageList.length; i < len; i++) {
         customdeclarprice += pkgList[i].goods.customdeclarprice - 0;
       }
@@ -444,8 +442,7 @@ Page({
   orderHandle(port, cb) {
     this.verifyFn();
     if (this.data.isOK) {
-      // 其他订单数据
-      if (this.data.pageFrom == 'tax') {
+      if (deliveryConfig.orderType === 'clearcustom') {
         var data = {
           "receiver_id": this.data.receiverInfo.id,
           "sender_id": this.data.senderInfo.id,
@@ -455,6 +452,7 @@ Page({
           "weight": this.data.totalWeight
         };
       } else {
+        // 其他订单数据
         var data = {
           "delivery_range": this.data.delivery_range,
           "delivery_type_id": deliveryConfig.deliver_type_id,
@@ -495,7 +493,7 @@ Page({
   submitOrder() {
     let port
       , that = this;
-    if (this.data.pageFrom == 'tax') {
+    if (deliveryConfig.orderType === 'clearcustom') {
       port = 'delivery/tax-order';
     } else {
       port = this.data.order_sn ? "delivery/edit-saved-order" : "delivery/create-order"
