@@ -256,10 +256,12 @@ Page({
                 "weight": totalWeight,
                 "packages": pkgList
               }, res => {
-                this.setData({
-                  "amount": res.data.data.fee
-                });
                 deliveryConfig.fee = res.data.data.fee;
+                this.setData({
+                  "amount": res.data.data.fee,
+                  "pkgList": pkgList,
+                  "totalWeight": totalWeight
+                });
               }
             )
           } else {
@@ -271,9 +273,9 @@ Page({
               }
               , res => {
                 this.setData({
-                  amount: deliveryConfig.fee,
-                  pkgList: pkgList,
-                  totalWeight: totalWeight
+                  "amount": deliveryConfig.fee,
+                  "pkgList": pkgList,
+                  "totalWeight": totalWeight
                 });
               }
             );
