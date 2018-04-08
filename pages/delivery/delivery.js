@@ -394,8 +394,10 @@ Page({
   //验证函数
   verifyFn() {
     // 清关的总价计算
+    let customdeclarprice = 0
+      , pkgList = deliveryConfig.packageList;
     if (deliveryConfig.orderType === 'clearcustom' && deliveryConfig.packageList.length > 1) {
-      for (let i = 0, len = deliveryConfig.packageList.length; i < len; i++) {
+      for (let i = 0, len = pkgList.length; i < len; i++) {
         customdeclarprice += pkgList[i].goods.customdeclarprice - 0;
       }
       this.data.customdeclarprice = customdeclarprice;
@@ -483,7 +485,7 @@ Page({
     let port = (this.data.order_sn ? "delivery/edit-saved-order" : "delivery/save-order"),
       that = this;
     this.orderHandle(port, () => {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/myorder/order_list',
         success: () => {
           that.resetData();
@@ -501,7 +503,7 @@ Page({
       port = this.data.order_sn ? "delivery/edit-saved-order" : "delivery/create-order"
     }
     this.orderHandle(port, () => {
-      wx.navigateTo({
+      wx.redirectTo({
         url: '/pages/order_detail/detail?&id=' + this.data.order_sn,
         success: () => {
           that.resetData();

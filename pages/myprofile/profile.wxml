@@ -1,10 +1,6 @@
 <!-- 我的信息页面 -->
 <view class='my-profile'>
     <view class='detail-info'>
-        <!-- <view class='info-item'>
-            <text class='item-name'>我的微信号</text>
-            <view class='item-value'>{{userInfo.nickName}}</view>
-        </view> -->
         <view bindtouchend='editEmail' class='info-item'>
             <text class='item-name'>我的邮箱</text>
             <view class='item-value'>

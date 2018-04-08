@@ -19,7 +19,7 @@
                 </view>
             </picker>
         </view>
-        <block wx:if='{{country =="China(中国)"}}'>
+        <block wx:if='{{country =="中国"}}'>
             <view class='info-item'>
                 <text class='item-name'>省份</text>
                 <picker bindchange="bindProvinceChange" value="{{index}}" range="{{provinces}}">

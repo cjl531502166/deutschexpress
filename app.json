@@ -1,16 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/add_idcard/add",
-    "pages/idcards/idcards_list",
-    "pages/edit_idcard/edit",
     "pages/pkginfo/pkginfo",
     "pages/news_notices/news_notice",
-    "pages/invoice_copy/invoice_copy",
-    "pages/add_invoice/add",
-    "pages/invoice/invoice",
-    "pages/invoice_list/invoice_list",
-    "pages/edit_invoice/edit",
     "pages/sender/sender",
     "pages/add_sender/add",
     "pages/edit_sender/edit",
