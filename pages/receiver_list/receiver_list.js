@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        deliveryConfig: deliveryConfig
+        deliveryConfig: null
     },
     onLoad: function () {
         var list;

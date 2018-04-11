@@ -4,7 +4,7 @@ import deliveryService from '../../services/delivery.service.js';
 const app = getApp();
 Page({
     data: {
-        deliveryConfig: deliveryConfig
+        deliveryConfig: null
     },
     onLoad(options) {
         wx.showLoading();

@@ -5,7 +5,8 @@
     <view class='detail-info'>
         <view class='info-item'>
             <text class='item-name'>收件人</text>
-            <input bindblur='setCnName' type='text' placeholder='真实姓名' value='{{name}}'></input>
+            <view wx:if='{{idcard_no}}' class='item-value specify-style'>{{name}}</view>
+            <input wx:else bindblur='setCnName' type='text' placeholder='真实姓名' value='{{name}}'></input>
         </view>
         <view class='info-item'>
             <text class='item-name'>联系电话</text>
@@ -13,7 +14,7 @@
         </view>
         <view class='info-item'>
             <text class='item-name'>收件国</text>
-            <picker bindchange='bindCountryChange' value='{{countryIndex}}' range-key="v" range='{{countrys}}'>
+            <picker value='{{countryIndex}}' range-key="v" range='{{countrys}}'>
                 <view class="picker">
                     <input placeholder="请选择国家" value="{{country}}" disabled='disabled' />
                 </view>

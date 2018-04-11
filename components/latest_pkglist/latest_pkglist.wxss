@@ -53,6 +53,11 @@
 
 .item-body >view {
     flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: keep-all;
+    padding-right: 10px;
 }
 .read-detail {
     text-decoration: underline;

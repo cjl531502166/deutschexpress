@@ -25,7 +25,6 @@ Page({
      */
     onLoad: function () {
         let that = this;
-
         // 获取物流渠道函数
         let getDeliverTypes = () => {
             let obj, that = this;
@@ -42,7 +41,6 @@ Page({
         }
 
         //获取订单列表
-
         this.getList();
         //获取物流
         if (searchModel.delivery_types) {
@@ -52,7 +50,6 @@ Page({
                 getDeliverTypes();
             });
         }
-
         //获取状态
         searchService.getStatus(res => {
             let obj;

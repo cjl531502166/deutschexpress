@@ -10,13 +10,13 @@
         </view>
         <view wx:if='{{packages.length==0}}' class='li-item-1'>
             <view>
-                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type_txt}}</view>
             <view>
                 <icon class='iconfont wx-icon-jifen'></icon>{{weight}}kg</view>
         </view>
         <view wx:for='{{packages}}' wx:for-item='packages' wx:key='{{index}}' class='li-item-1'>
             <view>
-                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type_txt}}</view>
             <view>
                 <icon class='iconfont wx-icon-jifen'></icon>{{packages.weight}}kg</view>
         </view>
@@ -36,13 +36,13 @@
         </view>
         <view wx:if='{{packages.length==0}}' class='li-item-1'>
             <view>
-                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type_txt}}</view>
             <view>
                 <icon class='iconfont wx-icon-jifen'></icon>{{weight}}kg</view>
         </view>
         <view wx:for='{{packages}}' wx:for-item='packages' wx:key='{{index}}' class='li-item-1'>
             <view>
-                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type}}</view>
+                <icon class='iconfont wx-icon-wuliu'></icon>{{delivery_type_txt}}</view>
             <view>
                 <icon class='iconfont wx-icon-jifen'></icon>{{packages.weight}}kg</view>
         </view>

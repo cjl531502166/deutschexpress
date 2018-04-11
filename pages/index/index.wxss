@@ -130,7 +130,10 @@
 .list-title {
     color: #666;
 }
-
+.list-title text{
+  font-size: 14px;
+  color:orange;
+}
 .list-handle {
     color: #008ade;
 }

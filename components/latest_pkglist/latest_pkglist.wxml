@@ -1,21 +1,22 @@
 <!--components/latest_pkglist/latest_pkglist.wxml-->
 <view class='latest-pkglist'>
-    <view wx:if='{{index<limit}}' wx:for='{{packageList}}' wx:key='{{index}}' class='list-item'>
-        <view class='item-head'>
-            <view class='deliver-type'>{{item.deliver_type}}</view>
-            <view class='pkg-weight'>
-                <icon class='iconfont wx-icon-jifen'></icon>{{item.weight}}</view>
-            <view class='date'>{{item.created_at}}</view>
-        </view>
-        <view class='item-body'>
-            <view class='ps-name'>
-                <icon class='iconfont'></icon>{{item.sender.name}}</view>
-            <view>
-                单号：<text wx:if='{{item.delivery_no}}' data-num='{{item.delivery_no}}' bindtouchend='trackPkg' class='order-num'>{{item.delivery_no}}</text>
-                <text wx:else>暂无单号</text>
-            </view>
-            <navigator wx:if='{{item.packageid}}' url='/pages/pkgdetail/pkgdetail?oid={{item.order_sn}}&pid={{item.packageid}}' class='read-detail'>查看详情</navigator>
-            <navigator wx:if='{{!item.packageid}}' url='/pages/order_detail/detail?id={{item.order_sn}}'  class='read-detail'>查看详情</navigator>
-        </view>
+  <view wx:if='{{index<limit}}' wx:for='{{packageList}}' wx:key='{{index}}' class='list-item'>
+    <view class='item-head'>
+      <view class='deliver-type'>{{item.delivery_type_txt}}</view>
+      <view class='pkg-weight'>
+        <icon class='iconfont wx-icon-jifen'></icon>{{item.weight}}</view>
+      <view class='date'>{{item.created_time}}</view>
     </view>
+    <view class='item-body'>
+      <view class='ps-name'>
+        <icon class='iconfont'></icon>发件人：{{item.sender.name}}</view>
+      <view>
+        单号：
+        <text wx:if='{{item.delivery_no}}' data-num='{{item.delivery_no}}' bindtouchend='trackPkg' class='order-num'>{{item.delivery_no}}</text>
+        <text wx:else>暂无单号</text>
+      </view>
+      <navigator wx:if='{{item.packageid}}' url='/pages/pkgdetail/pkgdetail?oid={{item.order_sn}}&pid={{item.packageid}}' class='read-detail'>查看详情</navigator>
+      <navigator wx:if='{{!item.packageid}}' url='/pages/order_detail/detail?id={{item.order_sn}}' class='read-detail'>查看详情</navigator>
+    </view>
+  </view>
 </view>

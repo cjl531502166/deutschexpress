@@ -71,13 +71,13 @@ Page({
                     });
                     that.data.order_list = res.data.data;
                     //获取物流方式
-                    that.data.order_list.forEach((item, index, arr) => {
-                        deliverConfig.delivers.forEach((del, index) => {
-                            if (item.delivery_type_id == del.id) {
-                                item.delivery_type = del.name;
-                            }
-                        });
-                    });
+                    // that.data.order_list.forEach((item, index, arr) => {
+                    //     deliverConfig.delivers.forEach((del, index) => {
+                    //         if (item.delivery_type_id == del.id) {
+                    //             item.delivery_type = del.name;
+                    //         }
+                    //     });
+                    // });
                 }
                 //更新数据
                 this.setData({ "order_list": that.data.order_list });

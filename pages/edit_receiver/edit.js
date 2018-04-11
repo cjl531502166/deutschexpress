@@ -26,21 +26,29 @@ Page({
     name: '',//收件人
     cellphone: '',//联系电话
     postnumber: '',//邮政编码
-    saveAddr: true
+    saveAddr: true,
+    idcard_no: ''
   },
   onLoad: function (options) {
     let currReceiver = deliveryConfig.currReceiver,
       that = this,
-      countrys = [],
+      countrys = [{
+        "k": currReceiver.country,
+        "v": currReceiver.country
+      }],
       provinces = [],
       citys = [],
       countys = [];
+    console.log(currReceiver);
     // One.ajax('geo/country', {}, res => {
     //   countrys = res.data.data;
     //   this.setData({
     //     countrys: countrys
-    //   })
+    //   });
     // });
+    this.setData({
+      countrys: countrys
+    });
     if (currReceiver.country.indexOf('中国') != -1) {
       One.ajax('geo/province', {}, res => {
         provinces = res.data.data;
@@ -50,14 +58,15 @@ Page({
             "province": currReceiver.province,
             "city": currReceiver.city
           }, res => {
-            countys = this.data.data;
+            console.log(res.data.data);
+            countys = res.data.data;
+            that.setData({
+              provinces: provinces,
+              citys: citys,
+              countys: countys
+            });
           })
         })
-        this.setData({
-          provinces: provinces,
-          citys: citys,
-          countys: countys
-        });
       });
     }
     //设置当前收件人信息
@@ -73,7 +82,8 @@ Page({
       'postnumber': currReceiver.postnumber,
       'addressZn': currReceiver.address_en,
       'receiverZn': pinyin.getFullChars(currReceiver.name),
-      'saveAddr': currReceiver.asdefault
+      'saveAddr': currReceiver.asdefault,
+      'idcard_no': currReceiver.idcard_no
     });
   },
   //设置拼音地址
@@ -101,6 +111,8 @@ Page({
     this.getAddressPinyin();
     One.ajax('geo/city', { "province": province }, res => {
       this.setData({
+        city: '',
+        county: '',
         citys: res.data.data
       })
     })
@@ -112,6 +124,7 @@ Page({
     this.getAddressPinyin();
     One.ajax('geo/county', { "province": this.data.province, "city": city }, res => {
       this.setData({
+        county: '',
         countys: res.data.data
       })
     })

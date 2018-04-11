@@ -2,7 +2,7 @@ import deliveryConfig from '../../models/delivery.config.js';
 import deliveryService from '../../services/delivery.service.js';
 Page({
     data: {
-        deliveryConfig: deliveryConfig
+        deliveryConfig: null
     },
     onLoad() {
         wx.showLoading();

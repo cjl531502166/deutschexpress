@@ -6,8 +6,8 @@
             <view class='item-value'>{{orderInfo.receiver.name}}</view>
         </view>
         <view class='info-item'>
-            <text class='item-name'>物流渠道</text>
-            <view class='item-value'>{{orderInfo.deliver_type}}</view>
+            <text class='item-name'>订单类型</text>
+            <view class='item-value'>{{orderInfo.deliver_type_txt}}</view>
         </view>
         <block wx:for='{{orderInfo.packages.goods}}' wx:key='{{index}}'>
             <view class='info-item'>

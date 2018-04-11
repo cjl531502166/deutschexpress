@@ -1,43 +1,43 @@
 <!-- 我的包裹详情 -->
 <view class='package-detail'>
-    <view class='detail-info'>
-        <view class='info-item'>
-            <text class='item-name'>收件人</text>
-            <view class='item-value'>{{orderInfo.receiver.name}}</view>
-        </view>
-        <block wx:for='{{packageInfo.goods}}' wx:key='{{index}}'>
-            <view class='info-item'>
-                <text class='item-name'>包裹种类{{index+1}}</text>
-                <view class='item-value'>{{item.catename}}</view>
-            </view>
-            <view class='info-item'>
-                <text class='item-name'>描述</text>
-                <view class='item-value'>{{item.description}}</view>
-            </view>
-            <view class='info-item'>
-                <text class='item-name'>数量</text>
-                <view class='item-value'>{{item.num}}</view>
-            </view>
-            <view class='info-item'>
-                <text class='item-name'>重量（kg）</text>
-                <view class='item-value'>{{item.weight}}</view>
-            </view>
-        </block>
-        <view class='info-item'>
-            <text class='item-name'>状态</text>
-            <view class='item-value status'>{{orderInfo.status}}</view>
-        </view>
-        <view wx:if='{{orderInfo.delivery_no}}' class='info-item'>
-            <text class='item-name'>物流单号</text>
-            <view class='item-value status'>{{orderInfo.delivery_no}}</view>
-        </view>
-        <view class='info-item'>
-            <text class='item-name'>时间</text>
-            <view class='item-value'>{{orderInfo.created_at}}</view>
-        </view>
+  <view class='detail-info'>
+    <view class='info-item'>
+      <text class='item-name'>收件人</text>
+      <view class='item-value'>{{orderInfo.receiver.name}}</view>
     </view>
-    <view wx:if='{{!unPaid}}' bindtap='payOrder' class='btn btn-block btn-primary'>去支付</view>
-    <view wx:if="{{canTrack}}" bindtap='trackPkg' class='btn btn-block btn-primary'>查看物流</view>
-    <!-- <view wx:if="{{canCancel}}" bindtap='cancelPackage' class='btn btn-block btn-default'>取消订单</view> -->
-    <navigator url='/pages/index/index' open-type='reLaunch' class='btn btn-block btn-default'>返回首页</navigator>
+    <block wx:for='{{packageInfo.goods}}' wx:key='{{index}}'>
+      <view class='info-item'>
+        <text class='item-name'>包裹种类{{index+1}}</text>
+        <view class='item-value'>{{item.catename}}</view>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>描述</text>
+        <view class='item-value'>{{item.description}}</view>
+      </view>
+      <view class='info-item'>
+        <text class='item-name'>数量</text>
+        <view class='item-value'>{{item.num}}</view>
+      </view>
+      <view wx:if='{{orderInfo.delivery_range !="taxline"}}' class='info-item'>
+        <text class='item-name'>重量（kg）</text>
+        <view class='item-value'>{{item.weight}}</view>
+      </view>
+    </block>
+    <view class='info-item'>
+      <text class='item-name'>订单状态</text>
+      <view class='item-value status'>{{orderInfo.status}}</view>
+    </view>
+    <view wx:if='{{orderInfo.delivery_no}}' class='info-item'>
+      <text class='item-name'>物流单号</text>
+      <view class='item-value status'>{{orderInfo.delivery_no}}</view>
+    </view>
+    <view class='info-item'>
+      <text class='item-name'>时间</text>
+      <view class='item-value'>{{orderInfo.created_at}}</view>
+    </view>
+  </view>
+  <view wx:if='{{!unPaid}}' bindtap='payOrder' class='btn btn-block btn-primary'>去支付</view>
+  <view wx:if="{{canTrack}}" bindtap='trackPkg' class='btn btn-block btn-primary'>查看物流</view>
+  <!-- <view wx:if="{{canCancel}}" bindtap='cancelPackage' class='btn btn-block btn-default'>取消订单</view> -->
+  <navigator url='/pages/index/index' open-type='reLaunch' class='btn btn-block btn-default'>返回首页</navigator>
 </view>

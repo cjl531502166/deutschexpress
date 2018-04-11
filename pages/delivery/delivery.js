@@ -150,17 +150,15 @@ Page({
       "uploadIDCard": this.data.uploadIDCard
     });
   },
-  onHide() {
-    if (deliveryConfig.orderType != 'clearcustom') {
-      this.setData({
-        "senderInfo": null,
-        "receiverInfo": null,
-        "amount": 0,
-        "totalWeight": 0,
-        "pkgList": [],
-        "deliver_type_id": ''
-      });
-    }
+  onUnload() {
+    this.setData({
+      "senderInfo": null,
+      "receiverInfo": null,
+      "amount": 0,
+      "totalWeight": 0,
+      "pkgList": [],
+      "deliver_type_id": ''
+    });
   },
   //选择物流渠道
   radioChange(e) {

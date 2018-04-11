@@ -10,6 +10,28 @@ import deliveryConfig from '../../models/delivery.config.js';
 import searchModel from '../../models/search.model.js';
 import searchService from '../../services/search.service.js';
 import deliveryTrack from '../../services/delivery.track.js';
+function timeAgo(nowTime, oldTime) {
+  let f = (nowTime - oldTime) / 1000
+    , timeStr = '';
+  if (f < 60) {
+    f = Math.floor(f);
+    return timeStr = `${f}秒以前`;
+  }//小于60秒,刚刚
+  if (f < 60 * 60) {
+    f = Math.floor(f / (60));
+    return timeStr = `${f}分钟以前`;
+  }//小于1小时,按分钟
+  if (f < 60 * 60 * 24) {
+    f = Math.floor(f / (60 * 60));
+    return timeStr = `${f}小时以前`;
+  }//小于1天按小时
+  if (f < 60 * 60 * 24 * 30) {
+    f = Math.floor(f / (60 * 60 * 24));
+    return timeStr = `${f}天以前`;
+  } else {
+    return timeStr = "";
+  }
+}
 Page({
   data: {
     userid: '',//用户登录返回的id
@@ -25,7 +47,10 @@ Page({
   onLoad: function (options) {
     Login.meta = options.meta ? options.meta : "";
     Login.checkSession(() => {
-      let that = this;
+      let that = this
+        , serverTime = ''
+        , dateStr = ''
+        , createTime = 0;
       // 上传用户信息
       if (app.globalData.userInfo) {
         One.ajax('user/upload-info', app.globalData.userInfo);
@@ -49,20 +74,26 @@ Page({
       that.data.packageList = [];
       searchService.getDeliverTypes(res => {
         One.ajax('user/delivery-orders', {}, res => {
+          serverTime = new Date().getTime();
           if (res.data.data != null) {
             res.data.data.forEach((item, index, arr) => {
+              createTime = new Date(arr[index].created_at).getTime();
+              dateStr = timeAgo(serverTime, createTime);
               if (arr[index].packages.length > 0) {
                 arr[index].packages.forEach((pkg, i, pkgArr) => {
                   pkgArr[i].status = arr[index].status;
                   pkgArr[i].order_sn = arr[index].order_sn;
                   pkgArr[i].created_at = arr[index].created_at;
+                  pkgArr[i].created_time = dateStr ? dateStr : arr[index].created_at;
                   pkgArr[i].sender = arr[index].sender;
                   pkgArr[i].delivery_no = arr[index].delivery_no;
-                  pkgArr[i].deliver_type = searchModel.delivery_types[item.delivery_type_id];
+                  pkgArr[i].delivery_type_txt = arr[index].delivery_type_txt;
+                  
                   that.data.packageList.push(pkgArr[i]);
                 });
               } else {
-                item.deliver_type = searchModel.delivery_types[item.delivery_type_id];
+                item.created_time = dateStr ? dateStr : arr[index].created_at;
+                item.delivery_no = arr[index].delivery_no;
                 that.data.packageList.push(item);
               }
             });

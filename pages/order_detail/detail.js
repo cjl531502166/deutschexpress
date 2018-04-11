@@ -34,7 +34,6 @@ Page({
           orderInfo.deliver_type = searchModel.delivery_types[id]
         })
       }
-      console.log(orderModel.orderInfo);
       that.data.canEdit = (orderInfo.status === "暂存" ? true : false);
       that.data.unPaid = /delivery_unpaid/.test(orderInfo.status_en);
       that.data.additionalPay = /delivery_outofweight/.test(orderInfo.status_en);
@@ -90,7 +89,8 @@ Page({
           },
           "fail": res => {
             wx.showToast({
-              title: '支付失败'
+              icon: 'none',
+              title: '未支付'
             })
           }
         });
