@@ -88,7 +88,6 @@ Page({
                   pkgArr[i].sender = arr[index].sender;
                   pkgArr[i].delivery_no = arr[index].delivery_no;
                   pkgArr[i].delivery_type_txt = arr[index].delivery_type_txt;
-                  
                   that.data.packageList.push(pkgArr[i]);
                 });
               } else {

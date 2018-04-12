@@ -32,6 +32,6 @@ Page({
         deliveryService.getCurrReceiver(id, deliveryConfig.receiverList)
         wx.redirectTo({
             url: '/pages/delivery/delivery'
-        })
+        });
     }
 })

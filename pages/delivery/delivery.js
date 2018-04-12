@@ -12,7 +12,7 @@ Page({
     order_sn: '',
     packageEditPath: '',//包裹编辑的页面路径
     delivery_range: null,//订单类型
-    deliveryConfig: deliveryConfig, //物流配置
+    deliveryConfig: null, //物流配置
     senderInfo: null,//发件人信息
     receiverInfo: null,//收件人信息
     invoice_switch: null,//是否需要发票
@@ -50,7 +50,6 @@ Page({
       senderInfo = deliveryConfig.currSender ? deliveryConfig.currSender : '',
       receiverInfo = deliveryConfig.currReceiver ? deliveryConfig.currReceiver : '',
       pkgList = deliveryConfig.packageList;
-
     //获取订单类型
     options.delivery_range && (deliveryConfig.orderType = options.delivery_range);
     if (['international', 'clearcustom'].indexOf(deliveryConfig.orderType) >= 0) {
@@ -151,14 +150,12 @@ Page({
     });
   },
   onUnload() {
-    this.setData({
-      "senderInfo": null,
-      "receiverInfo": null,
-      "amount": 0,
-      "totalWeight": 0,
-      "pkgList": [],
-      "deliver_type_id": ''
-    });
+    deliveryConfig.currReceiver = null;
+    deliveryConfig.currSender = null;
+    deliveryConfig.pkgList = [];
+    deliveryConfig.deliver_type_id = 0;
+    deliveryConfig.invoice_switch = 0;
+    deliveryConfig.fee = 0;
   },
   //选择物流渠道
   radioChange(e) {
