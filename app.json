@@ -51,5 +51,6 @@
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "乐智物流",
     "navigationBarTextStyle": "#fff"
-  }
+  },
+  "debug": true
 }

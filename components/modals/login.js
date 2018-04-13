@@ -3,15 +3,22 @@ export default {
   meta: '',
   checkSession(cb) {
     let that = this;
+    let plat = wx.getSystemInfoSync();
     wx.checkSession({
       success: (res) => {
         if (wx.getStorageSync('token') == '') {
           that.login(cb);
           return
-        };
+        } else {
+          if (plat != "devtools") {
+            that.login(cb);
+            return
+          }
+        }
         cb && cb();
       },
       fail: (res) => {
+        console.log(res);
         that.login(cb);
       }
     });
