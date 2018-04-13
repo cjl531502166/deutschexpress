@@ -3,7 +3,6 @@ import deliveryConfig from '../../models/delivery.config.js';
 import deliveryService from '../../services/delivery.service.js';
 const app = getApp();
 Page({
-
     /**
      * 页面的初始数据
      */
